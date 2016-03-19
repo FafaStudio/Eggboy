@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public bool isAttacking;
 
-	private float speedForce = 100f;
+	public float speedForce = 100f;
 	Rigidbody2D body;
 
 	private int movex = 0;
