@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/GonpLevel.unity
+- path: Assets/Scenes/MopekonLevel.unity
   isLoaded: 1
   isActive: 1

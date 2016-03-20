@@ -18,6 +18,10 @@ public class GonpBall : Enemy {
 		print (body.velocity.ToString ());
 	}
 
+	protected override void doAttack() {
+		
+	}
+
 	float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketHeight) {
 		// ascii art:
 		// ||  1 <- at the top of the racket

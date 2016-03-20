@@ -23,6 +23,10 @@ public class GonpBarre : Enemy {
 		body.velocity = new Vector2 (0f, speedForce);
 	}
 
+	protected override void doAttack() {
+		
+	}
+
 	void OnCollisionEnter2D(Collision2D col){
 		//if (col.gameObject.tag == "Wall") {
 			speedForce = -speedForce;
