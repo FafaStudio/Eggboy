@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{170417F6-798F-D23E-8C09-81A2B5B774E4}") = "Eggboy2.0", "Assembly-CSharp.csproj", "{CEE24E4F-4888-7E27-37E1-84688B615E69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEE24E4F-4888-7E27-37E1-84688B615E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE24E4F-4888-7E27-37E1-84688B615E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE24E4F-4888-7E27-37E1-84688B615E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE24E4F-4888-7E27-37E1-84688B615E69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
