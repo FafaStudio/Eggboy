@@ -32,6 +32,7 @@ public class Enemy : MovingObject {
 
 	public void Die(){
 		isDead = true;
+		GameManager.instance.RemoveEnemyToList (this);
 		Destroy (this.gameObject);
 	}
 	

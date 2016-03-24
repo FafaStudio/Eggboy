@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 	
@@ -15,21 +16,15 @@ public class GameManager : MonoBehaviour
 	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
 	private List<Enemy> enemies;                          //List of all Enemy units, used to issue them move commands.
 	private bool enemiesMoving;                             //Boolean to check if enemies are moving.
+	private List<int> levelPassed;
 		
 		
 		
-	//Awake is always called before any Start functions
 	void Awake()
 	{
-		//Check if instance already exists
 		if (instance == null)
-			//if not, set instance to this
 			instance = this;
-			
-		//If instance already exists and it's not this:
 		else if (instance != this)
-				
-			//Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
 			Destroy(gameObject);    
 			
 		//Sets this to not be destroyed when reloading scene
@@ -37,12 +32,19 @@ public class GameManager : MonoBehaviour
 			
 		//Assign enemies to a new List of Enemy objects.
 		enemies = new List<Enemy>();
+
+		//Permet de récupérer les niveaux déjà passé
+		levelPassed = new List<int> ();
 			
 		//Get a component reference to the attached BoardManager script
-		boardScript = GetComponent<BoardManager>();
+		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 			
 		//Call the InitGame function to initialize the first level 
 		InitGame();
+	}
+
+	void Start(){
+		levelPassed.Add (Application.loadedLevel);
 	}
 		
 	//This is called each time a scene is loaded.
@@ -56,7 +58,8 @@ public class GameManager : MonoBehaviour
 
 	public void checkIfWinLevel(){
 		if (enemies.Count <= 0) {
-			Application.LoadLevel (Application.loadedLevel);
+			int nextLevel = Random.Range (1, SceneManager.sceneCount); 
+			SceneManager.LoadScene (nextLevel);
 		}
 	}
 		
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
 	void InitGame()
 	{
 		enemies.Clear();
+		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 		boardScript.SetupScene(level);
 	}
 		

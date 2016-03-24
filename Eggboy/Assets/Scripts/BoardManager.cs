@@ -19,10 +19,10 @@ public class BoardManager : MonoBehaviour {
 	public GameObject[] floorTiles;
 	public toInstantiate[] objectTiles;
 
-
-
 	private Transform boardHolder;
 	//boardHolder permet lorsqu'on fait spawn plein de trucs de garder la hierarchie clean
+	private Transform objectInLevel;
+
 	private List <Vector3> gridPositions = new List<Vector3>();
 
 	void InitialiseList(){
@@ -46,9 +46,12 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	void InitialiseLevelDesign(){
+		objectInLevel = new GameObject ("ObjectInLevel").transform;
 		for(int i = 0; i < objectTiles.Length; i++){
 			Vector3 position = new Vector3 (objectTiles [i].x, objectTiles [i].y, 0f);
-			Instantiate (objectTiles [i].objectInstantiate, position, Quaternion.identity);
+			GameObject instantiate = Instantiate (objectTiles [i].objectInstantiate, position, Quaternion.identity) as GameObject;
+			instantiate.transform.SetParent (objectInLevel);
+
 		}
 	}
 

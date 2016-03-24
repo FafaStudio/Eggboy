@@ -43,7 +43,6 @@ public class Player : MovingObject {
 			return;
 		}
 		else if(col.gameObject.tag == "Enemy"){
-			manager.RemoveEnemyToList (col.gameObject.GetComponent<Enemy> ());
 			col.GetComponent<Enemy> ().Die ();
 		}
 	}
