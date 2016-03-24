@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Player : MovingObject {
 
-	public int wallDamage = 1;
 
 	public float restartLevelDelay = 1f;
 	
@@ -19,13 +18,12 @@ public class Player : MovingObject {
 		base.Start ();
 	}
 
-	protected override void AttemptMove<T> (int xDir, int yDir)
+	protected override void AttemptMove(int xDir, int yDir)
 	{
-		base.AttemptMove<T> (xDir, yDir);
-		RaycastHit2D hit;
+		base.AttemptMove(xDir, yDir);
+		//RaycastHit2D hit;
 		CheckIfGameOver ();
 		GameManager.instance.playersTurn = false;
-		Debug.Log (hp.ToString ());
 	}
 
 	private void onDisable(){
@@ -38,12 +36,15 @@ public class Player : MovingObject {
 		}
 	}
 
-	protected override void OnCantMove<T> (T component)
+	protected override void OnCantMove (GameObject col)
 	{
-		if (component.tag == "Wall")
+		if (col.gameObject.tag == "Wall") {
+			animator.SetTrigger ("Blase");
 			return;
-		else if(component.tag == "Enemy"){
-			return;
+		}
+		else if(col.gameObject.tag == "Enemy"){
+			manager.RemoveEnemyToList (col.gameObject.GetComponent<Enemy> ());
+			col.GetComponent<Enemy> ().Die ();
 		}
 	}
 
@@ -89,7 +90,7 @@ public class Player : MovingObject {
 			}
 		}
 		if (horizontal != 0 || vertical != 0) {
-			AttemptMove<Wall>(horizontal, vertical);
+			AttemptMove(horizontal, vertical);
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
 			manager.playersTurn = false;
