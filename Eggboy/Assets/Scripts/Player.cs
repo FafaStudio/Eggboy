@@ -46,11 +46,7 @@ public class Player : MovingObject {
 			col.GetComponent<Enemy> ().Die ();
 		}
 	}
-
-	private void Restart(){
-		Application.LoadLevel (Application.loadedLevel);
-	}
-
+		
 	public void loseHP(){
 		hp -= 1;
 		CheckIfGameOver ();

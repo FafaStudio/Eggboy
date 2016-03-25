@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 	//This is called each time a scene is loaded.
 	void OnLevelWasLoaded(int index)
 	{
-		//Add one to our level number.
+		levelPassed.Add (Application.loadedLevel);
 		level++;
 		//Call InitGame to initialize our level.
 		InitGame();
@@ -58,9 +58,23 @@ public class GameManager : MonoBehaviour
 
 	public void checkIfWinLevel(){
 		if (enemies.Count <= 0) {
-			int nextLevel = Random.Range (1, SceneManager.sceneCount); 
-			SceneManager.LoadScene (nextLevel);
+			int nextLevel = chooseNextLevel ();
+			launchNextLevel (nextLevel);
 		}
+	}
+
+	private int chooseNextLevel(){
+		int nextLevel = Random.Range (1, SceneManager.sceneCount); 
+		for (int i = 0; i < levelPassed.Count; i++) {
+			if (levelPassed [i] == nextLevel) {
+				chooseNextLevel ();
+			} 
+		}
+		return nextLevel;
+	}
+
+	void launchNextLevel(int levelIndex){
+		SceneManager.LoadScene (levelIndex);
 	}
 		
 	//Initializes the game for each level.
