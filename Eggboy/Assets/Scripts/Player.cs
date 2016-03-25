@@ -9,12 +9,12 @@ public class Player : MovingObject {
 	private Animator animator;
 
 	private int hp;
-	private GameManager manager;
+	public GameManager manager;
 
 	protected override void Start () {
-		manager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		animator = GetComponent<Animator> ();
-		hp = GameManager.instance.playerhpPoints;
+		manager = GameManager.instance;
+		hp = manager.playerhpPoints;
 		base.Start ();
 	}
 
@@ -23,7 +23,21 @@ public class Player : MovingObject {
 		base.AttemptMove(xDir, yDir);
 		//RaycastHit2D hit;
 		CheckIfGameOver ();
-		GameManager.instance.playersTurn = false;
+	}
+		
+
+	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+		Vector2 start = transform.position;
+		Vector2 end = start + new Vector2 (xDir, yDir);
+		boxCollider.enabled = false;
+		hit = Physics2D.Linecast (start, end, blockingLayer);
+		boxCollider.enabled = true;
+		if (hit.transform == null) {
+			StartCoroutine(SmoothMovement(end));
+			manager.playersTurn = false;
+			return true;
+		}
+		return false;
 	}
 
 	private void onDisable(){
@@ -40,9 +54,11 @@ public class Player : MovingObject {
 	{
 		if (col.gameObject.tag == "Wall") {
 			animator.SetTrigger ("Blase");
+			manager.playersTurn = true;
 			return;
 		}
 		else if(col.gameObject.tag == "Enemy"){
+			manager.playersTurn = false;
 			col.GetComponent<Enemy> ().Die ();
 		}
 	}

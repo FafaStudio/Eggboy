@@ -53,7 +53,7 @@ public class Enemy : MovingObject {
 		base.AttemptMove(xDir, yDir);
 		
 		//Now that Enemy has moved, set skipMove to true to skip next move.
-		skipMove = true;
+		//skipMove = true;
 	}
 	
 	

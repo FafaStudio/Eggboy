@@ -6,9 +6,9 @@ public abstract class MovingObject : MonoBehaviour {
 	public float moveTime = 0.1f;
 	public LayerMask blockingLayer;
 
-	private BoxCollider2D boxCollider;
+	protected BoxCollider2D boxCollider;
 	private Rigidbody2D rb2D;
-	private float inverseMoveTime;
+	protected float inverseMoveTime;
 
 	protected virtual void Start () {
 	// protected virtual permet "l'override" par les classes qui héritent, pour pouvoir y modifier le start
@@ -17,7 +17,7 @@ public abstract class MovingObject : MonoBehaviour {
 		inverseMoveTime = 1f / moveTime;
 	}
 
-	protected bool Move(int xDir, int yDir, out RaycastHit2D hit){
+	protected virtual bool Move(int xDir, int yDir, out RaycastHit2D hit){
 	//simule/teste le mouvement du personnage
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
