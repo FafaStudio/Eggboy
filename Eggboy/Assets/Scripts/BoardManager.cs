@@ -51,7 +51,6 @@ public class BoardManager : MonoBehaviour {
 			Vector3 position = new Vector3 (objectTiles [i].x, objectTiles [i].y, 0f);
 			GameObject instantiate = Instantiate (objectTiles [i].objectInstantiate, position, Quaternion.identity) as GameObject;
 			instantiate.transform.SetParent (objectInLevel);
-
 		}
 	}
 

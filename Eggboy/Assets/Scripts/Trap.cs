@@ -8,8 +8,7 @@ public abstract class Trap : MonoBehaviour {
 	protected virtual void Start () {
 		GameManager.instance.AddTrapToList (this);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 	
 	}

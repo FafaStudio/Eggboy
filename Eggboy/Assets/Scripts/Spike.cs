@@ -17,15 +17,17 @@ public class Spike : Trap {
 
 	public override void doAction ()
 	{
-		if (TurnCount == 1) {
+		if (TurnCount != 0) {
 			TurnCount--;
 			return;
 		}
-		anim.SetTrigger ("isActioning");
-		isEnclenched = false;
-		TurnCount = 1;
-		if((eggboy.transform.position.x==this.gameObject.transform.position.x)&&(eggboy.transform.position.y==this.gameObject.transform.position.y)){
-			eggboy.loseHP ();
+		else{
+			anim.SetTrigger ("isActioning");
+			TurnCount = 1;
+			isEnclenched = false;
+			if ((eggboy.transform.position.x == this.gameObject.transform.position.x) && (eggboy.transform.position.y == this.gameObject.transform.position.y)) {
+				eggboy.loseHP ();
+			}
 		}
 	}
 

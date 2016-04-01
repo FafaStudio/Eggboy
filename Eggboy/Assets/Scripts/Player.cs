@@ -33,6 +33,7 @@ public class Player : MovingObject {
 		hit = Physics2D.Linecast (start, end, blockingLayer);
 		boxCollider.enabled = true;
 		if (hit.transform == null) {
+			animator.SetTrigger ("isRunning");
 			StartCoroutine(SmoothMovement(end));
 			manager.playersTurn = false;
 			return true;

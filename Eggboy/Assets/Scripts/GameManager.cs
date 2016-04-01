@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 	private List<Enemy> enemies;                          //List of all Enemy units, used to issue them move commands.
 	private List<Trap> traps;
 	private bool enemiesMoving;                             //Boolean to check if enemies are moving.
+	private bool trapActioning;
 	private List<int> levelPassed;
 	public int totalTurns = 0;
 		
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
 
 	private int chooseNextLevel(){
 		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings); 
+		//int nextLevel = 1;
 		/*for (int i = 0; i < levelPassed.Count; i++) {
 			if (levelPassed [i] == nextLevel) {
 				chooseNextLevel ();
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour
 	void Update()
 	{
 		//Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-		if(playersTurn || enemiesMoving)
+		if(playersTurn || enemiesMoving || trapActioning)
 			return;
 		StartCoroutine (LaunchTraps ());
 		StartCoroutine (MoveEnemies ());
@@ -140,11 +142,15 @@ public class GameManager : MonoBehaviour
 	}
 
 	IEnumerator LaunchTraps(){
+		trapActioning = true;
+		yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < traps.Count; i++) {
 			if (traps [i].isEnclenched) {
 				traps [i].doAction ();
+				print (traps [i].name.ToString ());
+				yield return new WaitForSeconds(turnDelay);
 			}
-			yield return new WaitForSeconds(turnDelay);
 		}
+		trapActioning = false;
 	}
 }
