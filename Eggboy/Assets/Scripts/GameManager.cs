@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
 		checkIfWinLevel ();
 	}
 		
-	//GameOver is called when the player reaches 0 food points
 	public void GameOver()
 	{
 		enabled = false;
@@ -147,7 +146,6 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < traps.Count; i++) {
 			if (traps [i].isEnclenched) {
 				traps [i].doAction ();
-				print (traps [i].name.ToString ());
 				yield return new WaitForSeconds(turnDelay);
 			}
 		}

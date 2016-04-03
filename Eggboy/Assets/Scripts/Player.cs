@@ -11,11 +11,15 @@ public class Player : MovingObject {
 	private int hp;
 	public GameManager manager;
 
+	private CameraManager camera;
+
 	protected override void Start () {
 		animator = GetComponent<Animator> ();
 		manager = GameManager.instance;
 		hp = manager.playerhpPoints;
+		camera = GameObject.Find ("Main Camera").GetComponent<CameraManager> ();
 		base.Start ();
+		print (hp.ToString ());
 	}
 
 	protected override void AttemptMove(int xDir, int yDir)
@@ -65,7 +69,11 @@ public class Player : MovingObject {
 	}
 		
 	public void loseHP(){
-		hp -= 1;
+		camera.setShake (0.6f);
+		animator.SetTrigger ("isDamaged");
+		manager.playerhpPoints -= 1;
+		hp = manager.playerhpPoints;
+		print (hp.ToString ());
 		CheckIfGameOver ();
 	}
 
