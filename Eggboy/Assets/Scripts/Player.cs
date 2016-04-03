@@ -8,6 +8,9 @@ public class Player : MovingObject {
 	
 	private Animator animator;
 
+	public float timeBetweenTurn = 0.1f;
+	private const float MAX_TIME_BETWEEN_TURN = 0.1f;
+
 	private int hp;
 	public GameManager manager;
 
@@ -19,7 +22,6 @@ public class Player : MovingObject {
 		hp = manager.playerhpPoints;
 		camera = GameObject.Find ("Main Camera").GetComponent<CameraManager> ();
 		base.Start ();
-		print (hp.ToString ());
 	}
 
 	protected override void AttemptMove(int xDir, int yDir)
@@ -73,7 +75,6 @@ public class Player : MovingObject {
 		animator.SetTrigger ("isDamaged");
 		manager.playerhpPoints -= 1;
 		hp = manager.playerhpPoints;
-		print (hp.ToString ());
 		CheckIfGameOver ();
 	}
 
@@ -81,7 +82,6 @@ public class Player : MovingObject {
 		if (other.tag == "Exit") {
 			//Invoke permet de mettre un delay avant de charger une fonction, ici Restart()
 			Invoke ("Restart", restartLevelDelay);
-			//==desactive le joueur, je pense
 			enabled = false;
 		} 
 	}
@@ -90,6 +90,11 @@ public class Player : MovingObject {
 		if (!manager.playersTurn)
 		//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
 			return;
+
+		if (timeBetweenTurn > 0f) {
+			timeBetweenTurn -= Time.deltaTime;
+			return;
+		}
 
 		int horizontal = 0;
 		int vertical = 0;
@@ -110,11 +115,12 @@ public class Player : MovingObject {
 			}
 		}
 		if (horizontal != 0 || vertical != 0) {
+			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			AttemptMove(horizontal, vertical);
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
+			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			manager.playersTurn = false;
 		}
-	
 	}
 }

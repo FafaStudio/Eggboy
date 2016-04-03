@@ -38,7 +38,19 @@ public class BoardManager : MonoBehaviour {
 		boardHolder = new GameObject ("Board").transform;
 		for (int x = 0; x < columns; x++) {
 			for(int y = 0; y < rows; y++){
-				GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+				//GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+				GameObject toInstantiate;
+				if (y % 2 != 0) {
+					if ((x == 0) || (x % 2 == 0)) {
+						toInstantiate = floorTiles [0];
+					} else
+						toInstantiate = floorTiles [1];
+				} else {
+					if ((x == 0) || (x % 2 == 0)) {
+						toInstantiate = floorTiles [1];
+					} else
+						toInstantiate = floorTiles [0];
+				}
 				GameObject instantiate = Instantiate(toInstantiate, new Vector3(x,y,0f),Quaternion.identity ) as GameObject;
 				instantiate.transform.SetParent(boardHolder);
 			}

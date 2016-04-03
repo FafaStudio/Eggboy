@@ -7,7 +7,9 @@ public class Spike : Trap {
 	private Animator anim;
 	private Player eggboy;
 
-	private int TurnCount = 1;
+	public bool isPlayer = false;
+
+	private int TurnCount = 2;
 
 	protected override void Start () {
 		base.Start ();
@@ -23,21 +25,27 @@ public class Spike : Trap {
 		}
 		else{
 			anim.SetTrigger ("isActioning");
-			TurnCount = 1;
+			TurnCount = 2;
 			isEnclenched = false;
-			if ((eggboy.transform.position.x == this.gameObject.transform.position.x) && (eggboy.transform.position.y == this.gameObject.transform.position.y)) {
+			if (isPlayer) {
 				eggboy.loseHP ();
+				TurnCount = 1;
+				isEnclenched = true;
 			}
 		}
-	}
-
-	void Update () {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
 			eggboy = col.gameObject.GetComponent<Player> ();
+			isPlayer = true;
 			isEnclenched = true;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D col){
+		if (col.gameObject.tag == "Player") {
+			isPlayer = false;
 		}
 	}
 

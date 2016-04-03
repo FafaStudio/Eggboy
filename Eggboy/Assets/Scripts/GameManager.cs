@@ -6,7 +6,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : MonoBehaviour
 {
 	public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
-	public float turnDelay = 0.05f;                          //Delay between each Player turn.
+	public float turnDelay = 0.1f;                          //Delay between each Player turn.
 	public int playerhpPoints = 6;                    
 	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
 	[HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
 	{
 		levelPassed.Add (Application.loadedLevel);
 		level++;
-		//Call InitGame to initialize our level.
 		InitGame();
 	}
 
@@ -93,9 +92,9 @@ public class GameManager : MonoBehaviour
 		
 	void Update()
 	{
-		//Check that playersTurn or enemiesMoving or doingSetup are not currently true.
 		if(playersTurn || enemiesMoving || trapActioning)
 			return;
+		playersTurn = false;
 		StartCoroutine (LaunchTraps ());
 		StartCoroutine (MoveEnemies ());
 	}
