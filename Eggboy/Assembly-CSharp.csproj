@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Spike.cs" />
      <Compile Include="Assets\Scripts\Trap.cs" />
+     <Compile Include="Assets\Scripts\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
  <Reference Include="UnityEngine.UI">

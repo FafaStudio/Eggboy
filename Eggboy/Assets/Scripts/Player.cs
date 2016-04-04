@@ -12,7 +12,9 @@ public class Player : MovingObject {
 	private const float MAX_TIME_BETWEEN_TURN = 0.1f;
 
 	private int hp;
-	public GameManager manager;
+	private GameManager manager;
+
+	private UIPlayer uiManager;
 
 	private CameraManager camera;
 
@@ -20,6 +22,10 @@ public class Player : MovingObject {
 		animator = GetComponent<Animator> ();
 		manager = GameManager.instance;
 		hp = manager.playerhpPoints;
+
+		uiManager = GameObject.Find ("PlayerPanel").GetComponent<UIPlayer>();
+		uiManager.updateLife ();
+
 		camera = GameObject.Find ("Main Camera").GetComponent<CameraManager> ();
 		base.Start ();
 	}
@@ -75,7 +81,12 @@ public class Player : MovingObject {
 		animator.SetTrigger ("isDamaged");
 		manager.playerhpPoints -= 1;
 		hp = manager.playerhpPoints;
+		uiManager.updateLife ();
 		CheckIfGameOver ();
+	}
+
+	public int getHp(){
+		return hp;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other){
@@ -85,12 +96,13 @@ public class Player : MovingObject {
 			enabled = false;
 		} 
 	}
-
+		
 	void Update () {
 		if (!manager.playersTurn)
 		//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
 			return;
 
+		//permet de tempo le jeu notamment pour l'activation des pièges
 		if (timeBetweenTurn > 0f) {
 			timeBetweenTurn -= Time.deltaTime;
 			return;

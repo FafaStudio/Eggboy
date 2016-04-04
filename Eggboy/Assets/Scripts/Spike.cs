@@ -7,8 +7,6 @@ public class Spike : Trap {
 	private Animator anim;
 	private Player eggboy;
 
-	public bool isPlayer = false;
-
 	private int TurnCount = 2;
 
 	protected override void Start () {
