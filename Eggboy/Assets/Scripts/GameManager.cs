@@ -38,16 +38,21 @@ public class GameManager : MonoBehaviour
 
 		//Permet de récupérer les niveaux déjà passé
 		levelPassed = new List<int> ();
+		print ("bisous");
 			
 		//Get a component reference to the attached BoardManager script
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 			
 		//Call the InitGame function to initialize the first level 
 		InitGame();
+		if (SceneManager.GetActiveScene ().buildIndex == 0) {
+			level--;
+			levelPassed.Clear ();
+			launchNextLevel (1);
+		}
 	}
 
 	void Start(){
-		levelPassed.Add (Application.loadedLevel);
 	}
 		
 	//This is called each time a scene is loaded.
@@ -86,6 +91,7 @@ public class GameManager : MonoBehaviour
 	{
 		enemies.Clear();
 		traps.Clear ();
+		print (levelPassed.Count.ToString ());
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 		boardScript.SetupScene(level);
 	}
@@ -115,6 +121,8 @@ public class GameManager : MonoBehaviour
 		
 	public void GameOver()
 	{
+		playersTurn = false;
+		levelPassed.Remove (Application.loadedLevel);
 		enabled = false;
 	}
 		

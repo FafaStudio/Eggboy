@@ -42,11 +42,6 @@ public abstract class MovingObject : MonoBehaviour {
 				OnCantMove (hit.transform.gameObject);
 			}
 		}
-		/*T hitComponent = hit.transform.GetComponent <T> ();
-		if (!canMove && hitComponent != null) {
-			OnCantMove(hitComponent);
-		}*/
-	
 
 	protected IEnumerator SmoothMovement(Vector3 end){
 	//coroutine permettant de bouger une unité d'un espace/une case 

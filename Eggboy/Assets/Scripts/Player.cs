@@ -30,14 +30,6 @@ public class Player : MovingObject {
 		base.Start ();
 	}
 
-	protected override void AttemptMove(int xDir, int yDir)
-	{
-		base.AttemptMove(xDir, yDir);
-		//RaycastHit2D hit;
-		CheckIfGameOver ();
-	}
-		
-
 	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
@@ -53,14 +45,17 @@ public class Player : MovingObject {
 		return false;
 	}
 
-	private void onDisable(){
+	/*private void onDisable(){
 		GameManager.instance.playerhpPoints = hp;
-	}
+	}*/
 
-	private void CheckIfGameOver(){
+	private bool CheckIfGameOver(){
 		if (hp <= 0) {
 			GameManager.instance.GameOver();
+			return true;
 		}
+		else
+			return false;
 	}
 
 	protected override void OnCantMove (GameObject col)
@@ -73,6 +68,7 @@ public class Player : MovingObject {
 		else if(col.gameObject.tag == "Enemy"){
 			manager.playersTurn = false;
 			col.GetComponent<Enemy> ().Die ();
+			return;
 		}
 	}
 		
@@ -82,7 +78,7 @@ public class Player : MovingObject {
 		manager.playerhpPoints -= 1;
 		hp = manager.playerhpPoints;
 		uiManager.updateLife ();
-		CheckIfGameOver ();
+		//CheckIfGameOver ();
 	}
 
 	public int getHp(){
@@ -105,6 +101,10 @@ public class Player : MovingObject {
 		//permet de tempo le jeu notamment pour l'activation des pièges
 		if (timeBetweenTurn > 0f) {
 			timeBetweenTurn -= Time.deltaTime;
+			return;
+		}
+		if (CheckIfGameOver ()) {
+			this.enabled = false;
 			return;
 		}
 
