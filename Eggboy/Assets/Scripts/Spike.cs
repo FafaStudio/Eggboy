@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Spike : Trap {
 
-	private BoxCollider2D trigger;
+	//private BoxCollider2D trigger;
 	private Animator anim;
 	private Player eggboy;
 
@@ -11,19 +11,26 @@ public class Spike : Trap {
 
 	protected override void Start () {
 		base.Start ();
-		trigger = GetComponent<BoxCollider2D> ();
+		//trigger = GetComponent<BoxCollider2D> ();
 		anim = GetComponent<Animator> ();
 	}
 
 	public override void doAction ()
 	{
+		if (isActioning) {
+			anim.SetBool ("isActioning", false);
+			isActioning = false;
+			if (isPlayer) {
+				TurnCount = 1;
+				isEnclenched = true;
+			}
+		}
 		if (TurnCount != 0) {
 			TurnCount--;
-			return;
 		}
-		else{
-			anim.SetTrigger ("isActioning");
-			TurnCount = 2;
+		else if(isEnclenched){
+			anim.SetBool ("isActioning", true);
+			isActioning = true;
 			isEnclenched = false;
 			if (isPlayer) {
 				eggboy.loseHP ();
@@ -35,8 +42,11 @@ public class Spike : Trap {
 
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			eggboy = col.gameObject.GetComponent<Player> ();
 			isPlayer = true;
+			if (isEnclenched)
+				return;
+			TurnCount = 2;
+			eggboy = col.gameObject.GetComponent<Player> ();
 			isEnclenched = true;
 		}
 	}

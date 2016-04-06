@@ -4,7 +4,9 @@ using System.Collections;
 public abstract class Trap : MonoBehaviour {
 
 	public bool isEnclenched = false;
+	public bool isActioning = false;
 	protected bool isPlayer = false;
+	protected float TurnDelay = 0.1f;
 
 	protected virtual void Start () {
 		GameManager.instance.AddTrapToList (this);

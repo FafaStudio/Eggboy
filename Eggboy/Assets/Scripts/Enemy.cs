@@ -55,7 +55,7 @@ public class Enemy : MovingObject {
 	
 	
 	//MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
-	public void MoveEnemy ()
+	public virtual void MoveEnemy ()
 	{
 		if (isDead)
 			return;

@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
 
 		//Permet de récupérer les niveaux déjà passé
 		levelPassed = new List<int> ();
-		print ("bisous");
 			
 		//Get a component reference to the attached BoardManager script
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
@@ -51,9 +50,6 @@ public class GameManager : MonoBehaviour
 			launchNextLevel (1);
 		}
 	}
-
-	void Start(){
-	}
 		
 	//This is called each time a scene is loaded.
 	void OnLevelWasLoaded(int index)
@@ -65,8 +61,7 @@ public class GameManager : MonoBehaviour
 
 	public void checkIfWinLevel(){
 		if (enemies.Count <= 0) {
-			int nextLevel = chooseNextLevel ();
-			launchNextLevel (nextLevel);
+			launchNextLevel (chooseNextLevel());
 		}
 	}
 
@@ -91,7 +86,6 @@ public class GameManager : MonoBehaviour
 	{
 		enemies.Clear();
 		traps.Clear ();
-		print (levelPassed.Count.ToString ());
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 		boardScript.SetupScene(level);
 	}
@@ -151,7 +145,7 @@ public class GameManager : MonoBehaviour
 		trapActioning = true;
 		yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < traps.Count; i++) {
-			if (traps [i].isEnclenched) {
+			if ((traps [i].isEnclenched)||traps[i].isActioning) {
 				traps [i].doAction ();
 				yield return new WaitForSeconds(turnDelay);
 			}

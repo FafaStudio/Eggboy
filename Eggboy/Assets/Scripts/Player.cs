@@ -51,6 +51,7 @@ public class Player : MovingObject {
 
 	private bool CheckIfGameOver(){
 		if (hp <= 0) {
+			animator.SetTrigger ("isDead");
 			GameManager.instance.GameOver();
 			return true;
 		}
