@@ -1,0 +1,2 @@
+C:\Users\jean\Documents\Projets JV Steing\Projets Fafastudio\Projet Eggboy\Eggboy\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\jean\Documents\Projets JV Steing\Projets Fafastudio\Projet Eggboy\Eggboy\obj\Debug\Assembly-CSharp.dll
