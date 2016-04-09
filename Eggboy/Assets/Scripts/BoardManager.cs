@@ -36,24 +36,20 @@ public class BoardManager : MonoBehaviour {
 			return " [" + this.valeur.ToString () + "] ";
 		}
 
-		public void volDoiseau(Vector2 destination)
+		public int volDoiseau(Vector2 destination)
 		{
-			this.distanceVO = (int)(Mathf.Abs ((destination.y - this.position.y) + (destination.x - this.position.x)));
+			return ((int)(Mathf.Abs ((destination.y - this.position.y) + (destination.x - this.position.x))));
 		}
 
-		public void calculDepartCourant()
+		public int calculDepartCourant()
 		{
 			if (this.parent == null) {
-				this.distanceParcourue = 0;
+				return 0;
 			} else {
-				this.parent.calculDepartCourant();
-				this.distanceParcourue = this.valeur + this.parent.distanceParcourue;
+				return this.valeur + this.parent.calculDepartCourant();
 			}
 		}
-
-
-
-
+			
 	}
 
 
@@ -79,12 +75,21 @@ public class BoardManager : MonoBehaviour {
 		for (int x =0; x < columns; x++) {
 			for(int y = 0; y < rows; y++){
 				gridPositions[x,y] = new Grid(1,new Vector2(x,y));
-			/*	if (x == columns - 1)
-					print (gridPositions [x, y].toString () + "/n");
-				else
-					print (gridPositions [x, y].toString ());*/
 			}
 		}
+	}
+
+	public String grilleToString(){
+		String toString = " ";
+		for (int x =0; x < columns; x++) {
+			for(int y = 0; y < rows; y++){
+				if (x == columns - 1)
+					toString += gridPositions [x, y].toString () + " \n";
+				else
+					toString += gridPositions [x, y].toString ();
+			}
+		}
+		return toString;
 	}
 
 	public void setCellOnGrid(int x, int y , int value){
@@ -129,8 +134,11 @@ public class BoardManager : MonoBehaviour {
 		InitialiseLevelDesign ();
 	}
 
-	public List<Grid> findPath(Grid destination, Grid depart, List<Grid> openList, List<Grid> closedList)
+	public List<Grid> findPath(Grid destination, Grid depart/*, List<Grid> openList, List<Grid> closedList*/)
 	{
+		List<Grid> openList = new List<Grid> ();
+		List<Grid> closedList = new List<Grid> ();
+
 		openList.Add (depart);
 
 		Grid current = null;
@@ -138,45 +146,44 @@ public class BoardManager : MonoBehaviour {
 
 		for (int i = 0; i < openList.Count; i++) {
 			current = openList [i];
-			current.volDoiseau (destination.position);
-			current.calculDepartCourant ();
-			finalCurrent.calculDepartCourant ();
-			finalCurrent.volDoiseau (destination.position);
+			current.distanceVO = current.volDoiseau (destination.position);
+			current.distanceParcourue = current.calculDepartCourant ();
+			finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
+			finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
+
 			if ((current.distanceParcourue + current.distanceVO) < (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
 				finalCurrent = current;
 			}
-		}
 
-		closedList.Add (finalCurrent);
-		if (finalCurrent.position == destination.position) {
-			return closedList;
-		}
-
-		List<Grid> voisins = Voisins (finalCurrent);
-
-		for (int i = 0; i < voisins.Count; i++) {
-				if ((voisins [i].valeur != -1) && !closedList.Contains (voisins [i])) {
-					if (!openList.Contains (voisins [i])) {
-						voisins [i].parent = finalCurrent;
-						voisins [i].calculDepartCourant ();
-						voisins [i].volDoiseau (destination.position);
-						openList.Add (voisins [i]);
-					} else {
-						int g = voisins [i].distanceParcourue + voisins[i].distanceVO;
-						voisins [i].calculDepartCourant ();
-						voisins [i].volDoiseau (destination.position);
-
-						if ((voisins [i].distanceParcourue + voisins [i].distanceVO) < g) {
-							voisins [i].parent = finalCurrent;
-							voisins [i].calculDepartCourant ();
-							voisins [i].volDoiseau (destination.position);
-						}
-
-					}
-				}
-				
+			closedList.Add (finalCurrent);
+			if (finalCurrent.position == destination.position) {
+				return closedList;
 			}
-		return openList;
+
+			List<Grid> voisins = Voisins (finalCurrent);
+
+			for (int j = 0; j < voisins.Count; j++) {
+					if ((voisins [j].valeur != -1) && !closedList.Contains (voisins [j])) {
+						if (!openList.Contains (voisins [j])) {
+							voisins [j].parent = finalCurrent;
+							voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+							voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+							openList.Add (voisins [j]);
+						} else {
+							int newG = voisins [j].calculDepartCourant ();
+							if ((voisins [j].distanceParcourue) < newG) {
+								voisins [j].parent = finalCurrent;
+								voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+								voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+							}
+
+						}
+					}
+					
+				}
+			print (openList.Count.ToString ());
+		}
+		return null;
 	}
 
 	public List<Grid> Voisins(Grid HOMME)

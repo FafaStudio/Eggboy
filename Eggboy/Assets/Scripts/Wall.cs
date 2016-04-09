@@ -17,6 +17,8 @@ public class Wall : MonoBehaviour {
 			board.setCellOnGrid ((int)this.transform.position.x+1, (int)this.transform.position.y, -1);
 			board.setCellOnGrid ((int)this.transform.position.x, (int)this.transform.position.y+1, -1);
 			board.setCellOnGrid ((int)this.transform.position.x+1, (int)this.transform.position.y+1, -1);
+			board.setCellOnGrid ((int)this.transform.position.x+2, (int)this.transform.position.y+2, -1);
+			board.setCellOnGrid ((int)this.transform.position.x, (int)this.transform.position.y+2, -1);
 
 		}
 	}

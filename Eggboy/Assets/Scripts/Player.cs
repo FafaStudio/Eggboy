@@ -130,6 +130,7 @@ public class Player : MovingObject {
 		if (horizontal != 0 || vertical != 0) {
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			AttemptMove(horizontal, vertical);
+			print (manager.getCurrentBoard ().grilleToString ());
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
