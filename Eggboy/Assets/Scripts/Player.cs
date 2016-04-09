@@ -8,8 +8,8 @@ public class Player : MovingObject {
 	
 	private Animator animator;
 
-	public float timeBetweenTurn = 0.1f;
-	private const float MAX_TIME_BETWEEN_TURN = 0.1f;
+	public float timeBetweenTurn = 0.2f;
+	private const float MAX_TIME_BETWEEN_TURN = 0.2f;
 
 	private int hp;
 	private GameManager manager;
@@ -17,6 +17,8 @@ public class Player : MovingObject {
 	private UIPlayer uiManager;
 
 	private CameraManager camera;
+
+	public BoardManager.Grid caseExacte;
 
 	protected override void Start () {
 		animator = GetComponent<Animator> ();
@@ -27,6 +29,7 @@ public class Player : MovingObject {
 		uiManager.updateLife ();
 
 		camera = GameObject.Find ("Main Camera").GetComponent<CameraManager> ();
+		caseExacte = new BoardManager.Grid (1, new Vector2 (transform.position.x, transform.position.y));
 		base.Start ();
 	}
 
@@ -129,8 +132,8 @@ public class Player : MovingObject {
 		}
 		if (horizontal != 0 || vertical != 0) {
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
+			caseExacte = new BoardManager.Grid (1, new Vector2 (transform.position.x + horizontal, transform.position.y + vertical));
 			AttemptMove(horizontal, vertical);
-			print (manager.getCurrentBoard ().grilleToString ());
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;

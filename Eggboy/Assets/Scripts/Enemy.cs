@@ -73,7 +73,15 @@ public class Enemy : MovingObject {
 		else
 			//Check if target x position is greater than enemy's x position, if so set x direction to 1 (move right), if not set to -1 (move left).
 			xDir = target.position.x > transform.position.x ? 1 : -1;*/
-		//GameManager.instance.getCurrentBoard().findPath(new BoardManager.Grid(
+		BoardManager.Grid currentPos = new BoardManager.Grid(1, new Vector2(this.transform.position.x,this.transform.position.y));
+
+		Vector2 nextPosition = GameManager.instance.getCurrentBoard().doPathfinding(target.GetComponent<Player>().caseExacte, currentPos);
+
+		xDir = (int)nextPosition.x - (int)this.transform.position.x;
+		yDir = (int)nextPosition.y - (int)this.transform.position.y;
+
+		print (xDir.ToString ());
+		print (yDir.ToString ());
 		
 		AttemptMove (xDir, yDir);
 	}

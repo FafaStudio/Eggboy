@@ -134,7 +134,18 @@ public class BoardManager : MonoBehaviour {
 		InitialiseLevelDesign ();
 	}
 
-	public List<Grid> findPath(Grid destination, Grid depart/*, List<Grid> openList, List<Grid> closedList*/)
+	public Vector2 doPathfinding (Grid destination, Grid depart){
+		Grid path = findPath (destination, depart);
+		if (path.parent != null) {
+			while (path.parent.parent != null) {
+				path = path.parent;
+			}	
+		}
+		return path.position;
+	}
+		
+
+	public Grid findPath(Grid destination, Grid depart/*, List<Grid> openList, List<Grid> closedList*/)
 	{
 		List<Grid> openList = new List<Grid> ();
 		List<Grid> closedList = new List<Grid> ();
@@ -151,13 +162,18 @@ public class BoardManager : MonoBehaviour {
 			finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
 			finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
 
-			if ((current.distanceParcourue + current.distanceVO) < (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
+			if ((current.distanceParcourue + current.distanceVO) <= (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
 				finalCurrent = current;
 			}
 
 			closedList.Add (finalCurrent);
+
+			print (finalCurrent.position.ToString());
+			print (destination.position.ToString ());
+
 			if (finalCurrent.position == destination.position) {
-				return closedList;
+				print ("mon fion est gratuit");
+				return finalCurrent;
 			}
 
 			List<Grid> voisins = Voisins (finalCurrent);
@@ -181,9 +197,8 @@ public class BoardManager : MonoBehaviour {
 					}
 					
 				}
-			print (openList.Count.ToString ());
 		}
-		return null;
+		return finalCurrent;
 	}
 
 	public List<Grid> Voisins(Grid HOMME)
@@ -200,7 +215,7 @@ public class BoardManager : MonoBehaviour {
 
 		if (HOMME.position.y == 0) {
 			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y+1)]);
-		} else if (HOMME.position.x == 7) {
+		} else if (HOMME.position.y == 7) {
 			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y-1)]);
 		} else {
 			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y+1)]);
