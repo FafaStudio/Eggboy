@@ -72,8 +72,8 @@ public class BoardManager : MonoBehaviour {
 
 	void InitialiseList(){
 		gridPositions = new Grid[columns, rows];
-		for (int x =0; x < columns; x++) {
-			for(int y = 0; y < rows; y++){
+		for(int y = 0; y < rows; y++){
+			for (int x =0; x < columns; x++) {
 				gridPositions[x,y] = new Grid(1,new Vector2(x,y));
 			}
 		}
@@ -81,8 +81,8 @@ public class BoardManager : MonoBehaviour {
 
 	public String grilleToString(){
 		String toString = " ";
-		for (int x =0; x < columns; x++) {
-			for(int y = 0; y < rows; y++){
+		for(int y = rows-1; y >= 0; y--){
+			for (int x =0; x < columns; x++) {
 				if (x == columns - 1)
 					toString += gridPositions [x, y].toString () + " \n";
 				else
