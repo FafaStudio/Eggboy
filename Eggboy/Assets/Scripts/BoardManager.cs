@@ -16,9 +16,17 @@ public class BoardManager : MonoBehaviour {
 	public class Grid
 	{
 		public int valeur = 0;
+		public Vector2 position;
+		public Grid parent;
+		public int distanceParcourue;
+		public int distanceVO;
 
-		public Grid(int x){
+		public Grid(int x, Vector2 p){
 			this.valeur = x;
+			this.position = p;
+			this.parent = null;
+			distanceParcourue = 0;
+			distanceVO = 0;
 		}
 		public void setValeur(int value){
 			this.valeur = value;
@@ -28,7 +36,27 @@ public class BoardManager : MonoBehaviour {
 			return " [" + this.valeur.ToString () + "] ";
 		}
 
+		public void volDoiseau(Vector2 destination)
+		{
+			this.distanceVO = (int)(Mathf.Abs ((destination.y - this.position.y) + (destination.x - this.position.x)));
+		}
+
+		public void calculDepartCourant()
+		{
+			if (this.parent == null) {
+				this.distanceParcourue = 0;
+			} else {
+				this.parent.calculDepartCourant();
+				this.distanceParcourue = this.valeur + this.parent.distanceParcourue;
+			}
+		}
+
+
+
+
 	}
+
+
 
 	public int columns = 15;
 	public int rows = 8;
@@ -43,11 +71,14 @@ public class BoardManager : MonoBehaviour {
 	private Grid[,] gridPositions;
 
 
+
+
+
 	void InitialiseList(){
 		gridPositions = new Grid[columns, rows];
 		for (int x =0; x < columns; x++) {
 			for(int y = 0; y < rows; y++){
-				gridPositions[x,y] = new Grid(1);
+				gridPositions[x,y] = new Grid(1,new Vector2(x,y));
 			/*	if (x == columns - 1)
 					print (gridPositions [x, y].toString () + "/n");
 				else
@@ -97,5 +128,92 @@ public class BoardManager : MonoBehaviour {
 		InitialiseList ();
 		InitialiseLevelDesign ();
 	}
-		
+
+	public List<Grid> findPath(Grid destination, Grid depart, List<Grid> openList, List<Grid> closedList)
+	{
+
+
+		openList.Add (depart);
+
+		Grid current = null;
+		Grid finalCurrent = openList [0];
+
+		for (int i = 0; i < openList.Count; i++) {
+			current = openList [i];
+			finalCurrent.volDoiseau (destination.position);
+			current.volDoiseau (destination.position);
+			current.calculDepartCourant ();
+			finalCurrent.calculDepartCourant ();
+
+			if ((current.distanceParcourue + current.distanceVO) < (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
+
+				finalCurrent = current;
+			}
+
+		}
+
+		closedList.Add (finalCurrent);
+		List<Grid> voisins = Voisins (finalCurrent);
+
+		for (int i = 0; i < voisins.Count; i++) {
+
+			if (voisins[i].position = destination.position)
+			{
+				return 
+
+				if ((voisins [i].valeur != -1) && !closedList.Contains (voisins [i])) {
+
+					if (!openList.Contains (voisins [i])) {
+						voisins [i].parent = finalCurrent;
+						openList.Add (voisins [i]);
+						voisins [i].calculDepartCourant ();
+						voisins [i].volDoiseau ();
+					} else {
+
+						int g = voisins [i].distanceParcourue + voisins[i].distanceVO;
+						voisins [i].calculDepartCourant ();
+						voisins [i].volDoiseau ();
+
+						if ((voisins [i].distanceParcourue + voisins [i].distanceVO) < g) {
+							voisins [i].parent = finalCurrent;
+							voisins [i].calculDepartCourant ();
+							voisins [i].volDoiseau ();
+						}
+
+					}
+						
+
+						
+
+				}
+				
+			}
+		}
+
+	public List<Grid> Voisins(Grid HOMME)
+	{
+		List<Grid> voisins = new List<Grid>();
+		if (HOMME.position.x == 0) {
+			voisins.Add (gridPositions [(int)(HOMME.position.x + 1), (int)(HOMME.position.y)]);
+		} else if (HOMME.position.x == 14) {
+			voisins.Add (gridPositions [(int)(HOMME.position.x - 1), (int)(HOMME.position.y)]);
+		} else {
+			voisins.Add (gridPositions [(int)(HOMME.position.x + 1), (int)(HOMME.position.y)]);
+			voisins.Add (gridPositions [(int)(HOMME.position.x - 1), (int)(HOMME.position.y)]);
+		}
+
+		if (HOMME.position.y == 0) {
+			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y+1)]);
+		} else if (HOMME.position.x == 7) {
+			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y-1)]);
+		} else {
+			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y+1)]);
+			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y-1)]);
+		}
+
+		return voisins;
+	}
+
 }
+
+
