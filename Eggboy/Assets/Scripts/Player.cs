@@ -133,6 +133,7 @@ public class Player : MovingObject {
 		if (horizontal != 0 || vertical != 0) {
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			caseExacte = new BoardManager.Grid (1, new Vector2 (transform.position.x + horizontal, transform.position.y + vertical));
+		//	print (GameManager.instance.getCurrentBoard ().grilleToString ());
 			AttemptMove(horizontal, vertical);
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){

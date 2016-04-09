@@ -77,13 +77,24 @@ public class Enemy : MovingObject {
 
 		Vector2 nextPosition = GameManager.instance.getCurrentBoard().doPathfinding(target.GetComponent<Player>().caseExacte, currentPos);
 
+		/*print ("NEXT : ");
+		print (nextPosition.x.ToString ());
+		print (nextPosition.y.ToString ());
+
+		print ("THIS : ");
+		print (this.transform.position.x.ToString ());
+		print (this.transform.position.y.ToString ());
+
+		print ("CALCUL : ");*/
+
 		xDir = (int)nextPosition.x - (int)this.transform.position.x;
 		yDir = (int)nextPosition.y - (int)this.transform.position.y;
 
-		print (xDir.ToString ());
-		print (yDir.ToString ());
+	/*	print (xDir.ToString ());
+		print (yDir.ToString ());*/
 		
 		AttemptMove (xDir, yDir);
+		GameManager.instance.getCurrentBoard ().resetDistanceGrille ();
 	}
 	
 	

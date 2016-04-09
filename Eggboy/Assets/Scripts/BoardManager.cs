@@ -136,6 +136,7 @@ public class BoardManager : MonoBehaviour {
 
 	public Vector2 doPathfinding (Grid destination, Grid depart){
 		Grid path = findPath (destination, depart);
+	//	print (path.position.ToString ());
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
@@ -162,6 +163,12 @@ public class BoardManager : MonoBehaviour {
 			finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
 			finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
 
+		/*	print ("finalCurrent : VO : " + finalCurrent.distanceVO.ToString ());
+			print (finalCurrent.distanceParcourue.ToString ());
+
+			print ("current : VO : " + current.distanceVO.ToString ());
+			print (current.distanceParcourue.ToString ());*/
+
 			if ((current.distanceParcourue + current.distanceVO) <= (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
 				finalCurrent = current;
 			}
@@ -169,10 +176,13 @@ public class BoardManager : MonoBehaviour {
 			closedList.Add (finalCurrent);
 
 			print (finalCurrent.position.ToString());
-			print (destination.position.ToString ());
+			//print (destination.position.ToString ());
 
-			if (finalCurrent.position == destination.position) {
-				print ("mon fion est gratuit");
+			if (finalCurrent.distanceVO == 0) {
+				//print ("mon fion est gratuit");
+				print(finalCurrent.position.ToString());
+				print (finalCurrent.distanceVO.ToString ());
+				print ("_____________________");
 				return finalCurrent;
 			}
 
@@ -187,7 +197,7 @@ public class BoardManager : MonoBehaviour {
 							openList.Add (voisins [j]);
 						} else {
 							int newG = voisins [j].calculDepartCourant ();
-							if ((voisins [j].distanceParcourue) < newG) {
+							if ((voisins [j].distanceParcourue) > newG) {
 								voisins [j].parent = finalCurrent;
 								voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
 								voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
@@ -223,6 +233,15 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		return voisins;
+	}
+
+	public void resetDistanceGrille(){
+		for(int y = rows-1; y >= 0; y--){
+			for (int x =0; x < columns; x++) {
+				gridPositions [x, y].distanceParcourue = 0;
+				gridPositions [x, y].distanceVO = 0;
+			}
+		}
 	}
 
 }
