@@ -152,4 +152,8 @@ public class GameManager : MonoBehaviour
 		}
 		trapActioning = false;
 	}
+
+	public BoardManager getCurrentBoard(){
+		return this.boardScript;
+	}
 }

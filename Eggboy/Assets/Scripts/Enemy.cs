@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MovingObject {
 
@@ -62,6 +63,7 @@ public class Enemy : MovingObject {
 		
 		int xDir = 0;
 		int yDir = 0;
+
 
 		if(Mathf.Abs (target.position.x - transform.position.x) < float.Epsilon)
 			

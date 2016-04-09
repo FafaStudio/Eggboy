@@ -1,16 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spike.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BoardManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="42" Column="32" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="139" Column="19" />
-      <File FileName="Assets/Scripts/Spike.cs" Line="31" Column="25" />
-      <File FileName="Assets/Scripts/Trap.cs" Line="7" Column="34" />
+      <File FileName="Assets/Scripts/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Spike.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Trap.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/UIPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BoardManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MovingObject.cs" Line="7" Column="33" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MovingObject.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Blob.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BoardManager.cs" Line="73" Column="21" />
+      <File FileName="Assets/Scripts/Wall.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

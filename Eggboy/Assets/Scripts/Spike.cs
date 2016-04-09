@@ -20,8 +20,8 @@ public class Spike : Trap {
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
+			TurnCount = 2;
 			if (isPlayer) {
-				TurnCount = 1;
 				isEnclenched = true;
 			}
 		}
