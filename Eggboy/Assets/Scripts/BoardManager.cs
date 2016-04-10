@@ -136,7 +136,6 @@ public class BoardManager : MonoBehaviour {
 
 	public Vector2 doPathfinding (Grid destination, Grid depart){
 		Grid path = findPath (destination, depart);
-	//	print (path.position.ToString ());
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
@@ -155,19 +154,13 @@ public class BoardManager : MonoBehaviour {
 
 		Grid current = null;
 		Grid finalCurrent = openList [0];
+		finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
+		finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
 
 		for (int i = 0; i < openList.Count; i++) {
 			current = openList [i];
 			current.distanceVO = current.volDoiseau (destination.position);
 			current.distanceParcourue = current.calculDepartCourant ();
-			finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
-			finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
-
-		/*	print ("finalCurrent : VO : " + finalCurrent.distanceVO.ToString ());
-			print (finalCurrent.distanceParcourue.ToString ());
-
-			print ("current : VO : " + current.distanceVO.ToString ());
-			print (current.distanceParcourue.ToString ());*/
 
 			if ((current.distanceParcourue + current.distanceVO) <= (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
 				finalCurrent = current;
@@ -175,14 +168,7 @@ public class BoardManager : MonoBehaviour {
 
 			closedList.Add (finalCurrent);
 
-			print (finalCurrent.position.ToString());
-			//print (destination.position.ToString ());
-
-			if (finalCurrent.distanceVO == 0) {
-				//print ("mon fion est gratuit");
-				print(finalCurrent.position.ToString());
-				print (finalCurrent.distanceVO.ToString ());
-				print ("_____________________");
+			if (finalCurrent.position == destination.position) {
 				return finalCurrent;
 			}
 
@@ -208,7 +194,7 @@ public class BoardManager : MonoBehaviour {
 					
 				}
 		}
-		return finalCurrent;
+		return new Grid(1, new Vector2(-1f, -1f));
 	}
 
 	public List<Grid> Voisins(Grid HOMME)
