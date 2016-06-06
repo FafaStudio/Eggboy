@@ -205,6 +205,10 @@ public class BoardManager : MonoBehaviour {
 						toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
 						toTest.transform.SetParent (testGameObject);
 
+						if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
+							return voisins[j];
+						}
+
 					} else {
 						int newG = voisins [j].calculDepartCourant ();
 						if ((voisins [j].distanceParcourue) > newG) {
