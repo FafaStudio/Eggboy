@@ -141,71 +141,24 @@ public class BoardManager : MonoBehaviour {
 
 	public Vector2 doPathfinding (Grid destination, Grid depart){
 		Grid path = findPath (destination, depart);
-		//print (path.position.ToString ());
+
+		GameObject toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);
+
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
-				//print (path.position.ToString ());
 				path = path.parent;
+
+				toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
+				toTest.transform.SetParent (testGameObject);
 			}	
 		}
+		toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);
+
 		resetDistanceGrille ();
 		return path.position;
 	}
-		
-
-	/*public Grid findPath(Grid destination, Grid depart)
-	{
-		List<Grid> openList = new List<Grid> ();
-		List<Grid> closedList = new List<Grid> ();
-
-		openList.Add (depart);
-
-		Grid current = null;
-		Grid finalCurrent = openList [0];
-		finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
-		finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
-
-		for (int i = 0; i < openList.Count; i++) {
-			//print (openList [i].position.ToString ());
-			current = openList [i];
-			current.distanceVO = current.volDoiseau (destination.position);
-			current.distanceParcourue = current.calculDepartCourant ();
-
-			if ((current.distanceParcourue + current.distanceVO) <= (finalCurrent.distanceParcourue + finalCurrent.distanceVO)) {
-				finalCurrent = current;
-			}
-
-			closedList.Add (finalCurrent);
-
-			if (finalCurrent.position == destination.position) {
-				return finalCurrent;
-			}
-
-			List<Grid> voisins = Voisins (finalCurrent);
-
-			for (int j = 0; j < voisins.Count; j++) {
-				if ((voisins [j].valeur != -1) || !closedList.Exists(grid => grid.position == new Vector2(voisins[j].position.x, voisins[j].position.y))) {
-						//if (!openList.Contains (voisins [j])) {
-					if(!openList.Exists(grid => grid.position == new Vector2(voisins[j].position.x, voisins[j].position.y))){
-							voisins [j].parent = finalCurrent;
-							voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
-							voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
-							openList.Add (voisins [j]);
-						} else {
-							int newG = voisins [j].calculDepartCourant ();
-							if ((voisins [j].distanceParcourue) > newG) {
-								voisins [j].parent = finalCurrent;
-								voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
-								voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
-							}
-
-						}
-					}
-					
-				}
-		}
-		return new Grid(1, new Vector2(-1f, -1f));
-	}*/
 
 	public Grid findPath(Grid destination, Grid depart){
 
@@ -223,9 +176,8 @@ public class BoardManager : MonoBehaviour {
 			
 			nextGrid = openList [0];
 			for(int n = 1; n < openList.Count; n++){
-				if (nextGrid.distanceParcourue + nextGrid.distanceVO > openList [n].distanceParcourue + openList [n].distanceVO) {
+				if (nextGrid.distanceParcourue + nextGrid.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
 					nextGrid = openList [n];
-
 				}
 			}
 
@@ -239,6 +191,7 @@ public class BoardManager : MonoBehaviour {
 			}
 
 			openList.Remove (nextGrid);
+			i=0;
 
 			List<Grid> voisins = Voisins (nextGrid);
 
@@ -264,7 +217,6 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 		}
-		print ("nulachier");
 		return new Grid(1, new Vector2(-1f, -1f));
 	}
 
