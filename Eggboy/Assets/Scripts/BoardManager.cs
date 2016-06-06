@@ -13,15 +13,15 @@ public class BoardManager : MonoBehaviour {
 		public int y;
 	}
 
-	public class Grid
+	public class Node
 	{
 		public int valeur = 0;
 		public Vector2 position;
-		public Grid parent;
+		public Node parent;
 		public int distanceParcourue;
 		public int distanceVO;
 
-		public Grid(int x, Vector2 p){
+		public Node(int x, Vector2 p){
 			this.valeur = x;
 			this.position = p;
 			this.parent = null;
@@ -29,7 +29,7 @@ public class BoardManager : MonoBehaviour {
 			distanceVO = 0;
 		}
 
-		public Grid(){}
+		public Node(){}
 
 		public void setValeur(int value){
 			this.valeur = value;
@@ -67,17 +67,17 @@ public class BoardManager : MonoBehaviour {
 	//boardHolder permet lorsqu'on fait spawn plein de trucs de garder la hierarchie clean
 	private Transform objectInLevel;
 
-	private Grid[,] gridPositions;
+	private Node[,] gridPositions;
 
 	public GameObject[] listeTester;
 	public Transform testGameObject;
 
 
 	void InitialiseGrille(){
-		gridPositions = new Grid[columns, rows];
+		gridPositions = new Node[columns, rows];
 		for(int y = rows-1; y >= 0; y--){
 			for (int x =0; x < columns; x++) {
-				gridPositions[x,y] = new Grid(1,new Vector2(x,y));
+				gridPositions[x,y] = new Node(1,new Vector2(x,y));
 			}
 		}
 	}
@@ -95,7 +95,7 @@ public class BoardManager : MonoBehaviour {
 		return toString;
 	}
 
-	public void setCellOnGrid(int x, int y , int value){
+	public void setNodeOnGrid(int x, int y , int value){
 		gridPositions [x, y].setValeur(value);
 	}
 
@@ -135,12 +135,10 @@ public class BoardManager : MonoBehaviour {
 		boardSetup ();
 		InitialiseGrille ();
 		InitialiseLevelDesign ();
-
-		testGameObject = new GameObject ("testGameObject").transform;
 	}
 
-	public Vector2 doPathfinding (Grid destination, Grid depart){
-		Grid path = findPath (destination, depart);
+	public Vector2 doPathfinding (Node destination, Node depart){
+		Node path = findPath (destination, depart);
 
 		GameObject toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
 		toTest.transform.SetParent (testGameObject);
@@ -153,52 +151,53 @@ public class BoardManager : MonoBehaviour {
 				toTest.transform.SetParent (testGameObject);
 			}	
 		}
-		toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
+		//toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
+		//toTest.transform.SetParent (testGameObject);
 
 		resetDistanceGrille ();
 		return path.position;
 	}
 
-	public Grid findPath(Grid destination, Grid depart){
+	public Node findPath(Node destination, Node depart){
 
-		testGameObject = new GameObject ("testGameObject").transform;
+		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
+		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
 
-		List<Grid> openList = new List<Grid> ();
-		List<Grid> closedList = new List<Grid> ();
+		List<Node> openList = new List<Node> ();
+		List<Node> closedList = new List<Node> ();
 
 		openList.Add (depart);
-		Grid nextGrid = openList [0];
-		nextGrid.distanceParcourue = nextGrid.calculDepartCourant ();
-		nextGrid.distanceVO = nextGrid.volDoiseau (destination.position);
+		Node nextNode = openList [0];
+		nextNode.distanceParcourue = nextNode.calculDepartCourant ();
+		nextNode.distanceVO = nextNode.volDoiseau (destination.position);
 
 		for(int i =0; i < openList.Count; i++){
-			
-			nextGrid = openList [0];
+
+			nextNode = openList [0];
 			for(int n = 1; n < openList.Count; n++){
-				if (nextGrid.distanceParcourue + nextGrid.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
-					nextGrid = openList [n];
+				if (nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
+					nextNode = openList [n];
 				}
 			}
 
-			closedList.Add (nextGrid);
+			closedList.Add (nextNode);
 
-			GameObject toTest = Instantiate (listeTester [1], nextGrid.position, Quaternion.identity) as GameObject;
+			GameObject toTest = Instantiate (listeTester [1], nextNode.position, Quaternion.identity) as GameObject;
 			toTest.transform.SetParent (testGameObject);
 
-			if ((nextGrid.position.x == destination.position.x) && (nextGrid.position.y == destination.position.y)) {
-				return nextGrid;
+			if ((nextNode.position.x == destination.position.x) && (nextNode.position.y == destination.position.y)) {
+				return nextNode;
 			}
 
-			openList.Remove (nextGrid);
+			openList.Remove (nextNode);
 			i=0;
 
-			List<Grid> voisins = Voisins (nextGrid);
+			List<Node> voisins = Voisins (nextNode);
 
 			for (int j = 0; j < voisins.Count; j++) {
 				if ((voisins [j].valeur != -1) && (!gridIsIn(closedList, voisins[j]))){
 					if((!gridIsIn(openList, voisins[j]))){
-						voisins [j].parent = nextGrid;
+						voisins [j].parent = nextNode;
 						voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
 						voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 						openList.Add (voisins [j]);
@@ -209,7 +208,7 @@ public class BoardManager : MonoBehaviour {
 					} else {
 						int newG = voisins [j].calculDepartCourant ();
 						if ((voisins [j].distanceParcourue) > newG) {
-							voisins [j].parent = nextGrid;
+							voisins [j].parent = nextNode;
 							voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
 							voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 						}
@@ -217,10 +216,10 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 		}
-		return new Grid(1, new Vector2(-1f, -1f));
+		return new Node(1, new Vector2(-1f, -1f));
 	}
 
-	public bool gridIsIn(List<Grid> list, Grid toTest){
+	public bool gridIsIn(List<Node> list, Node toTest){
 		for (int i = 0; i < list.Count; i++) {
 			if((list[i].position.x == toTest.position.x)&&(list[i].position.y == toTest.position.y))
 				return true;
@@ -228,9 +227,9 @@ public class BoardManager : MonoBehaviour {
 		return false;
 	}
 		
-	public List<Grid> Voisins(Grid HOMME)
+	public List<Node> Voisins(Node HOMME)
 	{
-		List<Grid> voisins = new List<Grid>();
+		List<Node> voisins = new List<Node>();
 		if (HOMME.position.x == 0) {
 			voisins.Add (gridPositions [(int)(HOMME.position.x + 1), (int)(HOMME.position.y)]);
 		} else if (HOMME.position.x == 14) {

@@ -18,7 +18,7 @@ public class Player : MovingObject {
 
 	private CameraManager camera;
 
-	public BoardManager.Grid caseExacte;
+	public BoardManager.Node caseExacte;
 
 	protected override void Start () {
 		animator = GetComponent<Animator> ();
@@ -29,7 +29,8 @@ public class Player : MovingObject {
 		uiManager.updateLife ();
 
 		camera = GameObject.Find ("Main Camera").GetComponent<CameraManager> ();
-		caseExacte = new BoardManager.Grid (1, new Vector2 (transform.position.x, transform.position.y));
+		caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y));
+
 		base.Start ();
 	}
 
@@ -132,14 +133,12 @@ public class Player : MovingObject {
 		}
 		if (horizontal != 0 || vertical != 0) {
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-			caseExacte = new BoardManager.Grid (1, new Vector2 (transform.position.x + horizontal, transform.position.y + vertical));
+			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + horizontal, transform.position.y + vertical));
 			AttemptMove(horizontal, vertical);
-			Destroy(GameObject.Find("testGameObject"));
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			manager.playersTurn = false;
-			Destroy(GameObject.Find("testGameObject"));
 		}
 	}
 }

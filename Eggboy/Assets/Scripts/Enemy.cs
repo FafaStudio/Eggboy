@@ -11,6 +11,7 @@ public class Enemy : MovingObject {
 	private Transform target;                           //Transform to attempt to move toward each turn.
 	private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 	private bool isDead = false;
+	public BoardManager.Node caseExacte;
 	
 	
 	//Start overrides the virtual Start function of the base class.
@@ -25,6 +26,8 @@ public class Enemy : MovingObject {
 
 		//Find the Player GameObject using it's tag and store a reference to its transform component.
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
+
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
 		
 		//Call the start function of our base class MovingObject.
 		base.Start ();
@@ -32,6 +35,8 @@ public class Enemy : MovingObject {
 
 	public void Die(){
 		isDead = true;
+		enabled = false;
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
 		GameManager.instance.RemoveEnemyToList (this);
 		Destroy (this.gameObject);
 	}
@@ -53,6 +58,21 @@ public class Enemy : MovingObject {
 		base.AttemptMove(xDir, yDir);
 		//skipMove = true;
 	}
+
+	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+		Vector2 start = transform.position;
+		Vector2 end = start + new Vector2 (xDir, yDir);
+		boxCollider.enabled = false;
+		hit = Physics2D.Linecast (start, end, blockingLayer);
+		boxCollider.enabled = true;
+		if (hit.transform == null) {
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+			StartCoroutine(SmoothMovement(end));
+			return true;
+		}
+		return false;
+	}
 	
 	
 	//MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
@@ -73,16 +93,14 @@ public class Enemy : MovingObject {
 		else
 			//Check if target x position is greater than enemy's x position, if so set x direction to 1 (move right), if not set to -1 (move left).
 			xDir = target.position.x > transform.position.x ? 1 : -1;*/
-		BoardManager.Grid currentPos = new BoardManager.Grid(1, new Vector2(this.transform.position.x,this.transform.position.y));
+		BoardManager.Node currentPos = new BoardManager.Node(1, new Vector2(this.transform.position.x,this.transform.position.y));
 
 		Vector2 nextPosition = GameManager.instance.getCurrentBoard().doPathfinding(target.GetComponent<Player>().caseExacte, currentPos);
 
 		if ((nextPosition.x == -1f) && (nextPosition.y == -1f)) {
 			if (Mathf.Abs (target.position.x - transform.position.x) < float.Epsilon)
-				//If the y coordinate of the target's (player) position is greater than the y coordinate of this enemy's position set y direction 1 (to move up). If not, set it to -1 (to move down).
 				yDir = target.position.y > transform.position.y ? 1 : -1;
 			else
-				//Check if target x position is greater than enemy's x position, if so set x direction to 1 (move right), if not set to -1 (move left).
 				xDir = target.position.x > transform.position.x ? 1 : -1;
 		
 		} else {
@@ -100,9 +118,8 @@ public class Enemy : MovingObject {
 	{
 		if (col.gameObject.tag == "Wall") {
 			return;
-		}
-		else if(col.gameObject.tag == "Player"){
-			col.gameObject.GetComponent<Player>().loseHP();
+		} else if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<Player> ().loseHP ();
 			animator.SetTrigger ("enemyAttack");
 		}
 	}
