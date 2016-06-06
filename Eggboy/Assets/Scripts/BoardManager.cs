@@ -69,10 +69,13 @@ public class BoardManager : MonoBehaviour {
 
 	private Grid[,] gridPositions;
 
+	public GameObject[] listeTester;
+	public Transform testGameObject;
+
 
 	void InitialiseGrille(){
 		gridPositions = new Grid[columns, rows];
-		for(int y = 0; y < rows; y++){
+		for(int y = rows-1; y >= 0; y--){
 			for (int x =0; x < columns; x++) {
 				gridPositions[x,y] = new Grid(1,new Vector2(x,y));
 			}
@@ -132,6 +135,8 @@ public class BoardManager : MonoBehaviour {
 		boardSetup ();
 		InitialiseGrille ();
 		InitialiseLevelDesign ();
+
+		testGameObject = new GameObject ("testGameObject").transform;
 	}
 
 	public Vector2 doPathfinding (Grid destination, Grid depart){
@@ -143,6 +148,7 @@ public class BoardManager : MonoBehaviour {
 				path = path.parent;
 			}	
 		}
+		resetDistanceGrille ();
 		return path.position;
 	}
 		
@@ -202,68 +208,60 @@ public class BoardManager : MonoBehaviour {
 	}*/
 
 	public Grid findPath(Grid destination, Grid depart){
-		
+
+		testGameObject = new GameObject ("testGameObject").transform;
+
 		List<Grid> openList = new List<Grid> ();
 		List<Grid> closedList = new List<Grid> ();
 
-		Grid finalCurrent = depart;
-		finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
-		finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
-
-		openList.Add (finalCurrent);
-
-		//Grid current = null;
-		finalCurrent = openList [0];
-		finalCurrent.distanceParcourue = finalCurrent.calculDepartCourant ();
-		finalCurrent.distanceVO = finalCurrent.volDoiseau (destination.position);
-		closedList.Add (finalCurrent);
+		openList.Add (depart);
+		Grid nextGrid = openList [0];
+		nextGrid.distanceParcourue = nextGrid.calculDepartCourant ();
+		nextGrid.distanceVO = nextGrid.volDoiseau (destination.position);
 
 		for(int i =0; i < openList.Count; i++){
+			
+			nextGrid = openList [0];
+			for(int n = 1; n < openList.Count; n++){
+				if (nextGrid.distanceParcourue + nextGrid.distanceVO > openList [n].distanceParcourue + openList [n].distanceVO) {
+					nextGrid = openList [n];
 
-			//print (finalCurrent.position.ToString ());
-			print(openList.Count.ToString());
+				}
+			}
 
-			openList.Remove (finalCurrent);
-			List<Grid> voisins = Voisins (finalCurrent);
+			if ((nextGrid.position.x == destination.position.x) && (nextGrid.position.y == destination.position.y)) {
+				return nextGrid;
+			}
+
+			closedList.Add (nextGrid);
+
+			GameObject toTest = Instantiate (listeTester [1], nextGrid.position, Quaternion.identity) as GameObject;
+			toTest.transform.SetParent (testGameObject);
+
+			openList.Remove (nextGrid);
+
+			List<Grid> voisins = Voisins (nextGrid);
 
 			for (int j = 0; j < voisins.Count; j++) {
 				if ((voisins [j].valeur != -1) && (!gridIsIn(closedList, voisins[j]))){
 					if((!gridIsIn(openList, voisins[j]))){
-						voisins [j].parent = finalCurrent;
+						voisins [j].parent = nextGrid;
 						voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
 						voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 						openList.Add (voisins [j]);
+
+						toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
+						toTest.transform.SetParent (testGameObject);
+
 					} else {
 						int newG = voisins [j].calculDepartCourant ();
 						if ((voisins [j].distanceParcourue) > newG) {
-							voisins [j].parent = finalCurrent;
+							voisins [j].parent = nextGrid;
 							voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
 							voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 						}
 					}
 				}
-			}
-
-			for (int x = 0; x < openList.Count; x++) {
-				openList [x].distanceParcourue = openList[x].calculDepartCourant ();
-				openList [x].distanceVO = openList [x].volDoiseau (destination.position);
-			}
-
-			Grid nextGrid = openList[0];
-
-			for(int n = 1; n< openList.Count; n++){
-				if (nextGrid.distanceParcourue + nextGrid.distanceVO > openList [n].distanceParcourue + openList [n].distanceVO) {
-					nextGrid = openList [n];
-					if (nextGrid.distanceVO == 0)
-						return nextGrid;
-				}
-			}
-			finalCurrent = nextGrid;
-			closedList.Add (finalCurrent);
-		//	print (finalCurrent.position.ToString ());
-			//i = 0;
-			if (finalCurrent.distanceVO == 0) {
-				return finalCurrent;
 			}
 		}
 		print ("nulachier");
