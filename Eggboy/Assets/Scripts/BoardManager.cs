@@ -138,8 +138,11 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	public Vector2 doPathfinding (Node destination, Node depart){
-		Node path = findPath (destination, depart);
+		Node path = findPath (destination, depart, new List<Node>(), new List<Node>());
 
+		//VISUEL
+		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
+		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
 		GameObject toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
 		toTest.transform.SetParent (testGameObject);
 
@@ -147,18 +150,21 @@ public class BoardManager : MonoBehaviour {
 			while (path.parent.parent != null) {
 				path = path.parent;
 
+				//VISUEL
 				toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
 				toTest.transform.SetParent (testGameObject);
 			}	
 		}
-		//toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
-		//toTest.transform.SetParent (testGameObject);
+
+		//VISUEL
+		toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);
 
 		resetDistanceGrille ();
 		return path.position;
 	}
 
-	public Node findPath(Node destination, Node depart){
+	/*public Node findPath(Node destination, Node depart){
 
 		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
 		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
@@ -221,6 +227,57 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 		return new Node(1, new Vector2(-1f, -1f));
+	}*/
+
+	public Node findPath(Node destination, Node depart, List<Node> openList, List<Node> closedList){
+		closedList.Add (depart);
+
+		//VISUEL
+		GameObject toTest = Instantiate (listeTester [1], depart.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);
+
+		if ((depart.position.x == destination.position.x) && (depart.position.y == destination.position.y)) {
+			return depart;
+		}
+		List<Node> voisins = Voisins (depart);
+		for (int j = 0; j < voisins.Count; j++) {
+			if ((voisins [j].valeur != -1) && (!gridIsIn(closedList, voisins[j]))){
+				if((!gridIsIn(openList, voisins[j]))){
+					voisins [j].parent = depart;
+					voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+					voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+					openList.Add (voisins [j]);
+
+					//VISUEL
+					toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
+					toTest.transform.SetParent (testGameObject);
+
+					if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
+						return voisins[j];
+					}
+
+				} else {
+					int newG = voisins [j].calculDepartCourant ();
+					if ((voisins [j].distanceParcourue) > newG) {
+						voisins [j].parent = depart;
+						voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+						voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+					}
+				}
+			}
+		}
+		Node nextNode = openList [0];
+		for(int n = 1; n < openList.Count; n++){
+			if (nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
+				nextNode = openList [n];
+			}
+		}
+		openList.Remove (nextNode);
+
+		if(openList.Count != 0 )
+			return findPath (destination, nextNode, openList, closedList);
+		else
+			return new Node(1, new Vector2(-1f, -1f));
 	}
 
 	public bool gridIsIn(List<Node> list, Node toTest){
