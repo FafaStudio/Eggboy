@@ -229,14 +229,14 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 
-			if ((nextGrid.position.x == destination.position.x) && (nextGrid.position.y == destination.position.y)) {
-				return nextGrid;
-			}
-
 			closedList.Add (nextGrid);
 
 			GameObject toTest = Instantiate (listeTester [1], nextGrid.position, Quaternion.identity) as GameObject;
 			toTest.transform.SetParent (testGameObject);
+
+			if ((nextGrid.position.x == destination.position.x) && (nextGrid.position.y == destination.position.y)) {
+				return nextGrid;
+			}
 
 			openList.Remove (nextGrid);
 
