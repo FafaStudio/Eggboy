@@ -7,10 +7,10 @@ public class Enemy : MovingObject {
 
 	public int playerDamage;                            //The amount of food points to subtract from the player when attacking.
 	
-	private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
-	private Transform target;                           //Transform to attempt to move toward each turn.
-	private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
-	private bool isDead = false;
+	protected Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
+	protected Transform target;                           //Transform to attempt to move toward each turn.
+	protected bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
+	protected bool isDead = false;
 	public BoardManager.Node caseExacte;
 	
 	
@@ -95,16 +95,13 @@ public class Enemy : MovingObject {
 				xDir = target.position.x > transform.position.x ? 1 : -1;
 		
 		} else {
-			xDir = (int)nextPosition.x - (int)this.transform.position.x;
-			yDir = (int)nextPosition.y - (int)this.transform.position.y;
+			xDir = (int)(nextPosition.x - this.transform.position.x);
+			yDir = (int)(nextPosition.y - this.transform.position.y);
 		}
 		
 		AttemptMove (xDir, yDir);
 	}
-	
-	
-	//OnCantMove is called if Enemy attempts to move into a space occupied by a Player, it overrides the OnCantMove function of MovingObject 
-	//and takes a generic parameter T which we use to pass in the component we expect to encounter, in this case Player
+
 	protected override void OnCantMove (GameObject col)
 	{
 		if (col.gameObject.tag == "Wall") {
