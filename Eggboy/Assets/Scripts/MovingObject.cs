@@ -7,7 +7,7 @@ public abstract class MovingObject : MonoBehaviour {
 	public LayerMask blockingLayer;
 
 	protected BoxCollider2D boxCollider;
-	private Rigidbody2D rb2D;
+	protected Rigidbody2D rb2D;
 	protected float inverseMoveTime;
 
 	protected virtual void Start () {

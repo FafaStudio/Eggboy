@@ -42,6 +42,7 @@ public class Player : MovingObject {
 		boxCollider.enabled = true;
 		if (hit.transform == null) {
 			animator.SetTrigger ("isRunning");
+			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
 			StartCoroutine(SmoothMovement(end));
 			manager.playersTurn = false;
 			return true;
@@ -65,6 +66,7 @@ public class Player : MovingObject {
 
 	protected override void OnCantMove (GameObject col)
 	{
+		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
 		if (col.gameObject.tag == "Wall") {
 			animator.SetTrigger ("Blase");
 			manager.playersTurn = true;
@@ -97,7 +99,7 @@ public class Player : MovingObject {
 			enabled = false;
 		} 
 	}
-		
+
 	void Update () {
 		if (!manager.playersTurn)
 		//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
@@ -133,10 +135,10 @@ public class Player : MovingObject {
 		}
 		if (horizontal != 0 || vertical != 0) {
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + horizontal, transform.position.y + vertical));
 			AttemptMove(horizontal, vertical);
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
+			print (caseExacte.position.ToString ());
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			manager.playersTurn = false;
 		}

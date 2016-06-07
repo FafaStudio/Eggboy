@@ -55,13 +55,11 @@ public class BoardManager : MonoBehaviour {
 			
 	}
 
-
-
 	public int columns = 15;
 	public int rows = 8;
 
 	public GameObject[] floorTiles;
-	public toInstantiate[] objectTiles;
+	//public toInstantiate[] objectTiles;
 
 	private Transform boardHolder;
 	//boardHolder permet lorsqu'on fait spawn plein de trucs de garder la hierarchie clean
@@ -69,8 +67,10 @@ public class BoardManager : MonoBehaviour {
 
 	private Node[,] gridPositions;
 
+	//VISUEL____
 	public GameObject[] listeTester;
 	public Transform testGameObject;
+	//__________
 
 
 	void InitialiseGrille(){
@@ -122,119 +122,60 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
-	void InitialiseLevelDesign(){
+	/*void InitialiseLevelDesign(){
 		objectInLevel = new GameObject ("ObjectInLevel").transform;
 		for(int i = 0; i < objectTiles.Length; i++){
 			Vector3 position = new Vector3 (objectTiles [i].x, objectTiles [i].y, 0f);
 			GameObject instantiate = Instantiate (objectTiles [i].objectInstantiate, position, Quaternion.identity) as GameObject;
 			instantiate.transform.SetParent (objectInLevel);
 		}
-	}
+	}*/
 
 	public void SetupScene(int level){
 		boardSetup ();
 		InitialiseGrille ();
-		InitialiseLevelDesign ();
+		//InitialiseLevelDesign ();
 	}
 
 	public Vector2 doPathfinding (Node destination, Node depart){
 		Node path = findPath (destination, depart, new List<Node>(), new List<Node>());
 
-		//VISUEL
-		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
+		//VISUEL___
+		/*Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
 		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
 		GameObject toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
+		toTest.transform.SetParent (testGameObject);*/
+		//________
 
+		//print (path.position.ToString ());
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
-
-				//VISUEL
-				toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
-				toTest.transform.SetParent (testGameObject);
+				//print (path.position.ToString ());
+				//VISUEL____
+				/*toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
+				toTest.transform.SetParent (testGameObject);*/
+				//___________
 			}	
 		}
 
-		//VISUEL
-		toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
+		//VISUEL____
+		/*toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);*/
+		//_________
 
 		resetDistanceGrille ();
 		return path.position;
 	}
 
-	/*public Node findPath(Node destination, Node depart){
-
-		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
-		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
-
-		List<Node> openList = new List<Node> ();
-		List<Node> closedList = new List<Node> ();
-
-		openList.Add (depart);
-		Node nextNode = openList [0];
-		nextNode.distanceParcourue = nextNode.calculDepartCourant ();
-		nextNode.distanceVO = nextNode.volDoiseau (destination.position);
-
-		for(int i =0; i < openList.Count; i++){
-
-			nextNode = openList [0];
-			for(int n = 1; n < openList.Count; n++){
-				if (nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
-					nextNode = openList [n];
-				}
-			}
-
-			closedList.Add (nextNode);
-
-			GameObject toTest = Instantiate (listeTester [1], nextNode.position, Quaternion.identity) as GameObject;
-			toTest.transform.SetParent (testGameObject);
-
-			if ((nextNode.position.x == destination.position.x) && (nextNode.position.y == destination.position.y)) {
-				return nextNode;
-			}
-
-			openList.Remove (nextNode);
-			i=0;
-
-			List<Node> voisins = Voisins (nextNode);
-
-			for (int j = 0; j < voisins.Count; j++) {
-				if ((voisins [j].valeur != -1) && (!gridIsIn(closedList, voisins[j]))){
-					if((!gridIsIn(openList, voisins[j]))){
-						voisins [j].parent = nextNode;
-						voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
-						voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
-						openList.Add (voisins [j]);
-
-						toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
-						toTest.transform.SetParent (testGameObject);
-
-						if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
-							return voisins[j];
-						}
-
-					} else {
-						int newG = voisins [j].calculDepartCourant ();
-						if ((voisins [j].distanceParcourue) > newG) {
-							voisins [j].parent = nextNode;
-							voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
-							voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
-						}
-					}
-				}
-			}
-		}
-		return new Node(1, new Vector2(-1f, -1f));
-	}*/
-
 	public Node findPath(Node destination, Node depart, List<Node> openList, List<Node> closedList){
 		closedList.Add (depart);
 
-		//VISUEL
-		GameObject toTest = Instantiate (listeTester [1], depart.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
+
+		//VISUEL___
+		/*GameObject toTest = Instantiate (listeTester [1], depart.position, Quaternion.identity) as GameObject;
+		toTest.transform.SetParent (testGameObject);*/
+		//__________
 
 		if ((depart.position.x == destination.position.x) && (depart.position.y == destination.position.y)) {
 			return depart;
@@ -248,9 +189,10 @@ public class BoardManager : MonoBehaviour {
 					voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 					openList.Add (voisins [j]);
 
-					//VISUEL
-					toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
-					toTest.transform.SetParent (testGameObject);
+					//VISUEL_____
+					/*toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
+					toTest.transform.SetParent (testGameObject);*/
+					//___________
 
 					if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
 						return voisins[j];
@@ -274,7 +216,7 @@ public class BoardManager : MonoBehaviour {
 		}
 		openList.Remove (nextNode);
 
-		if(openList.Count != 0 )
+		if(openList.Count != 0)
 			return findPath (destination, nextNode, openList, closedList);
 		else
 			return new Node(1, new Vector2(-1f, -1f));
