@@ -31,8 +31,7 @@ public abstract class MovingObject : MonoBehaviour {
 		return false;
 	}
 
-	protected virtual void AttemptMove(int xDir, int yDir)
-	{
+	protected virtual void AttemptMove(int xDir, int yDir){
 	//literallement "tente de bouger", teste si il y a un truc qui gène le déplacement et l'identifie
 		RaycastHit2D hit;
 		bool canMove = Move(xDir, yDir, out hit);
@@ -41,7 +40,7 @@ public abstract class MovingObject : MonoBehaviour {
 		} else if (!canMove) {
 				OnCantMove (hit.transform.gameObject);
 			}
-		}
+	}
 
 	protected IEnumerator SmoothMovement(Vector3 end){
 	//coroutine permettant de bouger une unité d'un espace/une case 
