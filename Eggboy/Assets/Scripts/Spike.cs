@@ -20,7 +20,7 @@ public class Spike : Trap {
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
-			TurnCount = 2;
+			TurnCount = 1;
 			if (isPlayer) {
 				isEnclenched = true;
 			}
@@ -34,7 +34,7 @@ public class Spike : Trap {
 			isEnclenched = false;
 			if (isPlayer) {
 				eggboy.loseHP ();
-				TurnCount = 1;
+				TurnCount = 2;
 				isEnclenched = true;
 			}
 		}

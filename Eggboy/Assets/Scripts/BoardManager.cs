@@ -147,7 +147,7 @@ public class BoardManager : MonoBehaviour {
 		toTest.transform.SetParent (testGameObject);*/
 		//________
 
-		//print (path.position.ToString ());
+	//	print (path.position.ToString ());
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
@@ -210,12 +210,17 @@ public class BoardManager : MonoBehaviour {
 		}
 		Node nextNode = openList [0];
 		for(int n = 1; n < openList.Count; n++){
-			if (nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO) {
+			if ((nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO)) {
 				nextNode = openList [n];
 			}
 		}
-		openList.Remove (nextNode);
 
+		if (openList.Count == 1) {
+			openList.Remove (nextNode);
+			return findPath (destination, nextNode, openList, closedList);
+		}
+
+		openList.Remove (nextNode);
 		if(openList.Count != 0)
 			return findPath (destination, nextNode, openList, closedList);
 		else

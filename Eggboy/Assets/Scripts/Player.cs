@@ -138,7 +138,7 @@ public class Player : MovingObject {
 			AttemptMove(horizontal, vertical);
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
-			print (caseExacte.position.ToString ());
+			//print (caseExacte.position.ToString ());
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			manager.playersTurn = false;
 		}
