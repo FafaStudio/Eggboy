@@ -20,7 +20,7 @@ public class Spike : Trap {
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
-			TurnCount = 1;
+			TurnCount = 2;
 			if (isPlayer) {
 				isEnclenched = true;
 			}
@@ -33,6 +33,7 @@ public class Spike : Trap {
 			isActioning = true;
 			isEnclenched = false;
 			if (isPlayer) {
+				print ("AI");
 				eggboy.loseHP ();
 				TurnCount = 2;
 				isEnclenched = true;
@@ -53,6 +54,7 @@ public class Spike : Trap {
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
+			print ("bisous");
 			isPlayer = false;
 		}
 	}

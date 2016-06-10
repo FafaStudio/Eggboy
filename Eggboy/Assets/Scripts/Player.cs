@@ -64,6 +64,17 @@ public class Player : MovingObject {
 			return false;
 	}
 
+	protected override IEnumerator SmoothMovement (Vector3 end)
+	{
+		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+		while (sqrRemainingDistance > float.Epsilon) {
+			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+			rb2D.MovePosition(newPosition);
+			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+			yield return null;
+		}
+	}
+
 	protected override void OnCantMove (GameObject col)
 	{
 		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));

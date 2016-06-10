@@ -42,7 +42,7 @@ public abstract class MovingObject : MonoBehaviour {
 			}
 	}
 
-	protected IEnumerator SmoothMovement(Vector3 end){
+	protected virtual IEnumerator SmoothMovement(Vector3 end){
 	//coroutine permettant de bouger une unité d'un espace/une case 
 		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 		while (sqrRemainingDistance > float.Epsilon) {
