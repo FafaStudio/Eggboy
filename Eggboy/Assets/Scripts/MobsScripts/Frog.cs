@@ -135,7 +135,6 @@ public class Frog : Enemy {
 	}
 
 	public IEnumerator frogAttack(GameObject col){
-		print ("attack");
 		if (col != null) {
 			if (col.tag == "Player") {
 				//Anim d'attaque ici

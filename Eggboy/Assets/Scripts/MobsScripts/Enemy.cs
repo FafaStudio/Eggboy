@@ -9,27 +9,16 @@ public class Enemy : MovingObject {
 	
 	protected Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
 	protected Transform target;                           //Transform to attempt to move toward each turn.
-	protected bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
+	public bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 	protected bool isDead = false;
 	public BoardManager.Node caseExacte;
 	
-	
-	//Start overrides the virtual Start function of the base class.
-	protected override void Start ()
-	{
-		//Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
-		//This allows the GameManager to issue movement commands.
+
+	protected override void Start (){
 	    GameManager.instance.AddEnemyToList (this);
-		
-		//Get and store a reference to the attached Animator component.
 		animator = GetComponent<Animator> ();
-
-		//Find the Player GameObject using it's tag and store a reference to its transform component.
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
-
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
-		
-		//Call the start function of our base class MovingObject.
 		base.Start ();
 	}
 
@@ -40,10 +29,7 @@ public class Enemy : MovingObject {
 		GameManager.instance.RemoveEnemyToList (this);
 		Destroy (this.gameObject);
 	}
-	
-	
-	//Override the AttemptMove function of MovingObject to include functionality needed for Enemy to skip turns.
-	//See comments in MovingObject for more on how base AttemptMove function works.
+
 	protected override void AttemptMove (int xDir, int yDir)
 	{
 		//Check if skipMove is true, if so set it to false and skip this turn.
