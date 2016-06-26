@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Blob.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\EnemyLaser.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Frog.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
