@@ -51,8 +51,8 @@ public class LevelEditorPrefabInstantiate : Editor
 
         //Make sure we load our block database. Notice the path here, which means the block database has to be in this specific location so we can find it
         //LoadAssetAtPath is a great way to load an asset from the project 
-        categorieItem = AssetDatabase.LoadAssetAtPath<CategorieItemData>("Assets/Scripts/EditorsScripts/CategoriesItemsData.asset");
-        item = AssetDatabase.LoadAssetAtPath<ItemData>("Assets/Scripts/EditorsScripts/ItemsData.asset");
+        categorieItem = AssetDatabase.LoadAssetAtPath<CategorieItemData>("Assets/Editor/CategoriesItemsData.asset");
+        item = AssetDatabase.LoadAssetAtPath<ItemData>("Assets/Editor/ItemsData.asset");
     }
 
     void OnDestroy()
