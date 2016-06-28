@@ -64,7 +64,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	private int chooseNextLevel(){
-		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings); 
+        if (PlayerPrefs.HasKey("LevelGameSeed"))
+        {
+            Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
+        }
+		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
+        PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
+        print(Random.seed);
 		//int nextLevel = 1;
 		/*for (int i = 0; i < levelPassed.Count; i++) {
 			if (levelPassed [i] == nextLevel) {
