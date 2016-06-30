@@ -2,6 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Spike.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets\Scripts\Spike.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BoardManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
@@ -11,6 +12,16 @@
       <File FileName="Assets\Scripts\MobsScripts\Necromancer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MobsScripts\Enemy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MobsScripts\EnemyLaser.cs" Line="1" Column="1" />
+=======
+      <File FileName="Assets/Scripts/BoardManager.cs" Line="225" Column="3" />
+      <File FileName="Assets/Scripts/MobsScripts/EnemyLaser.cs" Line="31" Column="2" />
+      <File FileName="Assets/Scripts/Player.cs" Line="49" Column="12" />
+      <File FileName="Assets/Scripts/MobsScripts/Enemy.cs" Line="79" Column="23" />
+      <File FileName="Assets/Scripts/MobsScripts/Necromancer.cs" Line="67" Column="29" />
+      <File FileName="Assets/Scripts/MobsScripts/Zombi.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MobsScripts/Frog.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
+>>>>>>> dc47e5dab8d1f50210c0957c8d821f0bdb4b3900
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

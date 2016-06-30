@@ -55,7 +55,6 @@ public class Spike : Trap {
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			print ("bisous");
 			isPlayer = false;
 		}
 	}
