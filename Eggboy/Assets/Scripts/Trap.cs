@@ -21,4 +21,9 @@ public abstract class Trap : MonoBehaviour {
 	public void setIsPlayer(bool value){
 		isPlayer = value;
 	}
+
+    public abstract IEnumerator declencherPiege();
+
+
+
 }

@@ -54,5 +54,7 @@ public abstract class MovingObject : MonoBehaviour {
 
 	}
 
+    
+
 	protected abstract void OnCantMove (GameObject col);
 }

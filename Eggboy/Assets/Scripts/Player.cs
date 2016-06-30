@@ -20,6 +20,10 @@ public class Player : MovingObject {
 
 	public BoardManager.Node caseExacte;
 
+    private bool isTrap = false;
+
+    [HideInInspector] public Trap piege;
+
 	protected override void Start () {
 		animator = GetComponent<Animator> ();
 		manager = GameManager.instance;
@@ -44,8 +48,9 @@ public class Player : MovingObject {
 			animator.SetTrigger ("isRunning");
 			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
 			StartCoroutine(SmoothMovement(end));
-			manager.playersTurn = false;
-			return true;
+           
+            
+            return true;
 		}
 		return false;
 	}
@@ -73,7 +78,20 @@ public class Player : MovingObject {
 			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 			yield return null;
 		}
-	}
+
+        if (!isTrap)
+        {
+            manager.playersTurn = false;
+            enabled = true;
+
+        }
+        else
+        {
+            StartCoroutine(piege.declencherPiege());
+
+        }
+        
+    }
 
 	protected override void OnCantMove (GameObject col)
 	{
@@ -154,4 +172,22 @@ public class Player : MovingObject {
 			manager.playersTurn = false;
 		}
 	}
+
+    public void doMove(int xDir, int yDir)
+    {
+        AttemptMove(xDir, yDir);
+
+    }
+     
+    public bool getisTrap()
+    {
+
+        return this.isTrap;
+    }
+
+    public void setIsTrap(bool b)
+    {
+
+        this.isTrap = b;
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Spike : Trap {
 
@@ -35,7 +36,7 @@ public class Spike : Trap {
 			if (isPlayer) {
 				print ("AI");
 				eggboy.loseHP ();
-				TurnCount = 2;
+				TurnCount = 1;
 				isEnclenched = true;
 			}
 		}
@@ -58,6 +59,11 @@ public class Spike : Trap {
 			isPlayer = false;
 		}
 	}
+
+    public override IEnumerator declencherPiege()
+    {
+        yield return null;
+    }
 
 
 }
