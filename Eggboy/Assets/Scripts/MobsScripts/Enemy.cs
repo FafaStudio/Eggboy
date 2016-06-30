@@ -22,7 +22,7 @@ public class Enemy : MovingObject {
 		base.Start ();
 	}
 
-	public void Die(){
+	public virtual void Die(){
 		isDead = true;
 		enabled = false;
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);

@@ -3,15 +3,26 @@ using System.Collections;
 
 public class Zombi : Enemy {
 
-	protected override void OnCantMove (GameObject col)
+	private Necromancer papa;
+
+	protected override void Start ()
 	{
 		skipMove = true;
-		base.OnCantMove (col);
+		base.Start ();
 	}
 
 	protected override bool Move (int xDir, int yDir, out RaycastHit2D hit)
 	{
 		skipMove = true;
 		return base.Move (xDir, yDir, out hit);
+	}
+
+	public void setNecroPere(Necromancer pere){
+		papa = pere;
+	}
+
+	public override void Die(){
+		papa.spawned.Remove (this.gameObject);
+		base.Die ();
 	}
 }

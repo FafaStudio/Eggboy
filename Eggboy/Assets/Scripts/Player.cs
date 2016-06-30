@@ -35,6 +35,8 @@ public class Player : MovingObject {
 	}
 
 	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+		print ("Eggboy ____________");
+		print (caseExacte.position.ToString ());
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
 		boxCollider.enabled = false;
@@ -43,6 +45,8 @@ public class Player : MovingObject {
 		if (hit.transform == null) {
 			animator.SetTrigger ("isRunning");
 			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
+			print (caseExacte.position.ToString ());
+			print ("____________");
 			StartCoroutine(SmoothMovement(end));
 			manager.playersTurn = false;
 			return true;

@@ -38,8 +38,8 @@ public abstract class MovingObject : MonoBehaviour {
 		if (hit.transform == null) {
 			return;
 		} else if (!canMove) {
-				OnCantMove (hit.transform.gameObject);
-			}
+			OnCantMove (hit.transform.gameObject);
+		}
 	}
 
 	protected virtual IEnumerator SmoothMovement(Vector3 end){
