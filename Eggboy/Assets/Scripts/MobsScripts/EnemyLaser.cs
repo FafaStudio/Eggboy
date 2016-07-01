@@ -29,22 +29,22 @@ public class EnemyLaser : EnemyDistance{
 		case Direction.horizontal:
 			if (xDirAttack == -1) {
 				for (int i = 1; i <= this.transform.position.x; i++) {
-					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x-i, this.transform.position.y, 1)));
+					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x-i, this.transform.position.y, 1)));
 				}
 			}else{
 				for (int i = 1; i <= 14-this.transform.position.x; i++) {
-					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x+i, this.transform.position.y, 1)));
+					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+i, this.transform.position.y, 1)));
 				}							
 			}
 			break;
 		case Direction.vertical:
 			if (yDirAttack == -1) {
 				for (int i = 1; i <= this.transform.position.y; i++) {
-					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x, this.transform.position.y-i, 1)));
+					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y-i, 1)));
 				}
 			}else{
 				for (int i = 1; i <= 7-this.transform.position.y; i++) {
-					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x, this.transform.position.y+i, 1)));
+					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+i, 1)));
 				}							
 			}
 			break;
@@ -53,7 +53,7 @@ public class EnemyLaser : EnemyDistance{
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 	}
 
-	public IEnumerator instantiateLaser(Vector3 position){
+	public override IEnumerator instantiateBullet(Vector3 position){
 		GameObject laser = Instantiate(bullet, position, Quaternion.identity) as GameObject;
 		laser.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
 		lasers.Add (laser);

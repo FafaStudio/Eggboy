@@ -20,11 +20,11 @@ public abstract class EnemyDistance : Enemy{
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
 		animator = null;
+		switchDirection ();
 	}
 
 	public override void MoveEnemy ()
 	{
-		print (cptTurnBetweenAttack);
 		if (LookForTarget ()) {
 			switchDirection ();
 		}
@@ -52,7 +52,7 @@ public abstract class EnemyDistance : Enemy{
 
 		if (diffX > 0) {
 			xDirAttack = 1;
-			rotation = -90;
+			rotation = 90;
 			dir = Direction.horizontal;
 		} else if (diffX != 0) {
 			xDirAttack = -1;
@@ -74,4 +74,5 @@ public abstract class EnemyDistance : Enemy{
 	}
 
 	public abstract void launchTir ();
+	public abstract IEnumerator instantiateBullet (Vector3 position);
 }
