@@ -16,12 +16,14 @@ public abstract class Trap : MonoBehaviour {
 	
 	}
 
+	//Coroutine pour déclencher les pièges pendant le tour des ennemis ( exemple : les spikes ) 
 	public abstract void doAction ();
 
 	public void setIsPlayer(bool value){
 		isPlayer = value;
 	}
 
+	//Coroutine pour déclencher les pièges pendant le tour du joueur ( exemple : les flèches ) 
     public abstract IEnumerator declencherPiege();
 
 

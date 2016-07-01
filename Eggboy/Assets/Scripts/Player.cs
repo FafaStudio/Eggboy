@@ -39,18 +39,14 @@ public class Player : MovingObject {
 	}
 
 	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
-		print ("Eggboy ____________");
-		print (caseExacte.position.ToString ());
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
 		boxCollider.enabled = false;
 		hit = Physics2D.Linecast (start, end, blockingLayer);
 		boxCollider.enabled = true;
-		if (hit.transform == null) {
+		if ((hit.transform == null)||(hit.transform.tag=="Bullet")) {
 			animator.SetTrigger ("isRunning");
 			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
-			print (caseExacte.position.ToString ());
-			print ("____________");
 			StartCoroutine(SmoothMovement(end));
            
             
@@ -82,19 +78,13 @@ public class Player : MovingObject {
 			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 			yield return null;
 		}
-
-        if (!isTrap)
-        {
+        if (!isTrap){
             manager.playersTurn = false;
             enabled = true;
-
         }
-        else
-        {
+        else{
             StartCoroutine(piege.declencherPiege());
-
         }
-        
     }
 
 	protected override void OnCantMove (GameObject col)

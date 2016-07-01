@@ -1,65 +1,72 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class EnemyLaser : Enemy{
+public class EnemyLaser : EnemyDistance{
 
-	public int maxTurnBetweenAttack = 3;
-	protected int cptTurnBetweenAttack;
-
-	protected int xDirAttack;
-	protected int yDirAttack;
-
-	public GameObject laser;
-	protected int rotation = 0;
+	public bool hasLaunchLaserLastTurn = false;
+	public List<GameObject> lasers;
 
 	protected override void Start ()
 	{
-		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
-		animator = null;
 	}
 
 	public override void MoveEnemy ()
 	{
-		if (LookForTarget ())
-			switchDirection ();
-		if (cptTurnBetweenAttack > 0) {
-			cptTurnBetweenAttack--;
-		} else {
-		}
+		/*if (hasLaunchLaserLastTurn) {
+			clearTir ();
+		}*/
+		base.MoveEnemy ();
 	}
 
-	protected bool LookForTarget(){
+	public override void launchTir ()
+	{
+		hasLaunchLaserLastTurn = true;
+		switch (dir)
+		{
 
-		bool sameX = (target.GetComponent<Player> ().caseExacte.position.x == this.transform.position.x);
-		bool sameY = (target.GetComponent<Player> ().caseExacte.position.y == this.transform.position.y);
-
-		if ((sameX)||(sameY))
-			return true;
-		else 
-			return false;
-	}
-
-	protected void switchDirection(){
-		int diffX = (int)(target.GetComponent<Player> ().caseExacte.position.x - this.transform.position.x);
-		int diffY = (int)(target.GetComponent<Player> ().caseExacte.position.y - this.transform.position.y);
-
-		if (diffX > 0) {
-			xDirAttack = 1;
-			rotation = -90;
-		} else if (diffX != 0) {
-			xDirAttack = -1;
-			rotation = 90;
-		} else
-			xDirAttack = 0;
+		case Direction.horizontal:
+			if (xDirAttack == -1) {
+				for (int i = 1; i <= this.transform.position.x; i++) {
+					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x-i, this.transform.position.y, 1)));
+				}
+			}else{
+				for (int i = 1; i <= 14-this.transform.position.x; i++) {
+					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x+i, this.transform.position.y, 1)));
+				}							
+			}
+			break;
+		case Direction.vertical:
+			if (yDirAttack == -1) {
+				for (int i = 1; i <= this.transform.position.y; i++) {
+					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x, this.transform.position.y-i, 1)));
+				}
+			}else{
+				for (int i = 1; i <= 7-this.transform.position.y; i++) {
+					StartCoroutine(instantiateLaser(new Vector3(this.transform.position.x, this.transform.position.y+i, 1)));
+				}							
+			}
+			break;
 		
-		if (diffY > 0) {
-			yDirAttack = 1;
-			rotation = 0;
-		} else if (diffY != 0) {
-			yDirAttack = -1;
-			rotation = 0;
-		} else
-			yDirAttack = 0;
+		}
+		cptTurnBetweenAttack = maxTurnBetweenAttack;
 	}
+
+	public IEnumerator instantiateLaser(Vector3 position){
+		GameObject laser = Instantiate(bullet, position, Quaternion.identity) as GameObject;
+		laser.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
+		lasers.Add (laser);
+		yield return new WaitForSeconds (0.3f);
+		Destroy (laser);
+	}
+
+	public void clearTir(){
+		for (int i = 0; i < lasers.Count; i++) {
+			Destroy (lasers [i].gameObject);
+		}
+		lasers.Clear ();
+		hasLaunchLaserLastTurn = false;
+	}
+
 }

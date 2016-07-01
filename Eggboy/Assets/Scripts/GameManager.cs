@@ -5,17 +5,17 @@ using System.Collections.Generic;       //Allows us to use Lists.
 	
 public class GameManager : MonoBehaviour
 {
-	public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
-	public float turnDelay = 1.5f;                          //Delay between each Player turn.
+	public float levelStartDelay = 2f;                      
+	public float turnDelay = 1.5f;                          
 	public int playerhpPoints = 6;                    
-	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-	[HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
+	public static GameManager instance = null;              
+	[HideInInspector] public bool playersTurn = true;       
 		
 		
-	private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
-	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-	public List<Enemy> enemies;                          //List of all Enemy units, used to issue them move commands.
-	private List<Trap> traps;
+	private BoardManager boardScript;                       
+	private int level = 1;                                
+	public List<Enemy> enemies;                         	//Liste de tous les ennemis
+	private List<Trap> traps;								//Liste de tous les pièges
 	private bool enemiesMoving;                             //Boolean to check if enemies are moving.
 	private bool trapActioning;
 	private List<int> levelPassed;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 		else if (instance != this)
 			Destroy(gameObject);    
 			
-		//Sets this to not be destroyed when reloading scene
+		//Permet de ne pas détruire GameManager en changeant de level
 		DontDestroyOnLoad(gameObject);
 			
 		enemies = new List<Enemy>();
@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 		//Permet de récupérer les niveaux déjà passé
 		levelPassed = new List<int> ();
 			
-		//Get a component reference to the attached BoardManager script
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 			
 		//Call the InitGame function to initialize the first level 
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
 	//This is called each time a scene is loaded.
 	void OnLevelWasLoaded(int index)
 	{
-		levelPassed.Add (Application.loadedLevel);
 		level++;
 		InitGame();
 	}
@@ -64,19 +62,20 @@ public class GameManager : MonoBehaviour
 	}
 
 	private int chooseNextLevel(){
-        if (PlayerPrefs.HasKey("LevelGameSeed"))
-        {
-            Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
-        }
+		if (PlayerPrefs.HasKey("LevelGameSeed"))
+		{
+			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
+		}
+		levelPassed.Add (SceneManager.GetActiveScene().buildIndex);
 		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
-        PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-        print(Random.seed);
-		//int nextLevel = 1;
-		/*for (int i = 0; i < levelPassed.Count; i++) {
-			if (levelPassed [i] == nextLevel) {
-				chooseNextLevel ();
-			} 
-		}*/
+		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
+		print(Random.seed);
+		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-1) {
+			return nextLevel;
+		}
+		while (levelPassed.Contains (nextLevel)) {
+			nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
+		}
 		return nextLevel;
 	}
 

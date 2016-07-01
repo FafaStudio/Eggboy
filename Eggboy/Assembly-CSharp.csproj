@@ -45,22 +45,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Arrow.cs" />
      <Compile Include="Assets\Scripts\BoardManager.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Blob.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Bullets\Laser.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\EnemyDistance.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\EnemyLaser.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Frog.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
      <Compile Include="Assets\Scripts\MovingObject.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\Spike.cs" />
-     <Compile Include="Assets\Scripts\Trap.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
      <Compile Include="Assets\Scripts\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
  <Reference Include="UnityEngine.UI">
