@@ -24,30 +24,6 @@ public class Arrow : Trap {
     public override void doAction()
     {
         return;
-
-        /*if (isActioning)
-        {
-            //anim.SetBool("isActioning", false);
-            isActioning = false;
-            if (isPlayer)
-            {
-                isEnclenched = true;
-            }
-        }
-
-        else if (isEnclenched)
-        {
-            //anim.SetBool("isActioning", true);
-            isActioning = true;
-            isEnclenched = false;
-            if (isPlayer)
-            {
-                print("AI");
-                isEnclenched = true;
-            }
-        }*/
-
-
     }
 
     void OnTriggerEnter2D(Collider2D col)// Appelé à chaque frame a partir du moment ou une collision est la

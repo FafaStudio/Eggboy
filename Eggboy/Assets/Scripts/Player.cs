@@ -49,7 +49,6 @@ public class Player : MovingObject {
 			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
 			StartCoroutine(SmoothMovement(end));
            
-            
             return true;
 		}
 		return false;
@@ -157,13 +156,27 @@ public class Player : MovingObject {
 			}
 		}
 		if (horizontal != 0 || vertical != 0) {
-			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-			AttemptMove(horizontal, vertical);
+			if (isTrap && piege.gameObject.name == "Marecage") {
+				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
+				piege = null;
+				isTrap = false;
+				manager.playersTurn = false;
+			} else {
+				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
+				AttemptMove (horizontal, vertical);
+			}
 		}
 		else if(Input.GetKeyDown(KeyCode.Space)){
-			//print (caseExacte.position.ToString ());
-			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-			manager.playersTurn = false;
+			if (isTrap && piege.gameObject.name == "Marecage") {
+				// pas de différence pour le moment mais il  y en aura quand il y aura l'animation
+				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
+				piege = null;
+				isTrap = false;
+				manager.playersTurn = false;
+			} else {
+				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
+				manager.playersTurn = false;
+			}
 		}
 	}
 
