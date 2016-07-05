@@ -48,7 +48,6 @@ public class Player : MovingObject {
 			animator.SetTrigger ("isRunning");
 			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
 			StartCoroutine(SmoothMovement(end));
-           
             return true;
 		}
 		return false;
@@ -148,10 +147,10 @@ public class Player : MovingObject {
 			vertical = 0;
 			switch (horizontal) {
 			case -1:
-				animator.SetBool ("isRight", false);
+				this.transform.localScale = new Vector2 (-1f, 1f);
 				break;
 			case 1:
-				animator.SetBool ("isRight", true);
+				this.transform.localScale = new Vector2 (1f, 1f);
 				break;
 			}
 		}

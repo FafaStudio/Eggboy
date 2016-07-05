@@ -3,8 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{7AD2C743-110C-F1E0-A8C1-4EC2972F4867}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -33,46 +34,46 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Marecage.cs" />
-    <Compile Include="Assets\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\Scripts\CameraManager.cs" />
-    <Compile Include="Assets\Scripts\GameInformations.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Loader.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Blob.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Bullets\Laser.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Bullets\Rocket.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\EnemyDistance.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\EnemyLaser.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\EnemyRocket.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Frog.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
-    <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
-    <Compile Include="Assets\Scripts\MovingObject.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
-    <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
-    <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
-    <Compile Include="Assets\Scripts\UIPlayer.cs" />
-    <Compile Include="Assets\Scripts\Wall.cs" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Marecage.cs" />
+     <Compile Include="Assets\Scripts\BoardManager.cs" />
+     <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\GameInformations.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Loader.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Blob.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Bullets\Laser.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Bullets\Rocket.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\EnemyDistance.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\EnemyLaser.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\EnemyRocket.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Frog.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
+     <Compile Include="Assets\Scripts\MovingObject.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
+     <Compile Include="Assets\Scripts\UIPlayer.cs" />
+     <Compile Include="Assets\Scripts\Wall.cs" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -82,4 +83,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
