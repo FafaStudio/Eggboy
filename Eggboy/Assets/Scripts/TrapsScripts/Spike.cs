@@ -16,15 +16,14 @@ public class Spike : Trap {
 		anim = GetComponent<Animator> ();
 	}
 
-	public override void doAction ()
-	{
+	public override void doAction (){
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
-			TurnCount = 2;
 			if (isPlayer) {
 				isEnclenched = true;
 			}
+			return;
 		}
 		if (TurnCount != 0) {
 			TurnCount--;
@@ -36,7 +35,7 @@ public class Spike : Trap {
 			if (isPlayer) {
 				print ("AI");
 				eggboy.loseHP ();
-				TurnCount = 1;
+				TurnCount = 0;
 				isEnclenched = true;
 			}
 		}
@@ -59,8 +58,7 @@ public class Spike : Trap {
 		}
 	}
 
-    public override IEnumerator declencherPiege()
-    {
+    public override IEnumerator declencherPiege(){
         yield return null;
     }
 

@@ -8,6 +8,7 @@ public class EnemyRocket : EnemyDistance {
 
 	protected override void Start ()
 	{
+		enemyName = "rocket";
 		base.Start ();
 	}
 
@@ -29,7 +30,7 @@ public class EnemyRocket : EnemyDistance {
 				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+xDirAttack, this.transform.position.y, 1)));
 				break;
 			case Direction.vertical:
-			StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+yDirAttack, 1)));
+				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+yDirAttack, 1)));
 				break;
 		}
 		cptTurnBetweenAttack = maxTurnBetweenAttack;

@@ -24,6 +24,8 @@ public class Player : MovingObject {
 
     [HideInInspector] public Trap piege;
 
+	private string actionDuTour = "nothing"; // move, wait, nothing
+
 	protected override void Start () {
 		animator = GetComponent<Animator> ();
 		manager = GameManager.instance;
@@ -154,26 +156,27 @@ public class Player : MovingObject {
 			}
 		}
 		if (horizontal != 0 || vertical != 0) {
-			if (isTrap && piege.gameObject.name == "Marecage") {
-				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-				piege = null;
-				isTrap = false;
-				manager.playersTurn = false;
-			} else {
-				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-				AttemptMove (horizontal, vertical);
-			}
+			actionDuTour = "move";
+		} else if (Input.GetKeyDown (KeyCode.Space)) {
+			actionDuTour = "wait";
+		} else {
+			actionDuTour = "nothing";
 		}
-		else if(Input.GetKeyDown(KeyCode.Space)){
+		
+		if(actionDuTour != "nothing"){
+			GameManager.instance.checkLaser ();
 			if (isTrap && piege.gameObject.name == "Marecage") {
-				// pas de différence pour le moment mais il  y en aura quand il y aura l'animation
 				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 				piege = null;
 				isTrap = false;
 				manager.playersTurn = false;
 			} else {
 				timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-				manager.playersTurn = false;
+				if (actionDuTour == "move") {
+					AttemptMove (horizontal, vertical);
+				} else if (actionDuTour == "wait") {
+					manager.playersTurn = false;
+				}
 			}
 		}
 	}

@@ -10,6 +10,7 @@ public class Frog : Enemy {
 	protected bool isMoving = false;
 
 	protected override void Start(){
+		enemyName = "frog";
 		base.Start ();
 		animator = null;
 	}

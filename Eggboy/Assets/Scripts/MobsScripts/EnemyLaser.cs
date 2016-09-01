@@ -9,6 +9,7 @@ public class EnemyLaser : EnemyDistance{
 
 	protected override void Start ()
 	{
+		enemyName = "laser";
 		base.Start ();
 	}
 
@@ -57,8 +58,9 @@ public class EnemyLaser : EnemyDistance{
 		GameObject laser = Instantiate(bullet, position, Quaternion.identity) as GameObject;
 		laser.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
 		lasers.Add (laser);
-		yield return new WaitForSeconds (0.3f);
-		Destroy (laser);
+		yield return null;
+		//yield return new WaitForSeconds(0.1f);
+		//Destroy (laser);
 	}
 
 	public void clearTir(){

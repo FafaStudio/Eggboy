@@ -14,7 +14,6 @@ public class Wall : MonoBehaviour {
 			board.setNodeOnGrid ((int)this.transform.position.x+1, (int)this.transform.position.y+1, -1);
 			board.setNodeOnGrid ((int)this.transform.position.x+1, (int)this.transform.position.y+2, -1);
 			board.setNodeOnGrid ((int)this.transform.position.x, (int)this.transform.position.y+2, -1);
-
 		}
 	}
 }

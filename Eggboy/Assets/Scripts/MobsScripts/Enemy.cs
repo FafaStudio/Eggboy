@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Enemy : MovingObject {
 
+	public string enemyName = ""; // necro, laser, frog, blob, rocket, basic
 
 	public int playerDamage;                            //The amount of food points to subtract from the player when attacking.
 	
@@ -84,7 +85,6 @@ public class Enemy : MovingObject {
 			xDir = (int)(nextPosition.x - this.transform.position.x);
 			yDir = (int)(nextPosition.y - this.transform.position.y);
 		}
-		
 		AttemptMove (xDir, yDir);
 	}
 

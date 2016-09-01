@@ -7,6 +7,7 @@ public class Zombi : Enemy {
 
 	protected override void Start ()
 	{
+		enemyName = "basic";
 		skipMove = true;
 		base.Start ();
 	}

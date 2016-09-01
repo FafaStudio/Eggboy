@@ -15,6 +15,7 @@ public class Necromancer : Enemy {
 
 	protected override void Start ()
 	{
+		enemyName = "necro";
 		spawned = new List<GameObject> ();
 		animator = null;
 		base.Start ();

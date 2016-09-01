@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
 	private List<int> levelPassed;
 	public int totalTurns = 0;
 		
-	void Awake()
-	{
+	void Awake(){
 		if (instance == null)
 			instance = this;
 		else if (instance != this)
@@ -159,4 +158,13 @@ public class GameManager : MonoBehaviour
 	public BoardManager getCurrentBoard(){
 		return this.boardScript;
 	}
+
+	public void checkLaser(){
+		for (int i = 0; i < enemies.Count; i++) {
+			if (enemies [i].enemyName == "laser") {
+				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
+			}
+		}
+	}
+
 }
