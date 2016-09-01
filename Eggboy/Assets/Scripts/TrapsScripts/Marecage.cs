@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Marecage : Trap {
 
@@ -12,10 +13,14 @@ public class Marecage : Trap {
 
 	void OnTriggerEnter2D(Collider2D col)// Appelé à chaque frame a partir du moment ou une collision est la
 	{
-		if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
+        if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
 		{
 			isEnclenched = true;
 			eggboy = col.gameObject.GetComponent<Player>();
+/*            if (!eggboy.enabled)
+            {
+                eggboy.enabled = true;
+            }*/ 
 			eggboy.setIsTrap(true);
 			eggboy.piege = this;
 		}
@@ -32,8 +37,19 @@ public class Marecage : Trap {
 		}
 	}
 
-	public override IEnumerator declencherPiege()
+	public override void declencherPiege()
 	{
-		yield return null;
+        eggboy.setIsUnderTrapEffect(false);
+        eggboy.setIsUnderTrapNewTurnEffect(true);
+        //yield return null;
 	}
+
+    public override void declencherPiegeNewTurn()
+    {
+        eggboy.setIsTrap(false);
+        eggboy.piege = null;
+        eggboy.passTurn();
+        eggboy.setIsUnderTrapNewTurnEffect(false);
+    }
+
 }

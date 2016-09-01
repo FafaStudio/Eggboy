@@ -23,9 +23,10 @@ public abstract class Trap : MonoBehaviour {
 		isPlayer = value;
 	}
 
-	//Coroutine pour déclencher les pièges pendant le tour du joueur ( exemple : les flèches ) 
-    public abstract IEnumerator declencherPiege();
-
+    //Coroutine pour déclencher les pièges pendant le tour du joueur ( exemple : les flèches ) 
+    //public abstract IEnumerator declencherPiege();
+    public abstract void declencherPiege();
+    public abstract void declencherPiegeNewTurn();
 
 
 }

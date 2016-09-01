@@ -46,9 +46,8 @@ public class Arrow : Trap {
         }
     }
 		
-    public override IEnumerator declencherPiege()
+    public override void declencherPiege()
     {
-        eggboy.enabled = false;
         switch (dir)
         {
             case Direction.Nord: 
@@ -64,7 +63,8 @@ public class Arrow : Trap {
                 eggboy.doMove(-1, 0);
                 break;
         }
-        yield return null;
+        //eggboy.setIsUnderTrapEffect(false);
+        //yield return null;
     }
 
     public void setSprite()
@@ -85,5 +85,8 @@ public class Arrow : Trap {
                 this.GetComponent<SpriteRenderer>().sprite = sprites[3];
                 break;
         }
+    }
+    public override void declencherPiegeNewTurn()
+    {
     }
 }
