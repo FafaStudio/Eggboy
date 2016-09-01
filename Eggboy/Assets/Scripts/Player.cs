@@ -67,8 +67,7 @@ public class Player : MovingObject {
 			return false;
 	}
 
-	protected override IEnumerator SmoothMovement (Vector3 end)
-	{
+	protected override IEnumerator SmoothMovement (Vector3 end) {
 		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 		while (sqrRemainingDistance > float.Epsilon) {
 			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
@@ -85,8 +84,7 @@ public class Player : MovingObject {
         }
     }
 
-	protected override void OnCantMove (GameObject col)
-	{
+	protected override void OnCantMove (GameObject col){
 		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
 		if (col.gameObject.tag == "Wall") {
 			animator.SetTrigger ("Blase");
@@ -122,9 +120,10 @@ public class Player : MovingObject {
 	}
 
 	void Update () {
-		if (!manager.playersTurn)
-		//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
+		if (!manager.playersTurn) {
+			//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
 			return;
+		}
 
 		//permet de tempo le jeu notamment pour l'activation des pièges
 		if (timeBetweenTurn > 0f) {
@@ -179,21 +178,17 @@ public class Player : MovingObject {
 		}
 	}
 
-    public void doMove(int xDir, int yDir)
-    {
+    public void doMove(int xDir, int yDir){
         AttemptMove(xDir, yDir);
-
     }
      
     public bool getisTrap()
     {
-
         return this.isTrap;
     }
 
     public void setIsTrap(bool b)
     {
-
         this.isTrap = b;
     }
 }

@@ -14,11 +14,9 @@ public class Arrow : Trap {
     private GameManager manager;
     // Use this for initialization
     void Start () {
-
         base.Start();
         manager = GameManager.instance;
         setSprite();
-
     }
 
     public override void doAction()
@@ -28,8 +26,9 @@ public class Arrow : Trap {
 
     void OnTriggerEnter2D(Collider2D col)// Appelé à chaque frame a partir du moment ou une collision est la
     {
-        if (col.gameObject.tag == "Player") // N'agit que si le joueur a finit son tour
+		if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
+			isEnclenched = true;
             eggboy = col.gameObject.GetComponent<Player>();
             eggboy.setIsTrap(true);
             eggboy.piege = this;
@@ -39,27 +38,21 @@ public class Arrow : Trap {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        
         if (col.gameObject.tag == "Player")
         {
+			isEnclenched = false;
             eggboy.setIsTrap(false);
             eggboy.piege = null;
         }
     }
-
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
-
+		
     public override IEnumerator declencherPiege()
     {
         eggboy.enabled = false;
         switch (dir)
         {
-
-            case Direction.Nord: eggboy.doMove(0, 1);
+            case Direction.Nord: 
+				eggboy.doMove(0, 1);
                 break;
             case Direction.Est:
                 eggboy.doMove(1, 0);
@@ -70,11 +63,7 @@ public class Arrow : Trap {
             case Direction.Ouest:
                 eggboy.doMove(-1, 0);
                 break;
-
         }
-            
-            
-            
         yield return null;
     }
 
@@ -95,9 +84,6 @@ public class Arrow : Trap {
             case Direction.Ouest:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[3];
                 break;
-
         }
-
-
     }
 }

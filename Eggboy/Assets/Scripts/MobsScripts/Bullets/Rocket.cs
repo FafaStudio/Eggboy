@@ -1,14 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rocket : Enemy {
+public class Rocket : MovingObject {
 
 
 	protected Vector2 velocity;
+	public int playerDamage;                            //The amount of food points to subtract from the player when attacking.
+
+	protected Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
+	protected Transform target;                           //Transform to attempt to move toward each turn.
+	public bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
+	protected bool isDead = false;
+	public BoardManager.Node caseExacte;
+
+	private EnemyRocket enemyLauncher;
 
 	protected override void Start ()
 	{
-		skipMove = true;
+		skipMove = false;
+		animator = GetComponent<Animator> ();
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
 		base.Start ();
 	}
 
@@ -24,7 +35,7 @@ public class Rocket : Enemy {
 		}
 	}
 
-	public override void MoveEnemy ()
+	public void MoveBullet ()
 	{
 		if (skipMove) {
 			skipMove = false;
@@ -44,5 +55,17 @@ public class Rocket : Enemy {
 			col.gameObject.GetComponent<Player> ().loseHP ();
 			Die ();
 		}
+	}
+
+	public virtual void Die(){
+		isDead = true;
+		enabled = false;
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+		enemyLauncher.roquettestirés.Remove (this);
+		Destroy (this.gameObject);
+	}
+
+	public void setTireur(EnemyRocket enemy){
+		enemyLauncher = enemy;
 	}
 }

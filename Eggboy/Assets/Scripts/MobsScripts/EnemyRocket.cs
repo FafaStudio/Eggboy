@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyRocket : EnemyDistance {
+
+	public List<Rocket> roquettestirés;
 
 	protected override void Start ()
 	{
@@ -13,6 +16,9 @@ public class EnemyRocket : EnemyDistance {
 		/*if (hasLaunchLaserLastTurn) {
 			clearTir ();
 		}*/
+		for (int i = 0; i < roquettestirés.Count; i++) {
+			roquettestirés [i].MoveBullet ();
+		}
 		base.MoveEnemy ();
 	}
 
@@ -33,6 +39,9 @@ public class EnemyRocket : EnemyDistance {
 		GameObject missile = Instantiate(bullet, position, Quaternion.identity) as GameObject;
 		missile.GetComponent<Rocket> ().setVelocity (new Vector2 (xDirAttack, yDirAttack));
 		missile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
+		missile.GetComponent<Rocket> ().setTireur (this);
+		roquettestirés.Add (missile.GetComponent<Rocket>());
+
 		yield return null;
 	}
 }

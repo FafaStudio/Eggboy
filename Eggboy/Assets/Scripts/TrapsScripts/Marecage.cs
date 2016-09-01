@@ -12,8 +12,9 @@ public class Marecage : Trap {
 
 	void OnTriggerEnter2D(Collider2D col)// Appelé à chaque frame a partir du moment ou une collision est la
 	{
-		if (col.gameObject.tag == "Player") // N'agit que si le joueur a finit son tour
+		if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
 		{
+			isEnclenched = true;
 			eggboy = col.gameObject.GetComponent<Player>();
 			eggboy.setIsTrap(true);
 			eggboy.piege = this;
@@ -23,9 +24,9 @@ public class Marecage : Trap {
 
 	void OnTriggerExit2D(Collider2D col)
 	{
-
 		if (col.gameObject.tag == "Player")
 		{
+			isEnclenched = false;
 			eggboy.setIsTrap(false);
 			eggboy.piege = null;
 		}
