@@ -75,8 +75,9 @@ public class GameManager : MonoBehaviour
 		}
 		while (levelPassed.Contains (nextLevel)) {
 			nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
-		}
-		return nextLevel;
+            PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
+        }
+        return nextLevel;
 	}
 
 	void launchNextLevel(int levelIndex){

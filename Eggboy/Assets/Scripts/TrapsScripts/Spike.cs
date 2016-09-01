@@ -59,10 +59,12 @@ public class Spike : Trap {
 		}
 	}
 
-    public override IEnumerator declencherPiege()
+    public override void declencherPiege()
     {
-        yield return null;
+        //yield return null;
     }
-
+    public override void declencherPiegeNewTurn()
+    {
+    }
 
 }
