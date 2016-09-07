@@ -41,9 +41,8 @@ public class Spike : Trap {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col){
+	public override void TriggerEnter(MovingObject col){
 		if (col.gameObject.tag == "Player") {
-			print ("bisous1");
 			isPlayer = true;
 			if (isEnclenched)
 				return;
@@ -55,7 +54,6 @@ public class Spike : Trap {
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			print ("bisous2");
 			isPlayer = false;
 		}
 	}

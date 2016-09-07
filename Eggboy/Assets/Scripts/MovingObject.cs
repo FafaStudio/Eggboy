@@ -9,6 +9,7 @@ public abstract class MovingObject : MonoBehaviour {
 	protected BoxCollider2D boxCollider;
 	protected Rigidbody2D rb2D;
 	protected float inverseMoveTime;
+	public BoardManager.Node caseExacte;
 
 	protected virtual void Start () {
 	// protected virtual permet "l'override" par les classes qui héritent, pour pouvoir y modifier le start

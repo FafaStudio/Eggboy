@@ -12,6 +12,7 @@ public class Arrow : Trap {
     public Sprite[] sprites;
 
     private GameManager manager;
+
     // Use this for initialization
     void Start () {
         base.Start();
@@ -24,8 +25,7 @@ public class Arrow : Trap {
         return;
     }
 
-    void OnTriggerEnter2D(Collider2D col)// Appelé à chaque frame a partir du moment ou une collision est la
-    {
+	public override void TriggerEnter(MovingObject col){
 		if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
 			isEnclenched = true;
@@ -71,7 +71,6 @@ public class Arrow : Trap {
     {
         switch (dir)
         {
-
             case Direction.Nord:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                 break;

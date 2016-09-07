@@ -20,6 +20,7 @@ public class BoardManager : MonoBehaviour {
 		public Node parent;
 		public int distanceParcourue;
 		public int distanceVO;
+		public Trap casePiege = null;
 
 		public Node(int x, Vector2 p){
 			this.valeur = x;
@@ -33,6 +34,10 @@ public class BoardManager : MonoBehaviour {
 
 		public void setValeur(int value){
 			this.valeur = value;
+		}
+
+		public void setPiege(Trap value){
+			this.casePiege = value;
 		}
 
 		public String toString(){
@@ -97,6 +102,21 @@ public class BoardManager : MonoBehaviour {
 
 	public void setNodeOnGrid(int x, int y , int value){
 		gridPositions [x, y].setValeur(value);
+		gridPositions [x, y].setPiege (null);
+	}
+
+	public void setNodeOnGrid(int x, int y , int value, Trap piege){
+		gridPositions [x, y].setValeur(value);
+		gridPositions [x, y].setPiege (piege);
+	}
+
+	public void testCasePiege(MovingObject persoToTest){
+		if (gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege != null) {
+			gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege.TriggerEnter (persoToTest);
+		} else {
+			return;
+		}
+		
 	}
 
 	void boardSetup(){

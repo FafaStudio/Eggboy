@@ -17,8 +17,6 @@ public class Player : MovingObject
 
 	private CameraManager camera;
 
-	public BoardManager.Node caseExacte;
-
 	private bool isTrap = false;
 
 	private bool underTrapEffect = false;//effet de piege immédiat
@@ -88,6 +86,7 @@ public class Player : MovingObject
 			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 			yield return null;
 		}
+		manager.getCurrentBoard ().testCasePiege (this);
 		if (!isTrap)
 		{
 			manager.playersTurn = false;
@@ -131,16 +130,6 @@ public class Player : MovingObject
 	public int getHp()
 	{
 		return hp;
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.tag == "Exit")
-		{
-			//Invoke permet de mettre un delay avant de charger une fonction, ici Restart()
-			Invoke("Restart", restartLevelDelay);
-			enabled = false;
-		}
 	}
 
 	void Update()
