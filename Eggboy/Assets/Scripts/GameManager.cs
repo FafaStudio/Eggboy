@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 		return this.boardScript;
 	}
 
-	public void checkLaser(){
+	public void checkInstanceToDestroy(){
 		for (int i = 0; i < enemies.Count; i++) {
 			if (enemies [i].enemyName == "laser") {
 				enemies [i].GetComponent<EnemyLaser> ().clearTir ();

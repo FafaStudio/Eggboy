@@ -145,12 +145,8 @@ public class Player : MovingObject
 
 	void Update()
 	{
-		if (underTrapEffect)
-		{
-			return;
-		}
 
-		if (!manager.playersTurn)
+		if ((!manager.playersTurn)||(underTrapEffect))
 		{
 			//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
 			return;
@@ -201,6 +197,7 @@ public class Player : MovingObject
 
 		if (actionDuTour != "nothing")
 		{
+			GameManager.instance.checkInstanceToDestroy ();
 			if (underTrapNewTurnEffect)
 			{
 				if (manager.playersTurn)
@@ -209,18 +206,6 @@ public class Player : MovingObject
 				}
 				return;
 			}
-			/*
-            if (isTrap && piege.gameObject.name == "Marecage")
-            {
-
-                timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
-                piege = null;
-                isTrap = false;
-                manager.playersTurn = false;
-            }
-            else
-            {
-                */
 			timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 			if (actionDuTour == "move")
 			{
@@ -230,7 +215,6 @@ public class Player : MovingObject
 			{
 				manager.playersTurn = false;
 			}
-			//}
 		}
 	}
 
