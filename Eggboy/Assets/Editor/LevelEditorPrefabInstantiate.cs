@@ -78,8 +78,18 @@ public class LevelEditorPrefabInstantiate : Editor
 
     static void HandleLevelEditorPlacement()
     {
-        if( LevelEditorToolsMenu.SelectedTool == 0 )
+        if( LevelEditorToolsMenu.SelectedTool == 0)
         {
+            return;
+        }
+
+        if (LevelEditorToolsMenu.SelectedTool == 3)
+        {
+            if (Event.current.type == EventType.keyDown &&
+                Event.current.keyCode == KeyCode.Escape)
+            {
+                LevelEditorToolsMenu.SelectedTool = 0;
+            }
             return;
         }
 
@@ -101,7 +111,7 @@ public class LevelEditorPrefabInstantiate : Editor
                 RemoveBlock(LevelEditorCaseHandle.CurrentHandlePosition);
             }
         }
-        if ( Event.current.type == EventType.mouseDown &&
+        if ( (Event.current.type == EventType.mouseDown || Event.current.type == EventType.mouseDrag) &&
             Event.current.button == 0 &&
             Event.current.alt == false &&
             Event.current.shift == false &&
@@ -137,6 +147,10 @@ public class LevelEditorPrefabInstantiate : Editor
     //Draw a list of our custom blocks on the left side of the SceneView
     static void DrawCustomBlockButtons( SceneView sceneView )
     {
+        if (LevelEditorToolsMenu.SelectedTool == 0)
+        {
+            return;
+        }
         Handles.BeginGUI();
         GUI.Box( new Rect( 0, 0, 120, sceneView.position.height - 35 ), GUIContent.none, EditorStyles.textArea );
         DrawCustomCategorieButton();

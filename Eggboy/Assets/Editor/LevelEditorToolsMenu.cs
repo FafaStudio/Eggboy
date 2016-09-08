@@ -23,12 +23,11 @@ public class LevelEditorToolsMenu : Editor
             }
 
             EditorPrefs.SetInt( "SelectedEditorTool", value );
-
-            switch( value )
+            Tools.lockedLayers &= ~(1 << LayerMask.NameToLayer("UI"));
+            switch ( value )
             {
             case 0:
                 EditorPrefs.SetBool( "IsLevelEditorEnabled", false );
-
                 Tools.hidden = false;
                 break;
             case 1:
@@ -40,6 +39,11 @@ public class LevelEditorToolsMenu : Editor
 
                 //Hide Unitys Tool handles (like the move tool) while we draw our own stuff
                 Tools.hidden = true;
+                break;
+            case 3:
+                EditorPrefs.SetBool( "IsLevelEditorEnabled", false );
+                Tools.hidden = false;
+                Tools.lockedLayers |= 1 << LayerMask.NameToLayer("UI");//PERMET DE DESACTIVER L'UI PENDANT L'EDIT
                 break;
             default:
                 EditorPrefs.SetBool( "IsLevelEditorEnabled", true );
@@ -115,12 +119,12 @@ public class LevelEditorToolsMenu : Editor
         //Here we draw a toolbar at the bottom edge of the SceneView
         GUILayout.BeginArea( new Rect( 0, position.height - 35, position.width, 20 ), EditorStyles.toolbar );
         {
-            string[] buttonLabels = new string[] { "None", "Erase", "Paint" };
+            string[] buttonLabels = new string[] { "None", "Erase", "Paint", "Edit" };
 
             SelectedTool = GUILayout.SelectionGrid(
                 SelectedTool, 
                 buttonLabels, 
-                3,
+                4,
                 EditorStyles.toolbarButton,
                 GUILayout.Width( 300 ) );
         }
