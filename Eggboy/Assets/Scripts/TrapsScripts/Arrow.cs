@@ -88,4 +88,32 @@ public class Arrow : Trap {
     public override void declencherPiegeNewTurn()
     {
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        switch (dir)
+        {
+            case Direction.Nord:
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(1, 1, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(0.97f, 0.97f, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(0.93f, 0.93f, 1));
+                break;
+            case Direction.Est:
+                Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(1, 1, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(0.97f, 0.97f, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(0.93f, 0.93f, 1));
+                break;
+            case Direction.Sud:
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(1, 1, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(0.97f, 0.97f, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(0.93f, 0.93f, 1));
+                break;
+            case Direction.Ouest:
+                Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(1, 1, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(0.97f, 0.97f, 1));
+                Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(0.93f, 0.93f, 1));
+                break;
+        }
+    }
 }

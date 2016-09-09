@@ -66,5 +66,11 @@ public class Spike : Trap {
     public override void declencherPiegeNewTurn()
     {
     }
-
+    void OnDrawGizmos()
+    {     
+        if (isEnclenched)//affiche le nombre de tours restant avant activation
+        {
+            Gizmos.DrawIcon(transform.position, "Numbers_"+(TurnCount+1)+".jpg", true);
+        }
+    }
 }
