@@ -19,7 +19,7 @@ public class Trigger : Trap {
         {
             isEnclenched = true;
             eggboy = col.gameObject.GetComponent<Player>();
-            cible.doAction();
+            cible.declencherPiege();
         }
         /*
         if ((col.gameObject.tag == "Player") && (!isEnclenched)) // N'agit que si le joueur a finit son tour

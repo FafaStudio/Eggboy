@@ -79,6 +79,8 @@
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
+    <Compile Include="Assets\Scripts\TrapsScripts\Bomb.cs" />
+    <Compile Include="Assets\Scripts\TrapsScripts\FlameThrower.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Marecage.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
