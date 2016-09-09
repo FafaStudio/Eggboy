@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 	private bool trapActioning;
 	private List<int> levelPassed;
 	public int totalTurns = 0;
+
+    public Replay replay;
 		
 	void Awake(){
 		if (instance == null)
@@ -37,7 +39,9 @@ public class GameManager : MonoBehaviour
 		levelPassed = new List<int> ();
 			
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
-			
+
+        replay = gameObject.GetComponent<Replay>();
+
 		//Call the InitGame function to initialize the first level 
 		InitGame();
 		if (SceneManager.GetActiveScene ().buildIndex == 0) {

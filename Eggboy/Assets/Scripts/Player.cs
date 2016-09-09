@@ -134,7 +134,6 @@ public class Player : MovingObject
 
 	void Update()
 	{
-
 		if ((!manager.playersTurn)||(underTrapEffect))
 		{
 			//permet de ne pas se préoccuper de update si ce n'est pas le tour du joueur
@@ -155,34 +154,81 @@ public class Player : MovingObject
 
 		int horizontal = 0;
 		int vertical = 0;
+        if (manager.replay.debugMod)
+        {
+            if (manager.replay.actionsParTours.Count == manager.totalTurns){
+                return;
+            }
+            switch (manager.replay.actionsParTours[manager.totalTurns])
+            {
+                case 0:
+                    actionDuTour = "wait";
+                    break;
+                case 1:
+                    horizontal = -1;
+                    this.transform.localScale = new Vector2(-1f, 1f);
+                    actionDuTour = "move";
+                    break;
+                case 2:
+                    horizontal = 1;
+                    this.transform.localScale = new Vector2(1f, 1f);
+                    actionDuTour = "move";
+                    break;
+                case 3:
+                    vertical = -1;
+                    actionDuTour = "move";
+                    break;
+                case 4:
+                    vertical = 1;
+                    actionDuTour = "move";
+                    break;
+                default:
+                    actionDuTour = "nothing";
+                    break;
+            }
+        }
+        else
+        {
+            horizontal = (int)Input.GetAxisRaw("Horizontal");
+            vertical = (int)Input.GetAxisRaw("Vertical");
 
-		horizontal = (int)Input.GetAxisRaw("Horizontal");
-		vertical = (int)Input.GetAxisRaw("Vertical");
+            if (horizontal != 0)
+            {
+                // pour empecher le mouvement en diagonale
+                vertical = 0;
+                switch (horizontal)
+                {
+                    case -1:
+                        this.transform.localScale = new Vector2(-1f, 1f);
+                        manager.replay.addAction(1);
+                        break;
+                    case 1:
+                        this.transform.localScale = new Vector2(1f, 1f);
+                        manager.replay.addAction(2);
+                        break;
+                }
+            }
+            if (horizontal != 0 || vertical != 0)
+            {
+                if(vertical == -1)
+                {
+                    manager.replay.addAction(3);
+                }
+                else if (vertical == 1)
+                {
+                    manager.replay.addAction(4);
+                }
+                actionDuTour = "move";
+            }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                manager.replay.addAction(0);
+                actionDuTour = "wait";
+            }
+            else
+                actionDuTour = "nothing";
+        }
 
-		if (horizontal != 0)
-		{
-			// pour empecher le mouvement en diagonale
-			vertical = 0;
-			switch (horizontal)
-			{
-			case -1:
-				this.transform.localScale = new Vector2(-1f, 1f);
-				break;
-			case 1:
-				this.transform.localScale = new Vector2(1f, 1f);
-				break;
-			}
-		}
-		if (horizontal != 0 || vertical != 0)
-		{
-			actionDuTour = "move";
-		}
-		else if (Input.GetKeyDown(KeyCode.Space))
-		{
-			actionDuTour = "wait";
-		}
-		else
-			actionDuTour = "nothing";
 
 		if (actionDuTour != "nothing")
 		{

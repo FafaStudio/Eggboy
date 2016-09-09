@@ -31,7 +31,7 @@ public class Trigger : Trap {
         }*/
     }
 
-
+    
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player")

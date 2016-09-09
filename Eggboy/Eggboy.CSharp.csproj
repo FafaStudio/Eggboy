@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Replay.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\Bomb.cs" />
     <Compile Include="Assets\Scripts\TrapsScripts\FlameThrower.cs" />
