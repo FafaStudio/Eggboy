@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 	
@@ -22,6 +23,10 @@ public class GameManager : MonoBehaviour
 	public int totalTurns = 0;
 
     public Replay replay;
+
+	//Test de levels Editor
+	public bool testingLevel;
+	public int levelTest;
 		
 	void Awake(){
 		if (instance == null)
@@ -42,16 +47,23 @@ public class GameManager : MonoBehaviour
 
         replay = gameObject.GetComponent<Replay>();
 
-		//Call the InitGame function to initialize the first level 
+		//Initialisation du premier level
+
 		InitGame();
+
 		if (SceneManager.GetActiveScene ().buildIndex == 0) {
 			level--;
 			levelPassed.Clear ();
-			launchNextLevel (1);
+			if (testingLevel) {
+				testingLevel = false;
+				launchNextLevel (levelTest);
+			} else {
+				launchNextLevel (1);
+			}
 		}
 	}
 		
-	//This is called each time a scene is loaded.
+	//Appeler a chaque changement de level
 	void OnLevelWasLoaded(int index)
 	{
 		level++;

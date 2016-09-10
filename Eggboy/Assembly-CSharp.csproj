@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoardManager.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\CustomInspector\ReplayInspector.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
@@ -62,12 +63,32 @@
      <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
      <Compile Include="Assets\Scripts\MovingObject.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Replay.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Bomb.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\FlameThrower.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Marecage.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
      <Compile Include="Assets\Scripts\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <None Include="Assets\DebugData\2016-09-10--06-53-37--2057961596.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-23-30--1539014792.txt" />
+     <None Include="Assets\DebugData\2016-09-10--12-57-43--1062583875.txt" />
+     <None Include="Assets\DebugData\2016-09-10--06-44-22--1676855009.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-18-14--1577484842.txt" />
+     <None Include="Assets\DebugData\2016-09-10--12-51-56--1066503749.txt" />
+     <None Include="Assets\DebugData\2016-09-10--12-50-43--1194560093.txt" />
+     <None Include="Assets\DebugData\2016-09-10--06-53-15--1910147131.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-18-53--2042583374.txt" />
+     <None Include="Assets\DebugData\2016-09-10--12-59-02--1585604432.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-17-36--1638876908.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-28-00--1137919084.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-22-58--1193756257.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-26-45--1747919870.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-27-12--1540726811.txt" />
+     <None Include="Assets\DebugData\2016-09-10--13-21-10--1582181379.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
