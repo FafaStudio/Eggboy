@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\CustomInspector\ReplayInspector.cs" />
     <Compile Include="Assets\Scripts\GameInformations.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
@@ -88,6 +89,11 @@
     <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\UIPlayer.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\DebugData\2016-09-10--06-44-22--1676855009.txt" />
+    <None Include="Assets\DebugData\2016-09-10--06-53-15--1910147131.txt" />
+    <None Include="Assets\DebugData\2016-09-10--06-53-37--2057961596.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 			nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
             PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
         }
+        totalTurns++;
         return nextLevel;
 	}
 

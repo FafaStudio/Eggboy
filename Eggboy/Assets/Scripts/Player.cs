@@ -237,6 +237,7 @@ public class Player : MovingObject
 			{
 				if (manager.playersTurn)
 				{
+                    manager.replay.changeAction(0, manager.totalTurns);
 					piege.declencherPiegeNewTurn();
 				}
 				return;

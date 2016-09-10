@@ -5,8 +5,10 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class Replay : MonoBehaviour {
-    public bool debugMod = false;
+    [HideInInspector]//si je le met private ça marche pas je sais pas pk mais bon x) du coup public mais caché
     public string specifiedFileName;
+    [HideInInspector]
+    public int gameSeed;
     public List<int> actionsParTours;
     [SerializeField]
     public List<int> actionsParToursActualGame;
@@ -16,13 +18,15 @@ public class Replay : MonoBehaviour {
      *  3 = Bottom
      *  4 = Top
      */
-     
+    public bool debugMod = false;
+
 
     void Awake()
     {
         if (debugMod)
         {
             read();
+            gameObject.GetComponent<GameInformations>().gameSeed = gameSeed;
         }
         actionsParToursActualGame = new List<int>();
     }
@@ -33,12 +37,25 @@ public class Replay : MonoBehaviour {
             actionsParToursActualGame.Add(actionId);
         }
     }
+
+    public void changeAction(int actionId, int actionTurn)
+    {
+        if(actionsParToursActualGame.Count < actionTurn)
+        {
+            actionsParToursActualGame.Add(actionId);
+        }
+        else
+        {
+            actionsParToursActualGame[actionTurn] = actionId;
+        }
+    }
     public void save()
     {
         if (!debugMod)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = File.Create(Application.dataPath + "/DebugData/" + System.Guid.NewGuid().ToString() + ".txt");
+            FileStream fs = File.Create(Application.dataPath + "/DebugData/" + System.DateTime.Now.ToString("yyyy-MM-dd--HH-mm-ss--") + gameObject.GetComponent<GameInformations>().gameSeed +".txt");
+            //FileStream fs = File.Create(Application.dataPath + "/DebugData/" + System.Guid.NewGuid().ToString() + ".txt");
             bf.Serialize(fs, actionsParToursActualGame);
             fs.Close();
         }
@@ -54,5 +71,10 @@ public class Replay : MonoBehaviour {
     void OnApplicationQuit()
     {
         save();
+    }
+
+    public void setSpecifiedFileName(string name)
+    {
+        this.specifiedFileName = name;
     }
 }
