@@ -61,6 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
+    <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />
+    <Compile Include="Assets\ScoreLib\Achiever.cs" />
+    <Compile Include="Assets\ScoreLib\AchieverWindow.cs" />
+    <Compile Include="Assets\ScoreLib\Scorer.cs" />
+    <Compile Include="Assets\ScoreLib\ScorerWindow.cs" />
+    <Compile Include="Assets\ScoreLib\ScoresScriptableObject.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\CustomInspector\ReplayInspector.cs" />
@@ -94,6 +101,55 @@
     <None Include="Assets\DebugData\2016-09-10--06-44-22--1676855009.txt" />
     <None Include="Assets\DebugData\2016-09-10--06-53-15--1910147131.txt" />
     <None Include="Assets\DebugData\2016-09-10--06-53-37--2057961596.txt" />
+    <None Include="Assets\DebugData\2016-09-10--12-50-43--1194560093.txt" />
+    <None Include="Assets\DebugData\2016-09-10--12-51-56--1066503749.txt" />
+    <None Include="Assets\DebugData\2016-09-10--12-57-43--1062583875.txt" />
+    <None Include="Assets\DebugData\2016-09-10--12-59-02--1585604432.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-17-36--1638876908.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-18-14--1577484842.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-18-53--2042583374.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-21-10--1582181379.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-22-58--1193756257.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-23-30--1539014792.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-26-45--1747919870.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-27-12--1540726811.txt" />
+    <None Include="Assets\DebugData\2016-09-10--13-28-00--1137919084.txt" />
+    <None Include="Assets\DebugData\2016-09-11--11-23-04--2114539675.txt" />
+    <None Include="Assets\DebugData\2016-09-11--11-25-03--1024315852.txt" />
+    <None Include="Assets\DebugData\2016-09-11--11-25-06--1813211238.txt" />
+    <None Include="Assets\DebugData\2016-09-11--11-26-03--2054612637.txt" />
+    <None Include="Assets\DebugData\2016-09-12--06-26-56--1238000900.txt" />
+    <None Include="Assets\DebugData\2016-09-12--06-57-51--1025244547.txt" />
+    <None Include="Assets\DebugData\2016-09-12--06-59-11--1625177046.txt" />
+    <None Include="Assets\DebugData\2016-09-12--07-02-25--2056853287.txt" />
+    <None Include="Assets\DebugData\2016-09-12--08-24-04--2033525703.txt" />
+    <None Include="Assets\DebugData\2016-09-12--08-50-56--2112421105.txt" />
+    <None Include="Assets\DebugData\2016-09-12--08-59-38--1198578808.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-21-49--1602080578.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-22-48--1259779330.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-23-01--2034224497.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-23-36--1291070766.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-25-11--2064756188.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-25-28--2116610566.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-26-01--1266911941.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-26-16--1839733021.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-34-04--1603769132.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-34-22--1982863174.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-34-40--1411237593.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-40-54--1062180333.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-41-03--1014798039.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-41-53--1846158495.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-44-18--1786231457.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-44-30--1115054599.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-44-48--1675358166.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-45-03--2138798214.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-45-45--2040882883.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-45-55--1006257701.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-46-41--2086035711.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-46-52--1910790529.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-47-33--1504117390.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-48-33--1039917597.txt" />
+    <None Include="Assets\DebugData\2016-09-12--09-49-06--1185799356.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
