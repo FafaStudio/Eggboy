@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 	

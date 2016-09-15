@@ -11,31 +11,67 @@ public class Score
     public float value;
     [SerializeField]
     public List<int> achievements;
+    [SerializeField]
+    public bool croissant;
+    [SerializeField]
+    public List<int> relatedGlobalScore;
+    [SerializeField]
+    public Scorer.ScoreType scoreType;
 
-    public Score(string name)
-    {
-        this.name = name;
-        this.value = 0;
-        this.achievements = new List<int>();
-    }
+
     public Score()
     {
         this.name = "";
         this.value = 0;
         this.achievements = new List<int>();
+        this.croissant = true;
+        this.relatedGlobalScore = new List<int>();
+        scoreType = Scorer.ScoreType.GameScore;
     }
 
-    public void addScore(float value)
+    public float addScore(float value)
     {
-        this.value += value;
+        switch (scoreType)
+        {
+            case Scorer.ScoreType.GameScore:
+                if (croissant)
+                {
+                    this.value += value;
+                }
+                else
+                {
+                    this.value -= value;
+                }
+                break;
+            case Scorer.ScoreType.HighScore:
+                if ((this.value > value && this.croissant) || (this.value < value && !this.croissant))
+                {
+                    return this.value;
+                }
+                this.value = value;
+                break;
+            case Scorer.ScoreType.CumulativeScore:
+                if (croissant)
+                {
+                    this.value += value;
+                }
+                else
+                {
+                    this.value -= value;
+                }
+                break;
+            default:
+                break;
+        }
         verifyAchievements();
+        return this.value;
     }
 
-    private void verifyAchievements()
+    public void verifyAchievements()
     {
         foreach (var achievement in this.achievements)
         {
-            Achiever.instance.achievementsScriptableObject.achievements[achievement].verify(this.value);
+            Achiever.instance.verifyAchievement(achievement, this.value);
         }
     }
     public void addAchievement(int achievement)
@@ -46,6 +82,22 @@ public class Score
     {
         this.achievements.Remove(achievement);
     }
+
+    public void verifyRelatedScore()
+    {
+        for (int i = 0; i < relatedGlobalScore.Count; i++)
+        {
+            Scorer.instance.addScoreValue(relatedGlobalScore[i], this.value);
+        }
+    }
+
+    public void endGame()
+    {
+        if(scoreType == Scorer.ScoreType.GameScore)
+        {
+            verifyRelatedScore();
+        }
+    }
 }
 
 
@@ -55,6 +107,8 @@ public class Scorer : MonoBehaviour {
     [SerializeField]
     public ScoresScriptableObject scoresScriptableObject;
     //public List<Score> scores;
+    public enum ScoreType { GameScore, HighScore, CumulativeScore };
+
 
     public void addScore()
     {
@@ -63,18 +117,62 @@ public class Scorer : MonoBehaviour {
 
     public void addScoreValue(int idScore, float value)
     {
-        scoresScriptableObject.scores[idScore].addScore(value);
+        PlayerPrefs.SetFloat("Score_id_" + idScore, scoresScriptableObject.scores[idScore].addScore(value));
+    }
+
+    public string[] getNames()
+    {
+        string[] names = new string[scoresScriptableObject.scores.Count];
+        for (int i = 0; i < scoresScriptableObject.scores.Count; i++)
+        {
+            if(scoresScriptableObject.scores[i].scoreType == ScoreType.GameScore)
+            {
+                names[i] = "Scores Incompatibles/"+scoresScriptableObject.scores[i].name;
+            }
+            else
+            {
+                names[i] = scoresScriptableObject.scores[i].name;
+            }
+        }
+        return names;
     }
     // Use this for initialization
-    void Awake () {
-        addScoreValue(0, 1000);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public List<Score> scores;
 
+    void Awake () {
+        scores = scoresScriptableObject.scores;
+        if(PlayerPrefs.GetFloat("Score_id_0", -1) == -1)//First start of the game
+        {
+            for (int i = 0; i < scores.Count; i++)
+            {
+                PlayerPrefs.SetFloat("Score_id_"+ i, 0);
+                scores[i].value = 0;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < scores.Count; i++)
+            {
+                if(scores[i].scoreType == ScoreType.GameScore)
+                {
+                    PlayerPrefs.SetFloat("Score_id_" + i, 0);
+                    scores[i].value = 0;
+                }
+                else
+                {
+                    scores[i].value = PlayerPrefs.GetFloat("Score_id_" + i);
+                }
+            }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        foreach (var score in scores)
+        {
+            score.endGame();
+        }
+    }
 
     private static Scorer s_Instance = null;
 
