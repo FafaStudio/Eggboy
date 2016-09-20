@@ -10,9 +10,11 @@ public class Achievement
     public string name;
     [SerializeField]
     public string description;
-    bool valided;
+    public bool valided;
     [SerializeField]
     public float valueNeeded;
+    [SerializeField]
+    public bool croissant;
 
     public Achievement()
     {
@@ -20,21 +22,30 @@ public class Achievement
         this.description = "";
         this.valueNeeded = 0;
         this.valided = false;
+        this.croissant = true;
     }
+
+    /*
     public Achievement(string name, string description, float valueNeeded)
     {
         this.name = name;
         this.description = description;
         this.valueNeeded = valueNeeded;
         this.valided = false;
-    }
+    }*/
 
-    public void verify(float actualValue)
+    public bool verify(float actualValue)
     {
-        if (!valided && actualValue >= valueNeeded)
+        if (valided)
+        {
+            return true;
+        }
+        if (((this.croissant && actualValue >= valueNeeded) || (!this.croissant && actualValue <= valueNeeded)))
         {
             valid();
+            return true;
         }
+        return false;
     }
 
     private void valid()
@@ -53,11 +64,54 @@ public class Achiever : MonoBehaviour{
 
     [SerializeField]
     public AchievementsScriptableObject achievementsScriptableObject;
-
+    public List<Achievement> achievements;
+    /*
     public void addAchievement(string name, string description, float valueNeeded)
     {
         achievementsScriptableObject.achievements.Add(new Achievement(name, description, valueNeeded));
+    }*/
+
+    void Awake()
+    {
+        achievements = achievementsScriptableObject.achievements;
+        if (existBool("Achievement_id_0"))//First start of the game
+        {
+            for (int i = 0; i < achievements.Count; i++)
+            {
+                setBool("Achievement_id_" + i, false);
+                achievements[i].valided = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < achievements.Count; i++)
+            {
+                achievements[i].valided = getBool("Achievement_id_" + i);
+            }
+        }
     }
+
+    private bool existBool(string key)
+    {
+        return PlayerPrefs.GetInt(key, -1) == -1; 
+    }
+
+    private bool getBool(string key)
+    {
+        return PlayerPrefs.GetInt(key) == 1;
+    }
+
+    private void setBool(string key, bool state)
+    {
+        PlayerPrefs.SetInt(key, state ? 1 : 0);
+    }
+
+    public void verifyAchievement(int idAchievement, float value)
+    {
+        setBool("Achievement_id_" + idAchievement, achievements[idAchievement].verify(value));
+    }
+
+    
     public void addAchievement()
     {
         achievementsScriptableObject.achievements.Add(new Achievement());

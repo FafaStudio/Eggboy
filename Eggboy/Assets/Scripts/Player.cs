@@ -112,6 +112,7 @@ public class Player : MovingObject
 		else if (col.gameObject.tag == "Enemy")
 		{
 			manager.playersTurn = false;
+            Scorer.instance.addScoreValue(0, 1);
 			col.GetComponent<Enemy>().Die();
 			return;
 		}

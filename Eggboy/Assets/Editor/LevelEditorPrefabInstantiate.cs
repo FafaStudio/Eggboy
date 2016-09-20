@@ -155,10 +155,11 @@ public class LevelEditorPrefabInstantiate : Editor
         GUI.Box( new Rect( 0, 0, 120, sceneView.position.height - 35 ), GUIContent.none, EditorStyles.textArea );
         DrawCustomCategorieButton();
 
+        /*
         for ( int i = 0; i < categorieItem.Blocks.Count; ++i )
         {
             DrawCustomBlockButton( i, sceneView.position );
-        }
+        }*/
 
         Handles.EndGUI();
     }
@@ -214,13 +215,14 @@ public class LevelEditorPrefabInstantiate : Editor
 
     static void DrawCustomBlockButton( int index, Rect sceneViewRect )
     {
+        /*
         bool isActive = false;
 
         if( LevelEditorToolsMenu.SelectedTool == 2 && index == SelectedBlock )
         {
             isActive = true;
         }
-        return;
+        return;*/
     //By passing a Prefab or GameObject into AssetPreview.GetAssetPreview you get a texture that shows this object
         /*Texture2D previewImage = AssetPreview.GetAssetPreview(categorieItem.Blocks[ index ].Prefab );
         GUIContent buttonContent = new GUIContent( previewImage );
