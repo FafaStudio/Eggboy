@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Player : MovingObject
@@ -112,7 +112,7 @@ public class Player : MovingObject
 		else if (col.gameObject.tag == "Enemy")
 		{
 			manager.playersTurn = false;
-            Scorer.instance.addScoreValue(0, 1);
+            Scorer.instance.addScoreValue(7, 1);
 			col.GetComponent<Enemy>().Die();
 			return;
 		}

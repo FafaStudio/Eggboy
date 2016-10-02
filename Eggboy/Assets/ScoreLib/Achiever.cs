@@ -10,11 +10,17 @@ public class Achievement
     public string name;
     [SerializeField]
     public string description;
+    [SerializeField]
     public bool valided;
     [SerializeField]
     public float valueNeeded;
     [SerializeField]
     public bool croissant;
+    [SerializeField]
+    public int position;
+    [SerializeField]
+    public string tags;
+
 
     public Achievement()
     {
@@ -23,6 +29,8 @@ public class Achievement
         this.valueNeeded = 0;
         this.valided = false;
         this.croissant = true;
+        this.position = -1;
+        this.tags = "";
     }
 
     /*
