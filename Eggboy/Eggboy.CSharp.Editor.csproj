@@ -101,7 +101,6 @@
     <Compile Include="Assets\Editor\LevelEditorToolsMenu.cs" />
     <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
     <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
-    <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DebugData\2016-09-10--06-44-22--1676855009.txt" />
@@ -165,6 +164,20 @@
     <None Include="Assets\DebugData\2016-09-13--07-43-18--1727292728.txt" />
     <None Include="Assets\DebugData\2016-09-13--08-50-51--1640597150.txt" />
     <None Include="Assets\DebugData\2016-09-13--10-47-51--1799809876.txt" />
+    <None Include="Assets\DebugData\2016-09-13--14-34-17--1420420185.txt" />
+    <None Include="Assets\DebugData\2016-09-13--14-36-02--1018241668.txt" />
+    <None Include="Assets\DebugData\2016-09-13--14-54-05--1013211754.txt" />
+    <None Include="Assets\DebugData\2016-09-13--14-54-08--1145589948.txt" />
+    <None Include="Assets\DebugData\2016-09-13--14-58-16--1242082488.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-01-28--1279311036.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-06-20--1563671487.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-07-27--1074688352.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-08-15--1782617621.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-08-53--1388273232.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-09-06--1581074300.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-11-03--1209032103.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-11-16--1925047184.txt" />
+    <None Include="Assets\DebugData\2016-09-13--15-11-34--1290582354.txt" />
     <None Include="Assets\DebugData\2016-09-15--10-20-20--2064008378.txt" />
     <None Include="Assets\DebugData\2016-09-15--10-26-53--2058739932.txt" />
     <None Include="Assets\DebugData\2016-09-15--10-28-53--1413033854.txt" />
