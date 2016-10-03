@@ -8,6 +8,8 @@ public class Score
     [SerializeField]
     public string name;
     [SerializeField]
+    public string description;
+    [SerializeField]
     public float value;
     [SerializeField]
     public List<int> achievements;
@@ -17,16 +19,23 @@ public class Score
     public List<int> relatedGlobalScore;
     [SerializeField]
     public Scorer.ScoreType scoreType;
+    [SerializeField]
+    public int position;
+    [SerializeField]
+    public string tags;
 
 
     public Score()
     {
         this.name = "";
+        this.description = "";
         this.value = 0;
         this.achievements = new List<int>();
         this.croissant = true;
         this.relatedGlobalScore = new List<int>();
         scoreType = Scorer.ScoreType.GameScore;
+        this.position = -1;
+        this.tags = "";
     }
 
     public float addScore(float value)
@@ -120,21 +129,27 @@ public class Scorer : MonoBehaviour {
         PlayerPrefs.SetFloat("Score_id_" + idScore, scoresScriptableObject.scores[idScore].addScore(value));
     }
 
-    public string[] getNames()
+    public string[] getNames(out int[] originPos)
     {
-        string[] names = new string[scoresScriptableObject.scores.Count];
+        List<string> names = new List<string>();
+        List<int> listOriginPos = new List<int>();
         for (int i = 0; i < scoresScriptableObject.scores.Count; i++)
         {
             if(scoresScriptableObject.scores[i].scoreType == ScoreType.GameScore)
             {
-                names[i] = "Scores Incompatibles/"+scoresScriptableObject.scores[i].name;
+                //names[i] = "Scores Incompatibles/"+scoresScriptableObject.scores[i].name;
             }
             else
             {
+                names.Add(scoresScriptableObject.scores[i].name);
+                listOriginPos.Add(i);
+                /*
                 names[i] = scoresScriptableObject.scores[i].name;
+                originPos*/
             }
         }
-        return names;
+        originPos = listOriginPos.ToArray();
+        return names.ToArray();
     }
     // Use this for initialization
     public List<Score> scores;
