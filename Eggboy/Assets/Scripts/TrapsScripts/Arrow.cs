@@ -4,7 +4,7 @@ using System.Collections;
 public class Arrow : Trap {
 
     private Animator anim;
-    private Player eggboy;
+	private GameObject character;
 
     public enum Direction {Nord, Est, Sud, Ouest};
     public Direction dir;
@@ -14,7 +14,7 @@ public class Arrow : Trap {
     private GameManager manager;
 
     // Use this for initialization
-    void Start () {
+    protected override void Start () {
         base.Start();
         manager = GameManager.instance;
         setSprite();
@@ -26,41 +26,38 @@ public class Arrow : Trap {
     }
 
 	public override void TriggerEnter(MovingObject col){
-		if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
+		if ((col.gameObject.GetComponent<MovingObject>() != null)&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
 			isEnclenched = true;
-            eggboy = col.gameObject.GetComponent<Player>();
-            eggboy.setIsTrap(true);
-            eggboy.piege = this;
+			character = col.gameObject;
+			character.GetComponent<MovingObject>().setIsTrap(true);
+			character.GetComponent<MovingObject>().piege = this;
         }
     }
 
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-			isEnclenched = false;
-            eggboy.setIsTrap(false);
-            eggboy.piege = null;
-        }
-    }
+	public override void TriggerExit(){
+		isEnclenched = false;
+		if (character != null) {
+			character.GetComponent<MovingObject> ().setIsTrap (false);
+			character.GetComponent<MovingObject> ().piege = null;
+		}
+	}
 		
     public override void declencherPiege()
     {
         switch (dir)
         {
             case Direction.Nord: 
-				eggboy.doMove(0, 1);
+				character.GetComponent<MovingObject>().doMove(0, 1);
                 break;
             case Direction.Est:
-                eggboy.doMove(1, 0);
+				character.GetComponent<MovingObject>().doMove(1, 0);
                 break;
             case Direction.Sud:
-                eggboy.doMove(0, -1);
+				character.GetComponent<MovingObject>().doMove(0, -1);
                 break;
             case Direction.Ouest:
-                eggboy.doMove(-1, 0);
+				character.GetComponent<MovingObject>().doMove(-1, 0);
                 break;
         }
         //eggboy.setIsUnderTrapEffect(false);

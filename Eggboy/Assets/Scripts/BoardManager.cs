@@ -70,7 +70,7 @@ public class BoardManager : MonoBehaviour {
 	//boardHolder permet lorsqu'on fait spawn plein de trucs de garder la hierarchie clean
 	private Transform objectInLevel;
 
-	private Node[,] gridPositions;
+	public Node[,] gridPositions;
 
 	//VISUEL____
 	public GameObject[] listeTester;
@@ -91,10 +91,19 @@ public class BoardManager : MonoBehaviour {
 		String toString = " ";
 		for(int y = rows-1; y >= 0; y--){
 			for (int x =0; x < columns; x++) {
-				if (x == columns - 1)
-					toString += gridPositions [x, y].toString () + " \n";
-				else
-					toString += gridPositions [x, y].toString ();
+				if (x == columns - 1) {
+					if (gridPositions [x, y].valeur == 1) {
+						toString += "_" + gridPositions [x, y].toString () + " \n";
+					} else {
+						toString += gridPositions [x, y].toString () + " \n";
+					}
+				} else {
+					if (gridPositions [x, y].valeur == 1) {
+						toString += "_" + gridPositions [x, y].toString ();
+					} else {
+						toString += gridPositions [x, y].toString ();
+					}
+				}
 			}
 		}
 		return toString;
@@ -102,7 +111,6 @@ public class BoardManager : MonoBehaviour {
 
 	public void setNodeOnGrid(int x, int y , int value){
 		gridPositions [x, y].setValeur(value);
-		gridPositions [x, y].setPiege (null);
 	}
 
 	public void setNodeOnGrid(int x, int y , int value, Trap piege){

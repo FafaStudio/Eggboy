@@ -5,7 +5,7 @@ public abstract class Trap : MonoBehaviour {
 
 	public bool isEnclenched = false;
 	public bool isActioning = false;
-	protected bool isPlayer = false;
+	protected bool isCharacter = false;
 	protected float TurnDelay = 0.1f;
 
 	protected virtual void Start () {
@@ -13,16 +13,16 @@ public abstract class Trap : MonoBehaviour {
 		GameManager.instance.AddTrapToList (this);
 	}
 
-	void Update () {
-	}
-
+	//fonction de detection appelées par les objets qui testent les cases lors d'un déplacement
 	public abstract void TriggerEnter (MovingObject trapped);
+	//fonction de réinitialisation du piège lorsque le personnage piégé sort du piège
+	public abstract void TriggerExit ();
 
 	//Coroutine pour déclencher les pièges pendant le tour des ennemis ( exemple : les spikes ) 
 	public abstract void doAction ();
 
-	public void setIsPlayer(bool value){
-		isPlayer = value;
+	public void setIsCharacter(bool value){
+		isCharacter = value;
 	}
 
     //Coroutine pour déclencher les pièges pendant le tour du joueur ( exemple : les flèches ) 

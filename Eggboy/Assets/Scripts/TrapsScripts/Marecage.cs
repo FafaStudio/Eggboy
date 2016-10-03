@@ -4,7 +4,7 @@ using System;
 
 public class Marecage : Trap {
 
-	private Player eggboy;
+	private MovingObject character;
 
 	public override void doAction()
 	{
@@ -12,43 +12,39 @@ public class Marecage : Trap {
 	}
 
 	public override void TriggerEnter(MovingObject col){
-        if ((col.gameObject.tag == "Player")&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
+        if (!isEnclenched) // N'agit que si le joueur a finit son tour
 		{
 			isEnclenched = true;
-			eggboy = col.gameObject.GetComponent<Player>();
-/*          if (!eggboy.enabled)
-            {
-                eggboy.enabled = true;
-            }*/ 
-			eggboy.setIsTrap(true);
-			eggboy.piege = this;
+			character = col;
+			character.setIsTrap(true);
+			character.piege = this;
 		}
 	}
 
-
-	void OnTriggerExit2D(Collider2D col)
-	{
-		if (col.gameObject.tag == "Player")
-		{
-			isEnclenched = false;
-			eggboy.setIsTrap(false);
-			eggboy.piege = null;
-		}
+	public override void TriggerExit(){
+		isEnclenched = false;
+		character.setIsTrap(false);
+		character.piege = null;
 	}
 
 	public override void declencherPiege()
 	{
-        eggboy.setIsUnderTrapEffect(false);
-        eggboy.setIsUnderTrapNewTurnEffect(true);
-        //yield return null;
+        character.setIsUnderTrapEffect(false);
+        character.setIsUnderTrapNewTurnEffect(true);
+		if (character.gameObject.tag == "Player") {
+			GameManager.instance.playersTurn = false;
+		}
 	}
 
     public override void declencherPiegeNewTurn()
     {
-        eggboy.setIsTrap(false);
-        eggboy.piege = null;
-        eggboy.passTurn();
-        eggboy.setIsUnderTrapNewTurnEffect(false);
+        character.setIsTrap(false);
+		if (character.gameObject.tag == "Player") {
+			character.GetComponent<Player> ().passTurn ();
+		} else {
+			character.GetComponent<Enemy> ().skipMove = true;
+		}
+        character.setIsUnderTrapNewTurnEffect(false);
     }
 
 }

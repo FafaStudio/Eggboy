@@ -11,20 +11,10 @@ public class Player : MovingObject
 	private const float MAX_TIME_BETWEEN_TURN = 0.2f;
 
 	private int hp;
-	private GameManager manager;
 
 	private UIPlayer uiManager;
 
 	private CameraManager camera;
-
-	private bool isTrap = false;
-
-	private bool underTrapEffect = false;//effet de piege immédiat
-
-	private bool underTrapNewTurnEffect = false;//effet de piege lors du nouveau tour
-
-	[HideInInspector]
-	public Trap piege;
 
 	private string actionDuTour = "nothing"; // move, wait, nothing
 
@@ -52,6 +42,9 @@ public class Player : MovingObject
 		boxCollider.enabled = true;
 		if ((hit.transform == null) || (hit.transform.tag == "Bullet"))
 		{
+			if (piege != null) {
+				piege.TriggerExit ();
+			}
 			animator.SetTrigger("isRunning");
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
 			StartCoroutine(SmoothMovement(end));
@@ -68,6 +61,9 @@ public class Player : MovingObject
 	{
 		if (hp <= 0)
 		{
+			if (piege != null) {
+				piege.TriggerExit ();
+			}
 			animator.SetTrigger("isDead");
 			GameManager.instance.GameOver();
 			return true;
@@ -86,6 +82,10 @@ public class Player : MovingObject
 			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 			yield return null;
 		}
+		testPiege ();
+	}
+
+	protected override void testPiege(){
 		manager.getCurrentBoard ().testCasePiege (this);
 		if (!isTrap)
 		{
@@ -94,8 +94,7 @@ public class Player : MovingObject
 		}
 		else
 		{
-			underTrapEffect = true;
-			//StartCoroutine(piege.declencherPiege());
+			setIsUnderTrapEffect(true);
 			piege.declencherPiege();
 		}
 	}
@@ -114,6 +113,7 @@ public class Player : MovingObject
 			manager.playersTurn = false;
             Scorer.instance.addScoreValue(0, 1);
 			col.GetComponent<Enemy>().Die();
+			testPiege ();
 			return;
 		}
 	}
@@ -229,8 +229,7 @@ public class Player : MovingObject
             else
                 actionDuTour = "nothing";
         }
-
-
+			
 		if (actionDuTour != "nothing")
 		{
 			GameManager.instance.checkInstanceToDestroy ();
@@ -253,41 +252,6 @@ public class Player : MovingObject
 				manager.playersTurn = false;
 			}
 		}
-	}
-
-	public void doMove(int xDir, int yDir)
-	{
-		AttemptMove(xDir, yDir);
-	}
-
-	public bool getisTrap()
-	{
-		return this.isTrap;
-	}
-
-	public void setIsTrap(bool b)
-	{
-		this.isTrap = b;
-	}
-
-	public bool getisUnderTrapEffect()
-	{
-		return this.underTrapEffect;
-	}
-
-	public void setIsUnderTrapEffect(bool b)
-	{
-		this.underTrapEffect = b;
-	}
-
-	public bool getisUnderTrapNewTurnEffect()
-	{
-		return this.underTrapNewTurnEffect;
-	}
-
-	public void setIsUnderTrapNewTurnEffect(bool b)
-	{
-		this.underTrapNewTurnEffect = b;
 	}
 
 	public void passTurn()

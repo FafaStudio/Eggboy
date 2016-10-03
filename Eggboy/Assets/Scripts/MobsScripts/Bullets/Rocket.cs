@@ -57,6 +57,9 @@ public class Rocket : MovingObject {
 		}
 	}
 
+	protected override void testPiege(){
+	}
+
 	public virtual void Die(){
 		isDead = true;
 		enabled = false;

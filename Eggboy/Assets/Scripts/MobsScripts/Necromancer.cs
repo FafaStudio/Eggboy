@@ -26,6 +26,10 @@ public class Necromancer : Enemy {
 		if (isDead)
 			return;
 
+		if (underTrapNewTurnEffect) {
+			piege.declencherPiegeNewTurn ();
+		}
+
 		int xDir = 0;
 		int yDir = 0;
 

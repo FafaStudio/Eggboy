@@ -84,6 +84,7 @@ public class Frog : Enemy {
 			yield return null;
 		}
 		isMoving = true;
+		testPiege ();
 		MoveEnemy ();
 	}
 

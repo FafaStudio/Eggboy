@@ -25,6 +25,11 @@ public class Bomb : Trap {
 
     }
 
+	public override void TriggerExit()
+	{
+
+	}
+
 
     void OnTriggerExit2D(Collider2D col)
     {

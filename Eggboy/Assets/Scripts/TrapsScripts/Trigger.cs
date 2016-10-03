@@ -21,24 +21,20 @@ public class Trigger : Trap {
             eggboy = col.gameObject.GetComponent<Player>();
             cible.declencherPiege();
         }
-        /*
-        if ((col.gameObject.tag == "Player") && (!isEnclenched)) // N'agit que si le joueur a finit son tour
-        {
-            isEnclenched = true;
-            eggboy = col.gameObject.GetComponent<Player>();
-            eggboy.setIsTrap(true);
-            eggboy.piege = this;
-        }*/
     }
 
+	public override void TriggerExit(){
+		isEnclenched = false;
+	}
+
     
-    void OnTriggerExit2D(Collider2D col)
+   /* void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player")
         {
             isEnclenched = false;
         }
-    }
+    }*/
 
     public override void declencherPiege()
     {

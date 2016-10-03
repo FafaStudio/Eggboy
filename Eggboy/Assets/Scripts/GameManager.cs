@@ -6,7 +6,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : MonoBehaviour
 {
 	public float levelStartDelay = 2f;                      
-	public float turnDelay = 1.5f;                          
+	public float turnDelay = 1f;                          
 	public int playerhpPoints = 6;                    
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 
         replay = gameObject.GetComponent<Replay>();
+		playersTurn = true;
 
 		//Initialisation du premier level
 
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
 		traps.Clear ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 		boardScript.SetupScene(level);
+		playersTurn = true;
 	}
 		
 	void Update()
@@ -150,13 +152,16 @@ public class GameManager : MonoBehaviour
 		{
 			//Call the MoveEnemy function of Enemy at index i in the enemies List.
 			enemies[i].MoveEnemy ();
+
+		
 				
 			//Wait for Enemy's moveTime before moving next Enemy, 
-			yield return new WaitForSeconds(turnDelay/enemies.Count);
+			yield return new WaitForSeconds(turnDelay/(enemies.Count+1));
 		}
+		//print(getCurrentBoard ().grilleToString ());
+		//Enemies are done moving, set enemiesMoving to false.
 		playersTurn = true;
 		totalTurns += 1;
-		//Enemies are done moving, set enemiesMoving to false.
 		enemiesMoving = false;
 	}
 
@@ -166,7 +171,7 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < traps.Count; i++) {
 			if ((traps [i].isEnclenched)||traps[i].isActioning) {
 				traps [i].doAction ();
-				yield return new WaitForSeconds(turnDelay);
+				yield return new WaitForSeconds(turnDelay/(traps.Count+1));
 			}
 		}
 		trapActioning = false;

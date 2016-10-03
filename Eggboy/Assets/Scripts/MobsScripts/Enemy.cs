@@ -12,10 +12,10 @@ public class Enemy : MovingObject {
 	protected Transform target;                           //Transform to attempt to move toward each turn.
 	public bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 	protected bool isDead = false;
-	
 
 	protected override void Start (){
-	    GameManager.instance.AddEnemyToList (this);
+		manager = GameManager.instance;
+	    manager.AddEnemyToList (this);
 		animator = GetComponent<Animator> ();
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
@@ -24,6 +24,9 @@ public class Enemy : MovingObject {
 	}
 
 	public virtual void Die(){
+		if (piege != null) {
+			piege.TriggerExit ();
+		}
 		isDead = true;
 		enabled = false;
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
@@ -54,6 +57,9 @@ public class Enemy : MovingObject {
 		hit = Physics2D.Linecast (start, end, blockingLayer);
 		boxCollider.enabled = true;
 		if (hit.transform == null) {
+			if (piege != null) {
+				piege.TriggerExit ();
+			}
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
 			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
 			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
@@ -62,13 +68,38 @@ public class Enemy : MovingObject {
 		}
 		return false;
 	}
-	
-	
+
+	protected override IEnumerator SmoothMovement(Vector3 end)
+	{
+		//coroutine permettant de bouger une unité d'un espace/une case 
+		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+		while (sqrRemainingDistance > float.Epsilon) {
+			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+			rb2D.MovePosition(newPosition);
+			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+			yield return null;
+		}
+		testPiege ();
+	}
+
+	protected override void testPiege(){
+		manager.getCurrentBoard ().testCasePiege (this);
+		if (isTrap) {
+			setIsUnderTrapEffect(true);
+			piege.declencherPiege ();
+		} else {
+			setIsUnderTrapEffect(false);
+		}
+	}
+
 	//MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
 	public virtual void MoveEnemy ()
 	{
 		if (isDead)
 			return;
+		if (underTrapNewTurnEffect) {
+			piege.declencherPiegeNewTurn ();
+		}
 		
 		int xDir = 0;
 		int yDir = 0;
@@ -92,6 +123,9 @@ public class Enemy : MovingObject {
 
 	protected override void OnCantMove (GameObject col)
 	{
+		if (isTrap) {
+			isTrap = false;
+		}
 		if (col.gameObject.tag == "Wall") {
 			return;
 		} else if (col.gameObject.tag == "Player") {

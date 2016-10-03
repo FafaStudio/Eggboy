@@ -6,7 +6,7 @@ public class Spike : Trap {
 
 	//private BoxCollider2D trigger;
 	private Animator anim;
-	private Player eggboy;
+	private MovingObject character;
 
 	private int TurnCount = 2;
 
@@ -20,10 +20,9 @@ public class Spike : Trap {
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
-			if (isPlayer) {
+			if (isCharacter) {
 				isEnclenched = true;
 			}
-			return;
 		}
 		if (TurnCount != 0) {
 			TurnCount--;
@@ -32,40 +31,59 @@ public class Spike : Trap {
 			anim.SetBool ("isActioning", true);
 			isActioning = true;
 			isEnclenched = false;
-			if (isPlayer) {
-				print ("AI");
-				eggboy.loseHP ();
-				TurnCount = 0;
+			if (isCharacter) {
+				if (character == null)
+					return;
+				if (character.gameObject.tag == "Player") {
+					character.GetComponent<Player> ().loseHP ();
+				} else if (character.gameObject.tag == "Enemy") {
+					character.GetComponent<Enemy> ().Die ();
+				}
+				TurnCount = 2;
 				isEnclenched = true;
 			}
 		}
 	}
 
 	public override void TriggerEnter(MovingObject col){
-		if (col.gameObject.tag == "Player") {
-			isPlayer = true;
-			if (isEnclenched)
-				return;
-			TurnCount = 2;
-			eggboy = col.gameObject.GetComponent<Player> ();
-			isEnclenched = true;
-		}
+		isCharacter = true;
+		character = col;
+		character.piege = this;
+		character.setIsTrap (true);
 	}
 
-	void OnTriggerExit2D(Collider2D col){
-		if (col.gameObject.tag == "Player") {
-			isPlayer = false;
-		}
+	public override void TriggerExit(){
+		isCharacter = false;
+		character.piege = null;
+		character.setIsTrap (false);
+		character = null;
 	}
-
 
     public override void declencherPiege()
     {
+		if (character.GetComponent<Player> () != null) {
+			GameManager.instance.playersTurn = false;
+		}
+		character.setIsUnderTrapEffect(false);
+		if (character.gameObject.tag == "Enemy") {
+			if (isActioning) {
+				character.GetComponent<Enemy> ().Die ();
+			} else if (!isEnclenched) {
+					TurnCount = 1;
+					isEnclenched = true;
+			}
+		} else {
+			if (!isEnclenched) {
+				TurnCount = 2;
+				isEnclenched = true;
+			}
+		}
     }
 
     public override void declencherPiegeNewTurn()
     {
     }
+
     void OnDrawGizmos()
     {     
         if (isEnclenched)//affiche le nombre de tours restant avant activation

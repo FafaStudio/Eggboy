@@ -3,6 +3,8 @@ using System.Collections;
 
 public abstract class MovingObject : MonoBehaviour {
 
+	protected GameManager manager;
+
 	public float moveTime = 0.1f;
 	public LayerMask blockingLayer;
 
@@ -10,6 +12,12 @@ public abstract class MovingObject : MonoBehaviour {
 	protected Rigidbody2D rb2D;
 	protected float inverseMoveTime;
 	public BoardManager.Node caseExacte;
+
+	[HideInInspector]
+	public Trap piege;
+	protected bool isTrap = false;
+	protected bool underTrapEffect = false;//effet de piege immédiat
+	protected bool underTrapNewTurnEffect = false;//effet de piege lors du nouveau tour
 
 	protected virtual void Start () {
 	// protected virtual permet "l'override" par les classes qui héritent, pour pouvoir y modifier le start
@@ -52,10 +60,45 @@ public abstract class MovingObject : MonoBehaviour {
 			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 			yield return null;
 		}
-
 	}
 
-    
+	public void doMove(int xDir, int yDir)
+	{
+		AttemptMove(xDir, yDir);
+	}
 
 	protected abstract void OnCantMove (GameObject col);
+
+	protected abstract void testPiege ();
+
+
+	public bool getisTrap()
+	{
+		return this.isTrap;
+	}
+
+	public void setIsTrap(bool b)
+	{
+		this.isTrap = b;
+	}
+
+	public bool getisUnderTrapEffect()
+	{
+		return this.underTrapEffect;
+	}
+
+	public void setIsUnderTrapEffect(bool b)
+	{
+		this.underTrapEffect = b;
+	}
+
+	public bool getisUnderTrapNewTurnEffect()
+	{
+		return this.underTrapNewTurnEffect;
+	}
+
+	public void setIsUnderTrapNewTurnEffect(bool b)
+	{
+		this.underTrapNewTurnEffect = b;
+	}
 }
