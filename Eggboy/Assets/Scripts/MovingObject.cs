@@ -62,7 +62,7 @@ public abstract class MovingObject : MonoBehaviour {
 		}
 	}
 
-	public void doMove(int xDir, int yDir)
+	public virtual void doMove(int xDir, int yDir)
 	{
 		AttemptMove(xDir, yDir);
 	}

@@ -61,18 +61,16 @@ public class Spike : Trap {
 
     public override void declencherPiege()
     {
-		if (character.GetComponent<Player> () != null) {
-			GameManager.instance.playersTurn = false;
-		}
 		character.setIsUnderTrapEffect(false);
 		if (character.gameObject.tag == "Enemy") {
 			if (isActioning) {
 				character.GetComponent<Enemy> ().Die ();
 			} else if (!isEnclenched) {
-					TurnCount = 1;
-					isEnclenched = true;
-			}
+				TurnCount = 1;
+				isEnclenched = true;
+			} 
 		} else {
+			GameManager.instance.playersTurn = false;
 			if (!isEnclenched) {
 				TurnCount = 2;
 				isEnclenched = true;

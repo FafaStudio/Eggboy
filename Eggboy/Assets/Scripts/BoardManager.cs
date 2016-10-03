@@ -119,6 +119,9 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	public void testCasePiege(MovingObject persoToTest){
+		//print (persoToTest.gameObject.name.ToString ());
+		//print (persoToTest.caseExacte.position.x);
+	//	print (persoToTest.caseExacte.position.y);
 		if (gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege != null) {
 			gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege.TriggerEnter (persoToTest);
 		} else {

@@ -42,7 +42,6 @@ public class Enemy : MovingObject {
 		{
 			skipMove = false;
 			return;
-			
 		}
 		
 		//Call the AttemptMove function from MovingObject.

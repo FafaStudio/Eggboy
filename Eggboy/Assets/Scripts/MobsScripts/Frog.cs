@@ -30,12 +30,27 @@ public class Frog : Enemy {
 
 
 	protected override void AttemptMove (int xDir, int yDir){
+		if(skipMove){
+			skipMove = false;
+			return;
+		}
 		RaycastHit2D hit;
 		bool canMove = Move(xDir, yDir, out hit);
 		if (!canMove) {
 			OnCantMove (hit.transform.gameObject);
 		}
 		isMoving = false;
+	}
+
+	public override void doMove(int xDir, int yDir)
+	{
+		RaycastHit2D hit;
+		bool canMove = SimpleMove(xDir, yDir, out hit);
+		if (hit.transform == null) {
+			return;
+		} else if (!canMove) {
+			OnCantMove (hit.transform.gameObject);
+		}
 	}
 
 	protected override void OnCantMove (GameObject col){
@@ -45,6 +60,25 @@ public class Frog : Enemy {
 			isMoving = false;
 			isPreparingAttack = true;
 		}
+	}
+
+	protected bool SimpleMove (int xDir, int yDir, out RaycastHit2D hit){
+		Vector2 start = transform.position;
+		Vector2 end = start + new Vector2 (xDir, yDir);
+		boxCollider.enabled = false;
+		hit = Physics2D.Linecast (start, end, blockingLayer);
+		boxCollider.enabled = true;
+		if (hit.transform == null) {
+			if (piege != null) {
+				piege.TriggerExit ();
+			}
+			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+			StartCoroutine (SimpleEndMovement (end));
+			return true;
+			}
+		return false;
 	}
 
 	protected override bool Move (int xDir, int yDir, out RaycastHit2D hit){
@@ -61,8 +95,14 @@ public class Frog : Enemy {
 			} else {
 				if (isMoving)
 					return true;
+				if (piege != null) {
+					piege.TriggerExit ();
+				}
+				caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
 				GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
 				GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+				if (isMoving)
+					return true;
 				StartCoroutine (SmoothMovement (end));
 				return true;
 			}
@@ -74,7 +114,20 @@ public class Frog : Enemy {
 		return false;
 	}
 
-	protected IEnumerator SmoothMovement(Vector3 end){
+	protected IEnumerator SimpleEndMovement(Vector3 end){
+		//coroutine permettant de bouger une unité d'un espace/une case 
+		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+		while (sqrRemainingDistance > float.Epsilon) {
+			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+			rb2D.MovePosition(newPosition);
+			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+			yield return null;
+		}
+		testPiege ();
+	}
+		
+
+	protected override IEnumerator SmoothMovement(Vector3 end){
 		//coroutine permettant de bouger une unité d'un espace/une case 
 		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 		while (sqrRemainingDistance > float.Epsilon) {
@@ -84,8 +137,18 @@ public class Frog : Enemy {
 			yield return null;
 		}
 		isMoving = true;
-		testPiege ();
 		MoveEnemy ();
+		testPiege ();
+	}
+
+	protected override void testPiege(){
+		manager.getCurrentBoard ().testCasePiege (this);
+		if (isTrap) {
+			setIsUnderTrapEffect(true);
+			piege.declencherPiege ();
+		} else {
+			setIsUnderTrapEffect(false);
+		}
 	}
 
 	//ATTACK_______________________________________________________________________________________

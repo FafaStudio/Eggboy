@@ -78,7 +78,37 @@
      <Compile Include="Assets\Scripts\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <None Include="Assets\DebugData\2016-10-03--00-13-05--1432011075.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-42-16--1624607505.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-39-10--1170835680.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-01-44--1808556469.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-51-46--1916473400.txt" />
+     <None Include="Assets\DebugData\2016-10-03--00-17-43--1364740125.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-38-21--1429130035.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-40-41--1542200868.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-51-41--1984270256.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-40-25--1606067421.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-59-38--1510347778.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-11-46--1677137154.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-36-02--1888352406.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-37-42--1679667088.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-13-16--1648254561.txt" />
+     <None Include="Assets\DebugData\2016-10-03--12-42-29--1763556598.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-37-59--1842120535.txt" />
+     <None Include="Assets\DebugData\2016-10-03--12-44-54--1220934759.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-51-23--1257836593.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-11-51--1968105237.txt" />
      <None Include="Assets\DebugData\2016-10-03--00-13-11--1253174703.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-54-29--1341755304.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-41-39--1098202366.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-01-07--1652404508.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-40-22--1125851047.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-53-12--1538215176.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-36-34--1295534673.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-43-01--1367681537.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-15-32--1192032583.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-59-16--1244037195.txt" />
+     <None Include="Assets\DebugData\2016-10-03--13-49-45--1107590747.txt" />
+     <None Include="Assets\DebugData\2016-10-03--14-14-47--1956126782.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
