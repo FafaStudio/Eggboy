@@ -6,19 +6,8 @@ public class Camuflaje : Trap {
 
     public GameObject piegeCamoufle;
 
-	// Use this for initialization
 	protected override void Start () {
         base.Start();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public override void boutonDeclenchement()
-    {
-        throw new NotImplementedException();
     }
 
     public override void TriggerEnter(MovingObject col)
