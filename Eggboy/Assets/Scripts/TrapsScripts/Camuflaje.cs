@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Camuflaje : Trap {
 
@@ -14,6 +15,11 @@ public class Camuflaje : Trap {
 	void Update () {
 	
 	}
+
+    public override void boutonDeclenchement()
+    {
+        throw new NotImplementedException();
+    }
 
     public override void TriggerEnter(MovingObject col)
     {

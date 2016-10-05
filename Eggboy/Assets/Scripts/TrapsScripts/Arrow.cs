@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Arrow : Trap {
 
@@ -15,13 +16,18 @@ public class Arrow : Trap {
         setSprite();
     }
 
+    public override void boutonDeclenchement()
+    {
+        throw new NotImplementedException();
+    }
+
     public override void doAction()
     {
         return;
     }
 
 	public override void TriggerEnter(MovingObject col){
-		if (!isEnclenched) // N'agit que si le joueur a finit son tour
+		if ((col.gameObject.GetComponent<MovingObject>() != null)&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
 			isEnclenched = true;
 			character = col;
@@ -61,7 +67,8 @@ public class Arrow : Trap {
 
     public void setSprite()
     {
-        switch (dir){
+        switch (dir)
+        {
             case Direction.Nord:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                 break;
@@ -76,27 +83,9 @@ public class Arrow : Trap {
                 break;
         }
     }
-
-    public override void declencherPiegeNewTurn(){}
-
-	public override void boutonDeclenchement (){
-		switch (dir)
-		{
-		case Direction.Nord:
-			dir = Direction.Est;
-			break;
-		case Direction.Est:
-			dir = Direction.Sud;
-			break;
-		case Direction.Sud:
-			dir = Direction.Ouest;
-			break;
-		case Direction.Ouest:
-			dir = Direction.Nord;
-			break;
-		}
-		setSprite ();
-	}
+    public override void declencherPiegeNewTurn()
+    {
+    }
 
     void OnDrawGizmosSelected()
     {
