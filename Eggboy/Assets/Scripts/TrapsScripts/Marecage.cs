@@ -4,8 +4,6 @@ using System;
 
 public class Marecage : Trap {
 
-	private MovingObject character;
-
 	public override void doAction()
 	{
 		return;

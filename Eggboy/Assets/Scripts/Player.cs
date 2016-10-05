@@ -47,6 +47,8 @@ public class Player : MovingObject
 			}
 			animator.SetTrigger("isRunning");
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
+			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, 1, this);
+			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 			StartCoroutine(SmoothMovement(end));
 			return true;
 		}

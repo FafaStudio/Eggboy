@@ -4,9 +4,7 @@ using System;
 
 public class Spike : Trap {
 
-	//private BoxCollider2D trigger;
 	private Animator anim;
-	private MovingObject character;
 
 	private int TurnCount = 2;
 

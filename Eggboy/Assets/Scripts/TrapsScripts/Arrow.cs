@@ -4,19 +4,14 @@ using System.Collections;
 public class Arrow : Trap {
 
     private Animator anim;
-	private GameObject character;
 
     public enum Direction {Nord, Est, Sud, Ouest};
     public Direction dir;
 
     public Sprite[] sprites;
 
-    private GameManager manager;
-
-    // Use this for initialization
     protected override void Start () {
         base.Start();
-        manager = GameManager.instance;
         setSprite();
     }
 
@@ -29,17 +24,17 @@ public class Arrow : Trap {
 		if ((col.gameObject.GetComponent<MovingObject>() != null)&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
 			isEnclenched = true;
-			character = col.gameObject;
-			character.GetComponent<MovingObject>().setIsTrap(true);
-			character.GetComponent<MovingObject>().piege = this;
+			character = col;
+			character.setIsTrap(true);
+			character.piege = this;
         }
     }
 
 	public override void TriggerExit(){
 		isEnclenched = false;
 		if (character != null) {
-			character.GetComponent<MovingObject> ().setIsTrap (false);
-			character.GetComponent<MovingObject> ().piege = null;
+			character.setIsTrap (false);
+			character.piege = null;
 		}
 	}
 		

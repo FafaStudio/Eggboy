@@ -3,6 +3,9 @@ using System.Collections;
 
 public abstract class Trap : MonoBehaviour {
 
+	//character trap by the trap
+	protected MovingObject character;
+
 	public bool isEnclenched = false;
 	public bool isActioning = false;
 	protected bool isCharacter = false;

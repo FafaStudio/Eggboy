@@ -18,7 +18,7 @@ public class Enemy : MovingObject {
 	    manager.AddEnemyToList (this);
 		animator = GetComponent<Animator> ();
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
-		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1, this);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
 		base.Start ();
 	}
@@ -29,7 +29,7 @@ public class Enemy : MovingObject {
 		}
 		isDead = true;
 		enabled = false;
-		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1, null);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
 		GameManager.instance.RemoveEnemyToList (this);
 		Destroy (this.gameObject);
@@ -60,8 +60,8 @@ public class Enemy : MovingObject {
 				piege.TriggerExit ();
 			}
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
-			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
-			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, -1, this);
+			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 			StartCoroutine(SmoothMovement(end));
 			return true;
 		}

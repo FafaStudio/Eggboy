@@ -128,6 +128,10 @@ public class GameManager : MonoBehaviour
 	public void AddTrapToList(Trap script){
 		traps.Add (script);
 	}
+
+	public void RemoveTrapToList(Trap script){
+		traps.Remove (script);
+	}
 		
 	public void RemoveEnemyToList(Enemy script){
 		enemies.Remove (script);
@@ -185,6 +189,17 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < enemies.Count; i++) {
 			if (enemies [i].enemyName == "laser") {
 				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
+			}
+		}
+		for (int y = boardScript.rows - 1; y >= 0; y--) {
+			for (int x = 0; x < boardScript.columns; x++) {
+				if (boardScript.gridPositions [x, y].casePiege != null) {
+					print (boardScript.gridPositions [x, y].casePiege.name.ToString ());
+					if (boardScript.gridPositions [x, y].casePiege.name == "BombExplosion(Clone)") {
+						print ("bisous");
+						boardScript.gridPositions [x, y].casePiege = null;
+					}
+				}
 			}
 		}
 	}

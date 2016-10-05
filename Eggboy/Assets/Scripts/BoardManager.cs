@@ -21,6 +21,7 @@ public class BoardManager : MonoBehaviour {
 		public int distanceParcourue;
 		public int distanceVO;
 		public Trap casePiege = null;
+		public MovingObject nodeCharacter = null;
 
 		public Node(int x, Vector2 p){
 			this.valeur = x;
@@ -38,6 +39,14 @@ public class BoardManager : MonoBehaviour {
 
 		public void setPiege(Trap value){
 			this.casePiege = value;
+		}
+
+		public void setCharacter(MovingObject setter){
+			nodeCharacter = setter;
+		}
+
+		public void resetCharacter(){
+			nodeCharacter = null;
 		}
 
 		public String toString(){
@@ -109,6 +118,26 @@ public class BoardManager : MonoBehaviour {
 		return toString;
 	}
 
+	public String grilleToStringWithCharacters(){
+		String toString = " ";
+		for(int y = rows-1; y >= 0; y--){
+			for (int x =0; x < columns; x++) {
+				if (x == columns - 1) {
+					if(gridPositions [x, y].nodeCharacter!=null)
+						toString += gridPositions [x, y].nodeCharacter.gameObject.name.ToString () + " \n";
+					else
+						toString += "[null]" + " \n";
+				} else {
+					if(gridPositions [x, y].nodeCharacter!=null)
+						toString += gridPositions [x, y].nodeCharacter.gameObject.name.ToString ();
+					else
+						toString += "[null]";
+				}
+			}
+		}
+		return toString;
+	}
+
 	public void setNodeOnGrid(int x, int y , int value){
 		gridPositions [x, y].setValeur(value);
 	}
@@ -118,16 +147,27 @@ public class BoardManager : MonoBehaviour {
 		gridPositions [x, y].setPiege (piege);
 	}
 
+	public void setCharacterOnGrid(int x, int y , int value, MovingObject nodeObject){
+	// setter de la grille lors d'un déplacement d'un personnage
+		gridPositions [x, y].setValeur(value);
+		gridPositions [x, y].setCharacter (nodeObject);
+	}
+
+	public MovingObject testCaseCharacterPiege(int x, int y){
+	// detecte un personage sur une case sans autre info que la coordonnée
+		if (gridPositions [x, y].nodeCharacter != null) 
+			return gridPositions [x, y].nodeCharacter;
+		else
+			return null;
+	}
+
 	public void testCasePiege(MovingObject persoToTest){
-		//print (persoToTest.gameObject.name.ToString ());
-		//print (persoToTest.caseExacte.position.x);
-	//	print (persoToTest.caseExacte.position.y);
+	// teste une case piégé a partir de la position d'un personnage
 		if (gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege != null) {
 			gridPositions [(int)persoToTest.caseExacte.position.x, (int)persoToTest.caseExacte.position.y].casePiege.TriggerEnter (persoToTest);
 		} else {
 			return;
 		}
-		
 	}
 
 	void boardSetup(){
@@ -171,46 +211,17 @@ public class BoardManager : MonoBehaviour {
 	public Vector2 doPathfinding (Node destination, Node depart){
 		Node path = findPath (destination, depart, new List<Node>(), new List<Node>());
 
-		//VISUEL___
-		/*
-		Destroy (GameObject.Find("testGameObject"+(GameManager.instance.totalTurns-1).ToString()));
-		testGameObject = new GameObject ("testGameObject"+GameManager.instance.totalTurns.ToString()).transform;
-		GameObject toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
-		*/
-		//________
-
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
-
-				//VISUEL____
-				/*
-				toTest = Instantiate (listeTester [2], path.position, Quaternion.identity) as GameObject;
-				toTest.transform.SetParent (testGameObject);
-				*/
-				//___________
 			}	
 		}
-
-		//VISUEL____
-		/*
-		toTest = Instantiate (listeTester [2], path.parent.position, Quaternion.identity) as GameObject;
-		toTest.transform.SetParent (testGameObject);
-		*/
-		//_________
-
 		resetDistanceGrille ();
 		return path.position;
 	}
 
 	public Node findPath(Node destination, Node depart, List<Node> openList, List<Node> closedList){
 		closedList.Add (depart);
-
-		//VISUEL___
-		//GameObject toTest = Instantiate (listeTester [1], depart.position, Quaternion.identity) as GameObject;
-		//toTest.transform.SetParent (testGameObject);
-		//__________
 
 		if ((depart.position.x == destination.position.x) && (depart.position.y == destination.position.y)) {
 			return depart;
@@ -224,15 +235,9 @@ public class BoardManager : MonoBehaviour {
 					voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
 					openList.Add (voisins [j]);
 
-					//VISUEL_____
-					//toTest = Instantiate (listeTester [0], voisins[j].position, Quaternion.identity) as GameObject;
-					//toTest.transform.SetParent (testGameObject);
-					//___________
-
 					if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
 						return voisins[j];
 					}
-
 				} else {
 					int newG = voisins [j].calculDepartCourant ();
 					if ((voisins [j].distanceParcourue) > newG) {
@@ -243,7 +248,6 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 		}
-
 		Node nextNode = depart;
 		if (openList.Count > 0) {
 			nextNode = openList [0];
@@ -253,14 +257,11 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 		}
-
 		if (openList.Count == 1) {
 			openList.Remove (nextNode);
 			return findPath (destination, nextNode, openList, closedList);
 		}
-			
 		openList.Remove (nextNode);
-
 		if (openList.Count > 0) {
 			return findPath (destination, nextNode, openList, closedList);
 		}
