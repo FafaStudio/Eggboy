@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void checkInstanceToDestroy(){
+	//Lancer juste avant l'action du joueur
 		for (int i = 0; i < enemies.Count; i++) {
 			if (enemies [i].enemyName == "laser") {
 				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
@@ -195,8 +196,15 @@ public class GameManager : MonoBehaviour
 			for (int x = 0; x < boardScript.columns; x++) {
 				if (boardScript.gridPositions [x, y].casePiege != null) {
 					if (boardScript.gridPositions [x, y].casePiege.name == "BombExplosion(Clone)") {
-						boardScript.gridPositions [x, y].casePiege = null;
+						boardScript.gridPositions [x, y].casePiege.GetComponent<BombExplosion> ().resetAfterExplosion ();
 					}
+				}
+			}
+		}
+		for (int j = 0; j < traps.Count; j++) {
+			if ((traps [j].name == "Bombe") || (traps [j].name == "Bombe(Clone)")) {
+				if (traps [j].GetComponent<Bomb> ().isExplosing ()) {
+					traps [j].GetComponent<Bomb> ().resetAfterExplosion ();
 				}
 			}
 		}
@@ -205,7 +213,7 @@ public class GameManager : MonoBehaviour
 	public void destroyLifeChests(){
 		for (int i = 0; i < traps.Count; i++) {
 			if (traps [i].tag == "Chest") {
-				if (traps [i].GetComponent<Chest> ().chestName == "Life") {
+				if (traps [i].GetComponent<Chest> ().getChestName() == "Life") {
 					traps [i].GetComponent<Chest> ().destroyChest ();
 				}
 			}

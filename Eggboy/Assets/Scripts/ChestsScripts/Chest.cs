@@ -3,11 +3,16 @@ using System.Collections;
 
 public abstract class Chest : Trap {
 
-	public string chestName;
+	protected string chestName;
 	
 	public abstract void openChest ();
 
 	public void destroyChest(){
+		GameManager.instance.RemoveTrapToList (this);
 		Destroy (this.gameObject);
+	}
+
+	public string getChestName(){
+		return chestName;
 	}
 }

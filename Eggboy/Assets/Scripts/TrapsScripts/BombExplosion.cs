@@ -44,4 +44,9 @@ public class BombExplosion : Trap {
 			perso.GetComponent<Player> ().loseHP ();
 		}
 	}
+
+	public void resetAfterExplosion(){
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1, null);
+		GameManager.instance.RemoveTrapToList (this);
+	}
 }

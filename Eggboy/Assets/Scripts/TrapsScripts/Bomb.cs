@@ -16,13 +16,9 @@ public class Bomb : Trap {
     {
 		if (turnCount > 0) {
 			turnCount--;
-		} else if (!explosionIsLaunch) {
-			explosionIsLaunch = true;
-			StartCoroutine (launchExplosion ());
 		} else {
-			resetAfterExplosion ();
+			StartCoroutine (launchExplosion ());
 		}
-
     }
 		
 
@@ -71,15 +67,19 @@ public class Bomb : Trap {
 		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
 		toInstantiate.transform.SetParent (this.transform);
 
-		yield return new WaitForSeconds (0.5f);
+		yield return null;
 
 		this.GetComponent<SpriteRenderer> ().sprite = null;
-		yield return null;
+		explosionIsLaunch = true;
 	}
 
 	public void resetAfterExplosion(){
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1, null);
 		GameManager.instance.RemoveTrapToList (this);
 		Destroy (this.gameObject);
+	}
+
+	public bool isExplosing(){
+		return explosionIsLaunch;
 	}
 }
