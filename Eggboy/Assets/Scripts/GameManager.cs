@@ -194,11 +194,19 @@ public class GameManager : MonoBehaviour
 		for (int y = boardScript.rows - 1; y >= 0; y--) {
 			for (int x = 0; x < boardScript.columns; x++) {
 				if (boardScript.gridPositions [x, y].casePiege != null) {
-					print (boardScript.gridPositions [x, y].casePiege.name.ToString ());
 					if (boardScript.gridPositions [x, y].casePiege.name == "BombExplosion(Clone)") {
-						print ("bisous");
 						boardScript.gridPositions [x, y].casePiege = null;
 					}
+				}
+			}
+		}
+	}
+
+	public void destroyLifeChests(){
+		for (int i = 0; i < traps.Count; i++) {
+			if (traps [i].tag == "Chest") {
+				if (traps [i].GetComponent<Chest> ().chestName == "Life") {
+					traps [i].GetComponent<Chest> ().destroyChest ();
 				}
 			}
 		}

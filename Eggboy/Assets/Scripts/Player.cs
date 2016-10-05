@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MovingObject
 {
 	public float restartLevelDelay = 1f;
+	private bool takesDamageThisLevel = false;
 
 	private Animator animator;
 
@@ -104,24 +105,28 @@ public class Player : MovingObject
 	protected override void OnCantMove(GameObject col)
 	{
 		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
-		if (col.gameObject.tag == "Wall")
-		{
-			animator.SetTrigger("Blase");
+		if (col.gameObject.tag == "Wall") {
+			animator.SetTrigger ("Blase");
 			manager.playersTurn = true;
 			return;
-		}
-		else if (col.gameObject.tag == "Enemy")
-		{
+		} else if (col.gameObject.tag == "Enemy") {
 			manager.playersTurn = false;
-            Scorer.instance.addScoreValue(7, 1);
-			col.GetComponent<Enemy>().Die();
+			Scorer.instance.addScoreValue (7, 1);
+			col.GetComponent<Enemy> ().Die ();
 			testPiege ();
+			return;
+		} else if (col.gameObject.tag == "Chest") {
+			col.GetComponent<Chest> ().openChest ();
 			return;
 		}
 	}
 
 	public void loseHP()
 	{
+		if (!takesDamageThisLevel) {
+			takesDamageThisLevel = true;
+			manager.destroyLifeChests ();
+		}
 		camera.setShake(0.6f);
 		animator.SetTrigger("isDamaged");
 		manager.playerhpPoints -= 1;
@@ -260,5 +265,9 @@ public class Player : MovingObject
 	{
 		timeBetweenTurn = MAX_TIME_BETWEEN_TURN;
 		manager.playersTurn = false;
+	}
+
+	public void resetTakeDamageThisLevel(){
+		takesDamageThisLevel = false;
 	}
 }

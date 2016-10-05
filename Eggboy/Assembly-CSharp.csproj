@@ -52,6 +52,8 @@
      <Compile Include="Assets\ScoreLib\ScoresScriptableObject.cs" />
      <Compile Include="Assets\Scripts\BoardManager.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
+     <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
@@ -79,11 +81,20 @@
      <Compile Include="Assets\Scripts\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <None Include="Assets\DebugData\2016-10-05--10-30-38--1342226513.txt" />
+     <None Include="Assets\DebugData\2016-10-05--11-17-59--1910304068.txt" />
+     <None Include="Assets\DebugData\2016-10-05--11-56-44--2066255099.txt" />
+     <None Include="Assets\DebugData\2016-10-05--11-59-59--2141284104.txt" />
      <None Include="Assets\DebugData\2016-10-05--10-31-35--2125831842.txt" />
+     <None Include="Assets\DebugData\2016-10-05--10-51-12--1794798146.txt" />
+     <None Include="Assets\DebugData\2016-10-05--12-05-48--1959481986.txt" />
+     <None Include="Assets\DebugData\2016-10-05--12-01-00--1535638946.txt" />
      <None Include="Assets\DebugData\2016-10-05--10-31-15--1127667004.txt" />
      <None Include="Assets\DebugData\2016-10-05--10-27-54--2102068388.txt" />
+     <None Include="Assets\DebugData\2016-10-05--12-01-20--1891653206.txt" />
      <None Include="Assets\DebugData\2016-10-05--10-30-49--1324711010.txt" />
      <None Include="Assets\DebugData\2016-10-05--10-31-05--1509008357.txt" />
+     <None Include="Assets\DebugData\2016-10-05--12-05-29--1832288691.txt" />
+     <None Include="Assets\DebugData\2016-10-05--12-01-26--1075286720.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
