@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChronoChest : Chest {
 
-	//LLOT DES GOLDS OU RAREMENT UN ITEM
+	//LOOT DES GOLDS OU RAREMENT UN ITEM
 	//OU
 	//TRES RAREMENT LES DEUX
 
@@ -33,4 +33,5 @@ public class ChronoChest : Chest {
 
 	public override void TriggerEnter (MovingObject trapped){}
 	public override void TriggerExit (){}
+	public override void boutonDeclenchement (){}
 }

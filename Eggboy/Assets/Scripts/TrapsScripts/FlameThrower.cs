@@ -47,6 +47,7 @@ public class FlameThrower : Trap {
 		return;
 	}
 
+	public override void boutonDeclenchement (){}
 
     void OnTriggerExit2D(Collider2D col)
     {

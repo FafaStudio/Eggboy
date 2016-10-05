@@ -45,4 +45,6 @@ public class Marecage : Trap {
         character.setIsUnderTrapNewTurnEffect(false);
     }
 
+	public override void boutonDeclenchement (){}
+
 }

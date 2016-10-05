@@ -278,8 +278,7 @@ public class BoardManager : MonoBehaviour {
 		return false;
 	}
 		
-	public List<Node> Voisins(Node HOMME)
-	{
+	public List<Node> Voisins(Node HOMME){
 		List<Node> voisins = new List<Node>();
 		if (HOMME.position.x == 0) {
 			voisins.Add (gridPositions [(int)(HOMME.position.x + 1), (int)(HOMME.position.y)]);
@@ -298,7 +297,6 @@ public class BoardManager : MonoBehaviour {
 			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y+1)]);
 			voisins.Add (gridPositions [(int)(HOMME.position.x), (int)(HOMME.position.y-1)]);
 		}
-
 		return voisins;
 	}
 

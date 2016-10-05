@@ -21,4 +21,5 @@ public class LifeChest : Chest {
 	public override void doAction (){}
 	public override void TriggerEnter (MovingObject trapped){}
 	public override void TriggerExit (){}
+	public override void boutonDeclenchement (){}
 }

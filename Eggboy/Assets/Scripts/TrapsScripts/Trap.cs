@@ -33,5 +33,7 @@ public abstract class Trap : MonoBehaviour {
     public abstract void declencherPiege();
     public abstract void declencherPiegeNewTurn();
 
+	public abstract void boutonDeclenchement ();
+
 
 }

@@ -8,7 +8,7 @@ public class Bomb : Trap {
 	public GameObject explosion;
 
 	protected override void Start(){
-		base.Start ();
+		GameManager.instance.AddTrapToList (this);
 		isEnclenched = true;
 	}
 
@@ -33,8 +33,8 @@ public class Bomb : Trap {
         isEnclenched = true;
     }
 
-    public override void declencherPiegeNewTurn(){
-    }
+    public override void declencherPiegeNewTurn(){}
+	public override void boutonDeclenchement (){}
 
 	public IEnumerator launchExplosion(){
 		GameObject toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
@@ -74,7 +74,6 @@ public class Bomb : Trap {
 	}
 
 	public void resetAfterExplosion(){
-		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1, null);
 		GameManager.instance.RemoveTrapToList (this);
 		Destroy (this.gameObject);
 	}
@@ -82,4 +81,6 @@ public class Bomb : Trap {
 	public bool isExplosing(){
 		return explosionIsLaunch;
 	}
+
+
 }

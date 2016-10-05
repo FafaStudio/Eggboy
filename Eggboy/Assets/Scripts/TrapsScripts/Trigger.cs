@@ -4,49 +4,47 @@ using System;
 
 
 public class Trigger : Trap {
-
-    private Player eggboy;
-    public Trap cible;
+	
+    public Trap[] cibles;
 
     public override void doAction()
     {
         return;
     }
 
-    public override void TriggerEnter(MovingObject col)
-    {
-        if ((col.gameObject.tag == "Player") && (!isEnclenched)) // N'agit que si le joueur a finit son tour
+    public override void TriggerEnter(MovingObject col){
+        if (!isEnclenched) // N'agit que si le joueur a finit son tour
         {
-            isEnclenched = true;
-            eggboy = col.gameObject.GetComponent<Player>();
-            cible.declencherPiege();
+			isEnclenched = true;
+			character = col;
+			character.setIsTrap(true);
+			character.piege = this;
         }
     }
 
 	public override void TriggerExit(){
 		isEnclenched = false;
+		if (character != null) {
+			character.setIsTrap (false);
+			character.piege = null;
+		}
 	}
 
-    
-   /* void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            isEnclenched = false;
-        }
-    }*/
-
-    public override void declencherPiege()
-    {
+    public override void declencherPiege(){
+		for (int i = 0; i < cibles.Length; i++) {
+			cibles [i].boutonDeclenchement ();
+		}
+		character.GetComponent<MovingObject> ().setIsUnderTrapEffect (false);
     }
 
-    public override void declencherPiegeNewTurn()
-    {
+	public override void boutonDeclenchement (){}
+
+    public override void declencherPiegeNewTurn(){
     }
 
     void OnDrawGizmos()
     {
-        if (cible == null)
+        if (cibles == null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
@@ -55,12 +53,15 @@ public class Trigger : Trap {
         }
 
     }
+
     void OnDrawGizmosSelected()
     {
-        if (cible != null)
+        if (cibles != null)
         {
-            Gizmos.color = Color.white;
-            Gizmos.DrawLine(transform.position, cible.transform.position);
+			for (int i = 0; i < cibles.Length; i++) {
+				Gizmos.color = Color.white;
+				Gizmos.DrawLine (transform.position, cibles[i].transform.position);
+			}
         }
     }
 }

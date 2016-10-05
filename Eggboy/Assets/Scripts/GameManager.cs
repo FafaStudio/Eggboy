@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
 			for (int x = 0; x < boardScript.columns; x++) {
 				if (boardScript.gridPositions [x, y].casePiege != null) {
 					if (boardScript.gridPositions [x, y].casePiege.name == "BombExplosion(Clone)") {
-						boardScript.gridPositions [x, y].casePiege.GetComponent<BombExplosion> ().resetAfterExplosion ();
+						//boardScript.gridPositions [x, y].casePiege.GetComponent<BombExplosion> ().resetAfterExplosion ();
 					}
 				}
 			}

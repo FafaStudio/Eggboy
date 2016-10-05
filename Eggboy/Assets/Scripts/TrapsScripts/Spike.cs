@@ -5,6 +5,7 @@ using System;
 public class Spike : Trap {
 
 	private Animator anim;
+	private bool boutonEnclenched = false;
 
 	private int TurnCount = 2;
 
@@ -15,6 +16,8 @@ public class Spike : Trap {
 	}
 
 	public override void doAction (){
+		if (boutonEnclenched)
+			return;
 		if (isActioning) {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
@@ -57,8 +60,7 @@ public class Spike : Trap {
 		character = null;
 	}
 
-    public override void declencherPiege()
-    {
+    public override void declencherPiege(){
 		character.setIsUnderTrapEffect(false);
 		if (character.gameObject.tag == "Enemy") {
 			if (isActioning) {
@@ -79,6 +81,29 @@ public class Spike : Trap {
     public override void declencherPiegeNewTurn()
     {
     }
+
+	public override void boutonDeclenchement (){
+		if (!boutonEnclenched) {
+			anim.SetBool ("isActioning", true);
+			isActioning = true;
+			isEnclenched = false;
+			if (isCharacter) {
+				if (character == null)
+					return;
+				if (character.gameObject.tag == "Player") {
+					character.GetComponent<Player> ().loseHP ();
+				} else if (character.gameObject.tag == "Enemy") {
+					character.GetComponent<Enemy> ().Die ();
+				}
+			}
+		} else {
+			anim.SetBool ("isActioning", false);
+			isActioning = false;
+			if (isCharacter) {
+				isEnclenched = true;
+			}
+		}
+	}
 
     void OnDrawGizmos()
     {     
