@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ChronoChest : Chest {
 
@@ -7,10 +8,15 @@ public class ChronoChest : Chest {
 	//OU
 	//TRES RAREMENT LES DEUX
 
+	public GameObject uiToInstantiate;
+	private GameObject instantiateUI;
+
 	public int chrono;
 
 	protected override void Start (){
 		base.Start ();
+		instantiateUI = Instantiate(uiToInstantiate, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
+		instantiateUI.GetComponent<Text>().text = chrono.ToString();
 		isEnclenched = true;
 		chestName = "Chrono";
 	}

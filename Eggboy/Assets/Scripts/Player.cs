@@ -94,7 +94,6 @@ public class Player : MovingObject
 		{
 			manager.playersTurn = false;
 			setIsUnderTrapEffect(false);
-            print("ALLO");
 		}
 		else
 		{
@@ -257,6 +256,10 @@ public class Player : MovingObject
 			}
 			else if (actionDuTour == "wait")
 			{
+				if (piege != null) {
+					if(piege.gameObject.name!="BoutonOn-Off")
+						testPiege ();
+				}
 				manager.playersTurn = false;
 			}
 		}

@@ -4,6 +4,9 @@ using System;
 
 
 public class Trigger : Trap {
+
+	public Sprite off;
+	public Sprite On;
 	
     public Trap[] cibles;
 
@@ -19,11 +22,15 @@ public class Trigger : Trap {
 			character = col;
 			character.setIsTrap(true);
 			character.piege = this;
+			if (character.tag == "Player") {
+				GameManager.instance.playersTurn = false;
+			}
         }
     }
 
 	public override void TriggerExit(){
 		isEnclenched = false;
+		GetComponent<SpriteRenderer> ().sprite = off;
 		if (character != null) {
 			character.setIsTrap (false);
 			character.piege = null;
@@ -34,6 +41,7 @@ public class Trigger : Trap {
 		for (int i = 0; i < cibles.Length; i++) {
 			cibles [i].boutonDeclenchement ();
 		}
+		GetComponent<SpriteRenderer> ().sprite = On;
 		character.GetComponent<MovingObject> ().setIsUnderTrapEffect (false);
     }
 

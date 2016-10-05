@@ -3,8 +3,6 @@ using System.Collections;
 
 public class BombExplosion : MonoBehaviour {
 
-	public LayerMask blockingLayer;
-
 	public void checkExplosion(){
 		MovingObject perso = GameManager.instance.getCurrentBoard ().testCaseCharacterPiege ((int)this.transform.position.x, (int)this.transform.position.y);
 		if (perso == null) {

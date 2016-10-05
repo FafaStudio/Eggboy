@@ -192,21 +192,20 @@ public class GameManager : MonoBehaviour
 				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
 			}
 		}
-		for (int y = boardScript.rows - 1; y >= 0; y--) {
-			for (int x = 0; x < boardScript.columns; x++) {
-				if (boardScript.gridPositions [x, y].casePiege != null) {
-					if (boardScript.gridPositions [x, y].casePiege.name == "BombExplosion(Clone)") {
-						//boardScript.gridPositions [x, y].casePiege.GetComponent<BombExplosion> ().resetAfterExplosion ();
-					}
-				}
-			}
-		}
+		clearBombs ();
+	}
+
+	public void clearBombs(){
+		List<GameObject> bombesToDestroy = new List<GameObject>();
 		for (int j = 0; j < traps.Count; j++) {
 			if ((traps [j].name == "Bombe") || (traps [j].name == "Bombe(Clone)")) {
 				if (traps [j].GetComponent<Bomb> ().isExplosing ()) {
-					traps [j].GetComponent<Bomb> ().resetAfterExplosion ();
+					bombesToDestroy.Add (traps [j].gameObject);
 				}
 			}
+		}
+		for (int i = 0; i < bombesToDestroy.Count; i++) {
+			bombesToDestroy [i].GetComponent<Bomb> ().resetAfterExplosion ();
 		}
 	}
 

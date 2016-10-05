@@ -40,32 +40,50 @@ public class Bomb : Trap {
 		GameObject toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
 		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
 		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x+1, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x-1, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
 
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x-1, this.transform.position.y+1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y+1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x+1, this.transform.position.y+1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
+		if (this.transform.position.x != 14) {
+			toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x + 1, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+			toInstantiate.transform.SetParent (this.transform);
+			if (this.transform.position.y != 7) {
+				toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x+1, this.transform.position.y+1, 0f), Quaternion.identity) as GameObject;
+				toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+				toInstantiate.transform.SetParent (this.transform);
+			}
+			if (this.transform.position.y != 0) {
+				toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x+1, this.transform.position.y-1, 0f), Quaternion.identity) as GameObject;
+				toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+				toInstantiate.transform.SetParent (this.transform);
+			}
+		}
+		if (this.transform.position.x != 0) {
+			toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x - 1, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+			toInstantiate.transform.SetParent (this.transform);
 
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x-1, this.transform.position.y-1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y-1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
-		toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x+1, this.transform.position.y-1, 0f), Quaternion.identity) as GameObject;
-		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
-		toInstantiate.transform.SetParent (this.transform);
+			if(this.transform.position.y!=7){
+				toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x-1, this.transform.position.y+1, 0f), Quaternion.identity) as GameObject;
+				toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+				toInstantiate.transform.SetParent (this.transform);
+			}
+			if (this.transform.position.y != 0) {
+				toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x-1, this.transform.position.y-1, 0f), Quaternion.identity) as GameObject;
+				toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+				toInstantiate.transform.SetParent (this.transform);
+			}
+		}
+			
+		if (this.transform.position.y != 7) {
+			toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y + 1, 0f), Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+			toInstantiate.transform.SetParent (this.transform);
+		}
+
+		if (this.transform.position.y != 0) {
+			toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y - 1, 0f), Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
+			toInstantiate.transform.SetParent (this.transform);
+		}
 
 		yield return null;
 

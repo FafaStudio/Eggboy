@@ -71,6 +71,9 @@ public class Spike : Trap {
 			} 
 		} else {
 			GameManager.instance.playersTurn = false;
+			if (boutonEnclenched) {
+				character.GetComponent<Player> ().loseHP ();
+			}
 			if (!isEnclenched) {
 				TurnCount = 2;
 				isEnclenched = true;
@@ -84,9 +87,10 @@ public class Spike : Trap {
 
 	public override void boutonDeclenchement (){
 		if (!boutonEnclenched) {
+			boutonEnclenched = true;
 			anim.SetBool ("isActioning", true);
 			isActioning = true;
-			isEnclenched = false;
+			isEnclenched = true;
 			if (isCharacter) {
 				if (character == null)
 					return;
@@ -97,10 +101,14 @@ public class Spike : Trap {
 				}
 			}
 		} else {
+			boutonEnclenched = false;
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
+			TurnCount = 2;
 			if (isCharacter) {
 				isEnclenched = true;
+			} else {
+				isEnclenched = false;
 			}
 		}
 	}

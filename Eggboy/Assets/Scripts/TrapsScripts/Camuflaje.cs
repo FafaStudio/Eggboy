@@ -17,7 +17,6 @@ public class Camuflaje : Trap {
 
     public override void TriggerEnter(MovingObject col)
     {
-        Debug.Log("MON ZBOUBINET");
         if ((col.gameObject.GetComponent<MovingObject>() != null) && (!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
             isEnclenched = true;
@@ -29,7 +28,7 @@ public class Camuflaje : Trap {
 
     public override void declencherPiege()
     {
-         GameObject toInstantiate = Instantiate(piegeCamoufle, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
+        GameObject toInstantiate = Instantiate(piegeCamoufle, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
         TriggerExit();
         toInstantiate.GetComponent<Trap>().TriggerEnter(character);
         GameManager.instance.RemoveTrapToList(this);
@@ -54,7 +53,7 @@ public class Camuflaje : Trap {
         }
     }
 
-    public override void declencherPiegeNewTurn()
-    {
-    }
+    public override void declencherPiegeNewTurn(){}
+
+	public override void boutonDeclenchement (){}
 }
