@@ -94,6 +94,7 @@ public class Player : MovingObject
 		{
 			manager.playersTurn = false;
 			setIsUnderTrapEffect(false);
+            print("ALLO");
 		}
 		else
 		{
