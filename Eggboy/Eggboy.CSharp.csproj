@@ -56,6 +56,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -98,37 +104,6 @@
     <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\UIPlayer.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\DebugData\2016-10-05--16-04-03--1973692630.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-04-40--1544991521.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-04-45--1455836288.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-04-58--1774549693.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-07-45--1239784520.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-20-51--1289267599.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-21-22--1267846301.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-40-25--1572498253.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-40-34--1536941341.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-40-41--1861493247.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-40-49--1838453848.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-41-03--1945335885.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-41-35--1633701556.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-47-29--1839879420.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-47-34--2035727927.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-47-40--1960308244.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-48-02--1728147773.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-48-41--2079038201.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-53-29--1889356879.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-53-34--2059015244.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-53-55--1748347268.txt" />
-    <None Include="Assets\DebugData\2016-10-05--16-55-35--2074373588.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-04-18--1228810561.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-05-08--1003346947.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-13-15--1903343843.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-13-36--1039783826.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-16-27--1592630791.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-22-10--1526734717.txt" />
-    <None Include="Assets\DebugData\2016-10-05--23-24-47--1904452956.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

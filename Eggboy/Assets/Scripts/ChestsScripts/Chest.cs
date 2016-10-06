@@ -7,6 +7,11 @@ public abstract class Chest : Trap {
 	
 	public abstract void openChest ();
 
+    protected override void Start()
+    {
+        GameManager.instance.getCurrentBoard().setNodeOnGrid((int)transform.position.x, (int)transform.position.y, -1, this);
+    }
+
 	public void destroyChest(){
 		GameManager.instance.RemoveTrapToList (this);
 		Destroy (this.gameObject);
