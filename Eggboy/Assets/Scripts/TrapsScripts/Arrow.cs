@@ -16,9 +16,22 @@ public class Arrow : Trap {
         setSprite();
     }
 
-    public override void boutonDeclenchement()
-    {
-        throw new NotImplementedException();
+    public override void boutonDeclenchement(){
+		switch (dir){
+			case Direction.Nord: 
+				dir = Direction.Est;
+				break;
+			case Direction.Est:
+				dir = Direction.Sud;
+				break;
+			case Direction.Sud:
+				dir = Direction.Ouest;
+				break;
+			case Direction.Ouest:
+				dir = Direction.Nord;
+				break;
+		}
+		setSprite ();
     }
 
     public override void doAction()
@@ -27,7 +40,7 @@ public class Arrow : Trap {
     }
 
 	public override void TriggerEnter(MovingObject col){
-		if ((col.gameObject.GetComponent<MovingObject>() != null)&&(!isEnclenched)) // N'agit que si le joueur a finit son tour
+		if (!isEnclenched) // N'agit que si le joueur a finit son tour
         {
 			isEnclenched = true;
 			character = col;
@@ -44,8 +57,7 @@ public class Arrow : Trap {
 		}
 	}
 		
-    public override void declencherPiege()
-    {
+    public override void declencherPiege(){
         switch (dir)
         {
             case Direction.Nord: 

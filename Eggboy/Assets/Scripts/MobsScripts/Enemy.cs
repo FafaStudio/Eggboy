@@ -18,7 +18,7 @@ public class Enemy : MovingObject {
 	    manager.AddEnemyToList (this);
 		animator = GetComponent<Animator> ();
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1, this);
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, -1, this);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
 		base.Start ();
 	}
