@@ -146,24 +146,18 @@ public class GameManager : MonoBehaviour
 	}
 		
 	IEnumerator MoveEnemies(){
-		//While enemiesMoving is true player is unable to move.
 		enemiesMoving = true;
-			
+		List<Enemy> enemyToLaunch = new List<Enemy>();
 		yield return new WaitForSeconds(turnDelay);
-			
-		//Loop through List of Enemy objects.
 		for (int i = 0; i < enemies.Count; i++)
 		{
-			//Call the MoveEnemy function of Enemy at index i in the enemies List.
-			enemies[i].MoveEnemy ();
-
-		
-				
-			//Wait for Enemy's moveTime before moving next Enemy, 
+			enemyToLaunch.Add(enemies[i]);
+		}
+		for (int j = 0; j < enemyToLaunch.Count; j++)
+		{
+			enemyToLaunch[j].MoveEnemy ();
 			yield return new WaitForSeconds(turnDelay/(enemies.Count+1));
 		}
-		//print(getCurrentBoard ().grilleToString ());
-		//Enemies are done moving, set enemiesMoving to false.
 		playersTurn = true;
 		totalTurns += 1;
 		enemiesMoving = false;
@@ -171,12 +165,16 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator LaunchTraps(){
 		trapActioning = true;
+		List<Trap> trapToLaunch = new List<Trap>();
 		yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < traps.Count; i++) {
-			if ((traps [i].isEnclenched)||traps[i].isActioning) {
-				traps [i].doAction ();
-				yield return new WaitForSeconds(turnDelay/(traps.Count+1));
-			}
+			if ((traps [i].isEnclenched) || traps [i].isActioning) {
+				trapToLaunch.Add (traps [i]);
+			} 
+		}
+		for (int j = 0; j < trapToLaunch.Count; j++) {
+			trapToLaunch[j].doAction ();
+			yield return new WaitForSeconds(turnDelay/(traps.Count+1));
 		}
 		trapActioning = false;
 	}

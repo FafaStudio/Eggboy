@@ -17,7 +17,7 @@ public class Bomb : Trap {
 		if (turnCount > 0) {
 			turnCount--;
 		} else {
-			StartCoroutine (launchExplosion ());
+			launchExplosion ();
 		}
     }
 		
@@ -36,7 +36,7 @@ public class Bomb : Trap {
     public override void declencherPiegeNewTurn(){}
 	public override void boutonDeclenchement (){}
 
-	public IEnumerator launchExplosion(){
+	public void launchExplosion(){
 		GameObject toInstantiate = Instantiate (explosion, new Vector3 (this.transform.position.x, this.transform.position.y, 0f), Quaternion.identity) as GameObject;
 		toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
 		toInstantiate.transform.SetParent (this.transform);
@@ -84,8 +84,6 @@ public class Bomb : Trap {
 			toInstantiate.GetComponent<BombExplosion> ().checkExplosion ();
 			toInstantiate.transform.SetParent (this.transform);
 		}
-
-		yield return null;
 
 		this.GetComponent<SpriteRenderer> ().sprite = null;
 		explosionIsLaunch = true;

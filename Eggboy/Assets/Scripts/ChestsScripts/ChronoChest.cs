@@ -15,8 +15,8 @@ public class ChronoChest : Chest {
 
 	protected override void Start (){
 		base.Start ();
-		instantiateUI = Instantiate(uiToInstantiate, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
-		instantiateUI.GetComponent<Text>().text = chrono.ToString();
+		//instantiateUI = Instantiate(uiToInstantiate, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
+		//instantiateUI.GetComponent<Text>().text = chrono.ToString();
 		isEnclenched = true;
 		chestName = "Chrono";
 	}

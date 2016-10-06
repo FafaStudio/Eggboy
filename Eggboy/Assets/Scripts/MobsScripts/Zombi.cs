@@ -12,6 +12,19 @@ public class Zombi : Enemy {
 		base.Start ();
 	}
 
+	protected override IEnumerator SmoothMovement(Vector3 end)
+	{
+		//coroutine permettant de bouger une unité d'un espace/une case 
+		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+		while (sqrRemainingDistance > float.Epsilon) {
+			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+			rb2D.MovePosition(newPosition);
+			sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+			yield return null;
+		}
+		testPiege ();
+	}
+
 	protected override bool Move (int xDir, int yDir, out RaycastHit2D hit)
 	{
 		skipMove = true;
