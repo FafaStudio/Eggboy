@@ -217,4 +217,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public List<Trap> getTrapsList(){
+		return traps;
+	}
+
 }

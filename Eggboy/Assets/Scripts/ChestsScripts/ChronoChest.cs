@@ -8,15 +8,13 @@ public class ChronoChest : Chest {
 	//OU
 	//TRES RAREMENT LES DEUX
 
-	public GameObject uiToInstantiate;
-	private GameObject instantiateUI;
-
 	public int chrono;
+
+	Vector2 screenPos;
 
 	protected override void Start (){
 		base.Start ();
-		//instantiateUI = Instantiate(uiToInstantiate, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
-		//instantiateUI.GetComponent<Text>().text = chrono.ToString();
+		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		isEnclenched = true;
 		chestName = "Chrono";
 	}
@@ -40,4 +38,11 @@ public class ChronoChest : Chest {
 	public override void TriggerEnter (MovingObject trapped){}
 	public override void TriggerExit (){}
 	public override void boutonDeclenchement (){}
+
+	void OnGUI()
+	{
+		var centeredStyle = GUI.skin.GetStyle("Label");
+		centeredStyle.alignment = TextAnchor.MiddleCenter;
+		GUI.TextField (new Rect (screenPos.x - 6, (Screen.height - screenPos.y) - 10, 15, 20), chrono.ToString ());
+	}
 }
