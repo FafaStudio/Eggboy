@@ -6,7 +6,10 @@ public class Camuflaje : Trap {
 
     public GameObject piegeCamoufle;
 
-	protected override void Start () {
+    public enum Direction { Nord, Est, Sud, Ouest };
+    public Direction directionArrowEventuelle; // si le piège camouflay est une arrow, on doit set sa direction dans le level design
+
+    protected override void Start () {
         base.Start();
     }
 
@@ -25,7 +28,16 @@ public class Camuflaje : Trap {
     {
         GameObject toInstantiate = Instantiate(piegeCamoufle, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
         TriggerExit();
+
+        print(toInstantiate.gameObject.name);
+
+        if (toInstantiate.gameObject.name == "Arrow(Clone)")
+        {
+            print("ALLO");
+            toInstantiate.GetComponent<Arrow>().dir = (Arrow.Direction)directionArrowEventuelle;
+        }
         toInstantiate.GetComponent<Trap>().TriggerEnter(character);
+        toInstantiate.GetComponent<Trap>().declencherPiege();
         GameManager.instance.RemoveTrapToList(this);
         Destroy(this.gameObject);
 
