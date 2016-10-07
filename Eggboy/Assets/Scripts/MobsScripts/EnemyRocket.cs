@@ -6,8 +6,7 @@ public class EnemyRocket : EnemyDistance {
 
 	public List<Rocket> roquettestirés;
 
-	protected override void Start ()
-	{
+	protected override void Start (){
 		enemyName = "rocket";
 		base.Start ();
 	}
@@ -17,8 +16,12 @@ public class EnemyRocket : EnemyDistance {
 		/*if (hasLaunchLaserLastTurn) {
 			clearTir ();
 		}*/
+		List<Rocket> temporaire = new List<Rocket> ();
 		for (int i = 0; i < roquettestirés.Count; i++) {
-			roquettestirés [i].MoveBullet ();
+			temporaire.Add(roquettestirés [i]);
+		}
+		for (int j = 0; j < temporaire.Count; j++) {
+			temporaire [j].MoveBullet ();
 		}
 		base.MoveEnemy ();
 	}
@@ -42,7 +45,6 @@ public class EnemyRocket : EnemyDistance {
 		missile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
 		missile.GetComponent<Rocket> ().setTireur (this);
 		roquettestirés.Add (missile.GetComponent<Rocket>());
-
 		yield return null;
 	}
 }

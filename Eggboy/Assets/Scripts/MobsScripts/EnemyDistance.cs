@@ -15,12 +15,13 @@ public abstract class EnemyDistance : Enemy{
 	public GameObject bullet;
 	protected int rotation = 0;
 
-	protected override void Start ()
-	{
+	protected override void Start (){
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
 		animator = null;
-		switchDirection ();
+		xDirAttack = -1;
+		rotation = 90;
+		dir = Direction.horizontal;
 	}
 
 	public override void MoveEnemy ()
@@ -47,8 +48,8 @@ public abstract class EnemyDistance : Enemy{
 	}
 
 	protected void switchDirection(){
-		int diffX = (int)(target.GetComponent<Player> ().caseExacte.position.x - this.transform.position.x);
-		int diffY = (int)(target.GetComponent<Player> ().caseExacte.position.y - this.transform.position.y);
+		int diffX = (int)(target.GetComponent<MovingObject> ().caseExacte.position.x - this.transform.position.x);
+		int diffY = (int)(target.GetComponent<MovingObject> ().caseExacte.position.y - this.transform.position.y);
 
 		if (diffX > 0) {
 			xDirAttack = 1;
