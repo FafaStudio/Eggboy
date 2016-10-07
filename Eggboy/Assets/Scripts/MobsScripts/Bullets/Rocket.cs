@@ -25,7 +25,7 @@ public class Rocket : MovingObject {
 
 	protected override void OnCantMove (GameObject col)
 	{
-		if (col.gameObject.tag == "Wall") {
+		if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Bullet") {
 			isDead = true;
 			Die ();
 		} else if (col.gameObject.tag == "Player") {
