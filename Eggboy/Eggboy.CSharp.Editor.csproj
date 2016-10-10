@@ -92,30 +92,6 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.EditorTestsRunner">
-      <HintPath>Library\UnityAssemblies\UnityEditor.EditorTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TreeEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Eggboy.CSharp.csproj">
@@ -132,6 +108,41 @@
     <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
     <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
     <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\DebugData\2016-10-10--23-31-06--2052853107.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-32-03--1228481575.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-32-54--2037202696.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-35-05--1261993091.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-45-40--1851861069.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-47-56--1887013224.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-49-03--1784477429.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-49-47--1950184923.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-51-34--1706823587.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-54-22--2135371623.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-54-48--1983669208.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-56-14--1114288535.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-56-40--2124170758.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-57-12--1124261977.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-57-41--1925526496.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-57-53--1878584649.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-58-00--2072752134.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-59-04--1216940786.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-59-27--1065238371.txt" />
+    <None Include="Assets\DebugData\2016-10-10--23-59-50--1046608135.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-01-03--1211560577.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-02-31--1824010589.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-04-07--1943800817.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-04-42--1277244423.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-17-54--2062007707.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-19-04--1231523452.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-19-47--1893751449.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-20-23--1901940565.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-20-37--1529691760.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-21-20--1068328105.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-23-03--1558731192.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-25-10--1179609919.txt" />
+    <None Include="Assets\DebugData\2016-10-11--00-25-37--1921123011.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
