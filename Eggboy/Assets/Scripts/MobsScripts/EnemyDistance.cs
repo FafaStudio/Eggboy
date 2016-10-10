@@ -15,7 +15,10 @@ public abstract class EnemyDistance : Enemy{
 	public GameObject bullet;
 	protected int rotation = 0;
 
+	protected Vector2 screenPos;
+
 	protected override void Start (){
+		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
 		animator = null;
@@ -76,4 +79,11 @@ public abstract class EnemyDistance : Enemy{
 
 	public abstract void launchTir ();
 	public abstract IEnumerator instantiateBullet (Vector3 position);
+
+	void OnGUI(){
+		var centeredStyle = GUI.skin.GetStyle("Label");
+		centeredStyle.alignment = TextAnchor.MiddleCenter;
+		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 15, 20), (cptTurnBetweenAttack+1).ToString ());
+	}
+
 }
