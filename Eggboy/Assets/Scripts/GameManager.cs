@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 		playersTurn = true;
 	}
 		
-	void Update()
+	void FixedUpdate()
 	{
 		if(playersTurn || enemiesMoving || trapActioning)
 			return;
