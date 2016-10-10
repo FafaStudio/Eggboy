@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class EnemyRocket : EnemyDistance {
 
@@ -11,11 +12,7 @@ public class EnemyRocket : EnemyDistance {
 		base.Start ();
 	}
 
-	public override void MoveEnemy ()
-	{
-		/*if (hasLaunchLaserLastTurn) {
-			clearTir ();
-		}*/
+	public override void MoveEnemy (){
 		List<Rocket> temporaire = new List<Rocket> ();
 		for (int i = 0; i < roquettestirés.Count; i++) {
 			temporaire.Add(roquettestirés [i]);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class EnemyLaser : EnemyDistance{
 
@@ -70,5 +71,5 @@ public class EnemyLaser : EnemyDistance{
 		lasers.Clear ();
 		hasLaunchLaserLastTurn = false;
 	}
-
+		
 }
