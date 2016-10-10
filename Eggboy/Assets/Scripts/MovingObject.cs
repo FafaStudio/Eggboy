@@ -22,6 +22,7 @@ public abstract class MovingObject : MonoBehaviour {
 	protected virtual void Start () {
 	// protected virtual permet "l'override" par les classes qui héritent, pour pouvoir y modifier le start
 		boxCollider = GetComponent<BoxCollider2D> ();
+		manager = GameManager.instance;
 		rb2D = GetComponent<Rigidbody2D> ();
 		inverseMoveTime = 1f / moveTime;
 	}

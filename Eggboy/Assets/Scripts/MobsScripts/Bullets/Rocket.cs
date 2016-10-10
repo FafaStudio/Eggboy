@@ -11,20 +11,17 @@ public class Rocket : MovingObject {
 	protected Transform target;                           //Transform to attempt to move toward each turn.
 	public bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 	protected bool isDead = false;
-	public BoardManager.Node caseExacte;
 
 	private EnemyRocket enemyLauncher;
 
-	protected override void Start ()
-	{
+	protected override void Start (){
 		skipMove = false;
 		animator = GetComponent<Animator> ();
-		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, -1);
+		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
 		base.Start ();
 	}
 
-	protected override void OnCantMove (GameObject col)
-	{
+	protected override void OnCantMove (GameObject col){
 		if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Bullet") {
 			isDead = true;
 			Die ();
@@ -35,8 +32,7 @@ public class Rocket : MovingObject {
 		}
 	}
 
-	public void MoveBullet ()
-	{
+	public void MoveBullet (){
 		if (skipMove) {
 			skipMove = false;
 			return;
@@ -54,7 +50,26 @@ public class Rocket : MovingObject {
 		if (col.gameObject.tag == "Player") {
 			col.gameObject.GetComponent<Player> ().loseHP ();
 			Die ();
+		} else if ((col.gameObject.tag == "Bullet")||(col.gameObject.tag == "Wall")) {
+			Die ();
 		}
+	}
+
+	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+		//simule/teste le mouvement du personnage
+		Vector2 start = transform.position;
+		Vector2 end = start + new Vector2 (xDir, yDir);
+		boxCollider.enabled = false;
+		hit = Physics2D.Linecast (start, end, blockingLayer);
+		boxCollider.enabled = true;
+		if (hit.transform == null) {
+			StartCoroutine (SmoothMovement (end));
+			return true;
+		} else if (hit.transform.gameObject.tag == "Enemy") {
+			StartCoroutine (SmoothMovement (end));
+			return true;
+		}
+		return false;
 	}
 
 	protected override void testPiege(){
@@ -63,8 +78,7 @@ public class Rocket : MovingObject {
 	public virtual void Die(){
 		isDead = true;
 		enabled = false;
-		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
-		enemyLauncher.roquettestirés.Remove (this);
+		manager.RemoveRocketToList (this);
 		Destroy (this.gameObject);
 	}
 

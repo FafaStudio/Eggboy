@@ -10,6 +10,7 @@ public class Zombi : Enemy {
 		enemyName = "basic";
 		skipMove = true;
 		base.Start ();
+		testPiege ();
 	}
 
 	protected override IEnumerator SmoothMovement(Vector3 end)
