@@ -16,8 +16,10 @@ public class GameManager : MonoBehaviour
 	private int level = 1;                                
 	public List<Enemy> enemies;                         	//Liste de tous les ennemis
 	private List<Trap> traps;								//Liste de tous les pièges
+	private List<Rocket> rockets;
 	private bool enemiesMoving;                             //Boolean to check if enemies are moving.
 	private bool trapActioning;
+	private bool rocketsMoving;
 	private List<int> levelPassed;
 	public int totalTurns = 0;
 
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
 			
 		enemies = new List<Enemy>();
 		traps = new List<Trap> ();
+		rockets = new List<Rocket> ();
 
 		//Permet de récupérer les niveaux déjà passé
 		levelPassed = new List<int> ();
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour
 	{
 		enemies.Clear();
 		traps.Clear ();
+		rockets.Clear ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 		boardScript.SetupScene(level);
 		playersTurn = true;
@@ -113,10 +117,11 @@ public class GameManager : MonoBehaviour
 		
 	void FixedUpdate()
 	{
-		if(playersTurn || enemiesMoving || trapActioning)
+		if(playersTurn || enemiesMoving || trapActioning || rocketsMoving)
 			return;
 		playersTurn = false;
 		StartCoroutine (LaunchTraps ());
+		StartCoroutine (Moverockets ());
 		StartCoroutine (MoveEnemies ());
 	}
 		
@@ -129,8 +134,16 @@ public class GameManager : MonoBehaviour
 		traps.Add (script);
 	}
 
+	public void AddRocketToList(Rocket script){
+		rockets.Add (script);
+	}
+
 	public void RemoveTrapToList(Trap script){
 		traps.Remove (script);
+	}
+
+	public void RemoveRocketToList(Rocket script){
+		rockets.Remove (script);
 	}
 		
 	public void RemoveEnemyToList(Enemy script){
@@ -162,6 +175,21 @@ public class GameManager : MonoBehaviour
 		totalTurns += 1;
 		enemiesMoving = false;
 	}
+
+	IEnumerator Moverockets(){
+		rocketsMoving = true;
+		List<Rocket> temporaire = new List<Rocket> ();
+		yield return new WaitForSeconds(turnDelay);
+		for (int i = 0; i < rockets.Count; i++) {
+			temporaire.Add(rockets[i]);
+		}
+		for (int j = 0; j < temporaire.Count; j++) {
+			temporaire [j].MoveBullet ();
+			yield return new WaitForSeconds(turnDelay/(rockets.Count+1));
+		}
+		rocketsMoving = false;
+	}
+
 
 	IEnumerator LaunchTraps(){
 		trapActioning = true;
