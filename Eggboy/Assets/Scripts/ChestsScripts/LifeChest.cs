@@ -22,13 +22,13 @@ public class LifeChest : Chest {
 		Loot loot = new Loot (0);
 		switch (randomLoot) {
 		case 0:
-			loot.setGolds (2);
+			loot.setGolds (15);
 			break;
 		case 1: 
-			loot.setGolds (2);
+			loot.setGolds (15);
 			break;
 		case 2:
-			loot.setGolds (3);
+			loot.setGolds (20);
 			break;
 		}
 		return loot;

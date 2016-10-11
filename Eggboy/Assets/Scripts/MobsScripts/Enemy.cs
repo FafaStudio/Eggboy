@@ -40,8 +40,7 @@ public class Enemy : MovingObject {
 		Destroy (this.gameObject);
 	}
 
-	protected override void AttemptMove (int xDir, int yDir)
-	{
+	protected override void AttemptMove (int xDir, int yDir){
 		//Check if skipMove is true, if so set it to false and skip this turn.
 		if(skipMove)
 		{

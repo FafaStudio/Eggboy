@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	private bool rocketsMoving;
 	private List<int> levelPassed;
 	public int totalTurns = 0;
+	public int totalTurnCurLevel = 0;
 
     public Replay replay;
 
@@ -80,13 +81,21 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void addLevelToList(){
+		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
+			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 1);
+		} else {
+			levelPassed.Add (0);
+		}
+		
+	}
+
 	private int chooseNextLevel(){
 		if (PlayerPrefs.HasKey("LevelGameSeed")){
 			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
 		}
-		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
-			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 1);
-		} 
+
+		addLevelToList ();
 		
 		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
@@ -116,6 +125,7 @@ public class GameManager : MonoBehaviour
 	//Initializes the game for each level.
 	void InitGame()
 	{
+		totalTurnCurLevel = 0;
 		enemies.Clear();
 		traps.Clear ();
 		rockets.Clear ();
@@ -190,6 +200,7 @@ public class GameManager : MonoBehaviour
 		}
 		playersTurn = true;
 		totalTurns += 1;
+		totalTurnCurLevel += 1;
 		enemiesMoving = false;
 	}
 

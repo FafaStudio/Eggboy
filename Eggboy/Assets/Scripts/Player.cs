@@ -13,6 +13,7 @@ public class Player : MovingObject
 
 	private int hp;
 	private int golds;
+	private int combo = 1;
 
 	private UIPlayer uiManager;
 
@@ -108,7 +109,16 @@ public class Player : MovingObject
 		} else if (col.gameObject.tag == "Enemy") {
 			manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
-			gainGolds (col.GetComponent<Enemy>().goldsLoot);
+			if (col.gameObject.GetComponent<Zombi> () == null) {
+				gainGolds (col.GetComponent<Enemy> ().goldsLoot * combo);
+			}
+			if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
+				combo += 1;
+				if (combo > 4)
+					combo = 4;
+			} else {
+				combo = 1;
+			}
 			col.GetComponent<Enemy> ().Die ();
 			if (piege != null) {
 				if (piege.gameObject.name != "BoutonOn-Off")
@@ -129,6 +139,7 @@ public class Player : MovingObject
 			takesDamageThisLevel = true;
 			manager.destroyLifeChests ();
 		}
+		combo = 1;
 		camera.setShake(0.6f);
 		animator.SetTrigger("isDamaged");
 		manager.playerhpPoints -= 1;

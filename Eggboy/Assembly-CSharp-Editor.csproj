@@ -53,8 +53,6 @@
      <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
      <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
      <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
-     <None Include="Assets\DebugData\2016-10-11--16-23-06--1693450422.txt" />
-     <None Include="Assets\DebugData\2016-10-11--16-22-00--1988840820.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity5.3.3/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
