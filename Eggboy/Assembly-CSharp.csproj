@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\ChronoChest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
+     <Compile Include="Assets\Scripts\EnumLevel.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Items\HeartItem.cs" />
@@ -84,8 +85,6 @@
      <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
-     <None Include="Assets\DebugData\2016-10-11--16-23-06--1693450422.txt" />
-     <None Include="Assets\DebugData\2016-10-11--16-22-00--1988840820.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.3.3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
