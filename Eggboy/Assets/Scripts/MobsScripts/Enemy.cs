@@ -15,6 +15,8 @@ public class Enemy : MovingObject {
 
 	public bool endTurnEnemy = true;
 
+	public int goldsLoot;
+
 	protected override void Start (){
 		manager = GameManager.instance;
 	    manager.AddEnemyToList (this);

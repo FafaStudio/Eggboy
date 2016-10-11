@@ -32,6 +32,7 @@ public class Player : MovingObject
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
+		//GameManager.instance.levelPassedToString();
 
 		base.Start();
 	}
@@ -74,8 +75,7 @@ public class Player : MovingObject
 			return false;
 	}
 
-	protected override IEnumerator SmoothMovement(Vector3 end)
-	{
+	protected override IEnumerator SmoothMovement(Vector3 end){
 		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 		while (sqrRemainingDistance > float.Epsilon)
 		{
@@ -108,6 +108,7 @@ public class Player : MovingObject
 		} else if (col.gameObject.tag == "Enemy") {
 			manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
+			gainGolds (col.GetComponent<Enemy>().goldsLoot);
 			col.GetComponent<Enemy> ().Die ();
 			if (piege != null) {
 				if (piege.gameObject.name != "BoutonOn-Off")
@@ -258,8 +259,7 @@ public class Player : MovingObject
                 }
                 actionDuTour = "move";
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
+            else if (Input.GetKeyDown(KeyCode.Space)){
                 manager.replay.addAction(0);
                 actionDuTour = "wait";
             }

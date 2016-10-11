@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
 		
-		
 	private BoardManager boardScript;                       
 	private int level = 1;                                
 	public List<Enemy> enemies;                         	//Liste de tous les ennemis
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
 				testingLevel = false;
 				launchNextLevel (levelTest);
 			} else {
-				launchNextLevel (1);
+				launchNextLevel (2);
 			}
 		}
 	}
@@ -82,21 +81,20 @@ public class GameManager : MonoBehaviour
 	}
 
 	private int chooseNextLevel(){
-		if (PlayerPrefs.HasKey("LevelGameSeed"))
-		{
+		if (PlayerPrefs.HasKey("LevelGameSeed")){
 			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
 		}
 		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
-			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex);
-		}
+			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 1);
+		} 
 		
-		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
+		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
 		if ((levelPassed.Count % 10 == 0)&&(levelPassed.Count!=0)){
 			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 			totalTurns++;
-			return 20;
+			return 1;
 		}
 		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-2) {
 			totalTurns++;
@@ -266,6 +264,12 @@ public class GameManager : MonoBehaviour
 
 	public List<Trap> getTrapsList(){
 		return traps;
+	}
+
+	public void levelPassedToString(){
+		for (int i = 0; i < levelPassed.Count; i++) {
+			print (levelPassed [i].ToString ());
+		}
 	}
 
 }
