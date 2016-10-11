@@ -143,6 +143,17 @@
     <None Include="Assets\DebugData\2016-10-11--00-23-03--1558731192.txt" />
     <None Include="Assets\DebugData\2016-10-11--00-25-10--1179609919.txt" />
     <None Include="Assets\DebugData\2016-10-11--00-25-37--1921123011.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-08-21--1787533443.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-08-31--1281772012.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-09-44--2142787958.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-11-08--1290104815.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-17-33--2075224014.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-23-14--1850753057.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-30-07--1041383954.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-30-32--1836976197.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-30-51--1924450408.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-31-30--1553985929.txt" />
+    <None Include="Assets\DebugData\2016-10-11--01-32-35--1555621875.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
