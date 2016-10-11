@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,10 +8,12 @@ public class UIPlayer : MonoBehaviour {
 	public GameObject[] heartContainer;
 	private Player playerManager;
 	private List<GameObject> instantiateHeart;
+	private Text goldsContainer;
 
 	void Awake () {
 		playerManager = GameObject.Find ("Player").GetComponent<Player> ();
 		instantiateHeart = new List<GameObject> ();
+		goldsContainer = GameObject.Find ("Golds").GetComponent<Text> ();
 	}
 
 	void Update () {
@@ -51,6 +54,10 @@ public class UIPlayer : MonoBehaviour {
 			instantiateLifeContainers (heartContainer [0]);
 			break;
 		}
+	}
+
+	public void updateGolds(){
+		goldsContainer.text = playerManager.getGolds ().ToString ();
 	}
 
 	private void instantiateLifeContainers(GameObject toInstantiate){

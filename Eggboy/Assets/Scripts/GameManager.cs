@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
 	public float levelStartDelay = 2f;                      
 	public float turnDelay = 0.5f;                          
-	public int playerhpPoints = 6;                    
+	public int playerhpPoints = 6; 
+	public int playerGolds = 0;
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
 		
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
 	//Appeler a chaque changement de level
 	void OnLevelWasLoaded(int index)
 	{
+		//print (SceneManager.GetSceneByName ("LevelMagasin").buildIndex.ToString());
 		level++;
 		InitGame();
 	}
@@ -84,11 +86,20 @@ public class GameManager : MonoBehaviour
 		{
 			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
 		}
-		levelPassed.Add (SceneManager.GetActiveScene().buildIndex);
+		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
+			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex);
+		}
+		
 		int nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-		print(Random.seed);
-		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-1) {
+		//print(Random.seed);
+		if ((levelPassed.Count % 10 == 0)&&(levelPassed.Count!=0)){
+			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
+			totalTurns++;
+			return 20;
+		}
+		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-2) {
+			totalTurns++;
 			return nextLevel;
 		}
 		while (levelPassed.Contains (nextLevel)) {

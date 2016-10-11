@@ -20,7 +20,8 @@ public class ChronoChest : Chest {
 	}
 
 	public override void openChest (){
-		print ("Gagné");
+		Loot chestLoot = lootChest ();
+		player.gainGolds (chestLoot.getGolds ());
 		destroyChest ();
 	}
 
@@ -33,6 +34,23 @@ public class ChronoChest : Chest {
 		} else {
 			destroyChest ();
 		}
+	}
+
+	public override Loot lootChest(){
+		int randomLoot = (int)Random.Range (0, 2);
+		Loot loot = new Loot (0);
+		switch (randomLoot) {
+		case 0:
+			loot.setGolds (3);
+			break;
+		case 1: 
+			loot.setGolds (3);
+			break;
+		case 2:
+			loot.setGolds (5);
+			break;
+		}
+		return loot;
 	}
 
 	public override void TriggerEnter (MovingObject trapped){}
