@@ -24,18 +24,16 @@ public class Camuflaje : Trap {
         }
     }
 
-    public override void declencherPiege()
-    {
+    public override void declencherPiege(){
         GameObject toInstantiate = Instantiate(piegeCamoufle, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
-        TriggerExit();
-
-        print(toInstantiate.gameObject.name);
-
-        if (toInstantiate.gameObject.name == "Arrow(Clone)")
-        {
-            print("ALLO");
-            toInstantiate.GetComponent<Arrow>().dir = (Arrow.Direction)directionArrowEventuelle;
-        }
+		if(toInstantiate.gameObject.name!="Arrow(Clone)")
+		//pour empêcher le joueur de pouvoir entrer un input quand il fait une série de flèche camouflé
+			TriggerExit();
+		if (toInstantiate.gameObject.name == "Arrow(Clone)") {
+			toInstantiate.GetComponent<Arrow> ().dir = (Arrow.Direction)directionArrowEventuelle;
+		} else if (toInstantiate.gameObject.name == "Bombe(Clone)") {
+			toInstantiate.GetComponent<Bomb> ().setCompteur (0);
+		}
         toInstantiate.GetComponent<Trap>().TriggerEnter(character);
         toInstantiate.GetComponent<Trap>().declencherPiege();
         GameManager.instance.RemoveTrapToList(this);

@@ -72,6 +72,10 @@ public abstract class MovingObject : MonoBehaviour {
 
 	protected abstract void testPiege ();
 
+	public void piegeAccess(){
+		testPiege ();
+	}
+
 
 	public bool getisTrap()
 	{

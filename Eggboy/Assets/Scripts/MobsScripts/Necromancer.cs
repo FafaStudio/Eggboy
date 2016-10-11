@@ -50,17 +50,18 @@ public class Necromancer : Enemy {
 			if (spawned.Count < maxZombie) {
 				Vector2 spawnPosition = GameManager.instance.getCurrentBoard ().doPathfinding (target.GetComponent<Player> ().caseExacte, currentPos);
 				if ((spawnPosition.x == -1f) && (spawnPosition.y == -1f)) {
-					List<BoardManager.Node> voisins = GameManager.instance.getCurrentBoard ().Voisins (new BoardManager.Node(1, new Vector2((int)this.transform.position.x, (int)this.transform.position.y)));
+					List<BoardManager.Node> voisins = GameManager.instance.getCurrentBoard ().Voisins (new BoardManager.Node (1, new Vector2 ((int)this.transform.position.x, (int)this.transform.position.y)));
 					for (int i = 0; i < voisins.Count; i++) {
 						if (voisins [i].valeur == 1) {
-							spawnZombie ((int)voisins[i].position.x, (int)voisins[i].position.y);
+							spawnZombie ((int)voisins [i].position.x, (int)voisins [i].position.y);
 							return;
 						}
 					}
-				}else
+				} else
 					spawnZombie ((int)spawnPosition.x, (int)spawnPosition.y);
 			}
 		} else
+			endTurnEnemy = true;
 			hasSpawnedLastTurn = false;
 	}
 
@@ -68,15 +69,17 @@ public class Necromancer : Enemy {
 		GameObject toInstantiate = Instantiate (zombieRat, new Vector3 (xDir, yDir, 0f), Quaternion.identity) as GameObject;
 		toInstantiate.GetComponent<Zombi>().setNecroPere(this.GetComponent<Necromancer>());
 		spawned.Add(toInstantiate);
-
+		endTurnEnemy = true;
 		hasSpawnedLastTurn = true;
 	}
 
 	protected override void OnCantMove (GameObject col)
 	{
 		if (col.gameObject.tag == "Wall") {
+			endTurnEnemy = true;
 			return;
 		} else if (col.gameObject.tag == "Player") {
+			endTurnEnemy = true;
 			return;
 		}
 	}

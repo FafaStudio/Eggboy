@@ -13,6 +13,8 @@ public class Enemy : MovingObject {
 	public bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 	protected bool isDead = false;
 
+	public bool endTurnEnemy = true;
+
 	protected override void Start (){
 		manager = GameManager.instance;
 	    manager.AddEnemyToList (this);
@@ -24,6 +26,7 @@ public class Enemy : MovingObject {
 	}
 
 	public virtual void Die(){
+		endTurnEnemy = true;
 		if (piege != null) {
 			piege.TriggerExit ();
 		}
@@ -41,6 +44,7 @@ public class Enemy : MovingObject {
 		if(skipMove)
 		{
 			skipMove = false;
+			endTurnEnemy = true;
 			return;
 		}
 		
@@ -56,16 +60,23 @@ public class Enemy : MovingObject {
 		hit = Physics2D.Linecast (start, end, blockingLayer);
 		boxCollider.enabled = true;
 		if (hit.transform == null) {
-			if (piege != null) {
-				piege.TriggerExit ();
-			}
-			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, -1, this);
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
-			StartCoroutine(SmoothMovement(end));
+			launchMove (xDir, yDir, end);
+			return true;
+		} else if (hit.transform.tag == "Bullet") {
+			launchMove (xDir, yDir, end);
 			return true;
 		}
 		return false;
+	}
+
+	protected void launchMove(int xDir, int yDir, Vector2 end){
+		if (piege != null) {
+			piege.TriggerExit ();
+		}
+		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, -1, this);
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
+		StartCoroutine(SmoothMovement(end));
 	}
 
 	protected override IEnumerator SmoothMovement(Vector3 end)
@@ -84,21 +95,29 @@ public class Enemy : MovingObject {
 	protected override void testPiege(){
 		manager.getCurrentBoard ().testCasePiege (this);
 		if (isTrap) {
-			setIsUnderTrapEffect(true);
-			piege.declencherPiege ();
+			if ((piege.gameObject.name != "Arrow") && (piege.gameObject.name != "Arrow(Clone")) {
+				setIsUnderTrapEffect (true);
+				piege.declencherPiege ();
+				endTurnEnemy = true;
+			} else {
+				setIsUnderTrapEffect (true);
+				piege.declencherPiege ();
+			}
 		} else {
+			endTurnEnemy = true;
 			setIsUnderTrapEffect(false);
 		}
 	}
 
 	//MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
-	public virtual void MoveEnemy ()
-	{
+	public virtual void MoveEnemy (){
 		if (isDead)
 			return;
 		if (underTrapNewTurnEffect) {
 			piege.declencherPiegeNewTurn ();
 		}
+
+		endTurnEnemy = false;
 		
 		int xDir = 0;
 		int yDir = 0;
@@ -122,6 +141,7 @@ public class Enemy : MovingObject {
 
 	protected override void OnCantMove (GameObject col)
 	{
+		endTurnEnemy = true;
 		if (isTrap) {
 			isTrap = false;
 		}

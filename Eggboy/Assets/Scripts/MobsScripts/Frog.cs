@@ -32,6 +32,7 @@ public class Frog : Enemy {
 	protected override void AttemptMove (int xDir, int yDir){
 		if(skipMove){
 			skipMove = false;
+			endTurnEnemy = true;
 			return;
 		}
 		RaycastHit2D hit;
@@ -55,8 +56,10 @@ public class Frog : Enemy {
 
 	protected override void OnCantMove (GameObject col){
 		if (col.gameObject.tag == "Wall") {
+			endTurnEnemy = true;
 			return;
 		} else if (col.gameObject.tag == "Player") {
+			endTurnEnemy = true;
 			isMoving = false;
 			isPreparingAttack = true;
 		}
@@ -98,7 +101,7 @@ public class Frog : Enemy {
 				if (piege != null) {
 					piege.TriggerExit ();
 				}
-				caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
+				caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
 				GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
 				GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
 				if (isMoving)
@@ -110,6 +113,19 @@ public class Frog : Enemy {
 			xDirAttack = xDir;
 			yDirAttack = yDir;
 			return false;
+		} else if (hit.transform.gameObject.tag == "Bullet") {
+			if (isMoving)
+				return true;
+			if (piege != null) {
+				piege.TriggerExit ();
+			}
+			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)end.x, (int)end.y, -1);
+			GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
+			if (isMoving)
+				return true;
+			StartCoroutine (SmoothMovement (end));
+			return true;
 		}
 		return false;
 	}
@@ -125,7 +141,6 @@ public class Frog : Enemy {
 		}
 		testPiege ();
 	}
-		
 
 	protected override IEnumerator SmoothMovement(Vector3 end){
 		//coroutine permettant de bouger une unité d'un espace/une case 
@@ -141,21 +156,12 @@ public class Frog : Enemy {
 		testPiege ();
 	}
 
-	protected override void testPiege(){
-		manager.getCurrentBoard ().testCasePiege (this);
-		if (isTrap) {
-			setIsUnderTrapEffect(true);
-			piege.declencherPiege ();
-		} else {
-			setIsUnderTrapEffect(false);
-		}
-	}
-
 	//ATTACK_______________________________________________________________________________________
 
 	protected bool Attack (int xDir, int yDir, out RaycastHit2D hit){
 		// fonction similaire a Move() permettant de chercher le joueur sur les 2 cases devant 
 		// lance l'attaque si le joueur a été repéré ou si aucun autre ennemis ne s'interpose entre le joueur et la grenouille
+		endTurnEnemy = true;
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
 		boxCollider.enabled = false;
@@ -191,6 +197,7 @@ public class Frog : Enemy {
 	public void tryToAttack(){
 		// lance l'attaque ou l'action de ne pas attaquer si une condtion d'attaque n'est pas respecté
 		RaycastHit2D hit;
+		endTurnEnemy = true;
 		bool canAttack = Attack (xDirAttack, yDirAttack, out hit);
 		if(!canAttack) {
 			cantAttack (hit.transform.gameObject);

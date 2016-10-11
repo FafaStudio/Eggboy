@@ -98,5 +98,8 @@ public class Bomb : Trap {
 		return explosionIsLaunch;
 	}
 
+	public void setCompteur(int value){
+		turnCount = value;
+	}
 
 }

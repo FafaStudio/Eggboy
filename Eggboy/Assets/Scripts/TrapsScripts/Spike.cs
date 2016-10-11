@@ -24,7 +24,7 @@ public class Spike : Trap {
 			if (isCharacter) {
 				isEnclenched = true;
 			}
-		}
+		}else 
 		if (TurnCount != 0) {
 			TurnCount--;
 		}
@@ -74,7 +74,7 @@ public class Spike : Trap {
 			if (boutonEnclenched) {
 				character.GetComponent<Player> ().loseHP ();
 			}
-			if (!isEnclenched) {
+			else if (!isEnclenched) {
 				TurnCount = 2;
 				isEnclenched = true;
 			}

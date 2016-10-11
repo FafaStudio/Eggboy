@@ -6,7 +6,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : MonoBehaviour
 {
 	public float levelStartDelay = 2f;                      
-	public float turnDelay = 1f;                          
+	public float turnDelay = 0.5f;                          
 	public int playerhpPoints = 6;                    
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
@@ -162,14 +162,22 @@ public class GameManager : MonoBehaviour
 		enemiesMoving = true;
 		List<Enemy> enemyToLaunch = new List<Enemy>();
 		yield return new WaitForSeconds(turnDelay);
-		for (int i = 0; i < enemies.Count; i++)
-		{
+		for (int i = 0; i < enemies.Count; i++){
 			enemyToLaunch.Add(enemies[i]);
 		}
-		for (int j = 0; j < enemyToLaunch.Count; j++)
-		{
+		for (int j = 0; j < enemyToLaunch.Count; j++){
 			enemyToLaunch[j].MoveEnemy ();
-			yield return new WaitForSeconds(turnDelay/(enemies.Count+1));
+			yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
+		}
+
+		for (int j = 0; j < enemyToLaunch.Count; j++){
+			while (enemyToLaunch [j].endTurnEnemy != true) {
+				if (enemyToLaunch [j].piege != null) {
+					if ((enemyToLaunch [j].piege.gameObject.name != "Arrow") && (enemyToLaunch [j].piege.gameObject.name != "Arrow(Clone)"))
+						break;
+				}
+				yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
+			}
 		}
 		playersTurn = true;
 		totalTurns += 1;
@@ -202,7 +210,7 @@ public class GameManager : MonoBehaviour
 		}
 		for (int j = 0; j < trapToLaunch.Count; j++) {
 			trapToLaunch[j].doAction ();
-			yield return new WaitForSeconds(turnDelay/(traps.Count+1));
+			yield return new WaitForSeconds(1/traps.Count);
 		}
 		trapActioning = false;
 	}
