@@ -12,6 +12,7 @@ public class Player : MovingObject
 	private const float MAX_TIME_BETWEEN_TURN = 0.2f;
 
 	private int hp;
+	private int golds;
 
 	private UIPlayer uiManager;
 
@@ -19,14 +20,15 @@ public class Player : MovingObject
 
 	private string actionDuTour = "nothing"; // move, wait, nothing
 
-	protected override void Start()
-	{
+	protected override void Start(){
 		animator = GetComponent<Animator>();
 		manager = GameManager.instance;
 		hp = manager.playerhpPoints;
+		golds = manager.playerGolds;
 
 		uiManager = GameObject.Find("PlayerPanel").GetComponent<UIPlayer>();
 		uiManager.updateLife();
+		uiManager.updateGolds ();
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
@@ -34,15 +36,13 @@ public class Player : MovingObject
 		base.Start();
 	}
 
-	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit)
-	{
+	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2(xDir, yDir);
 		boxCollider.enabled = false;
 		hit = Physics2D.Linecast(start, end, blockingLayer);
 		boxCollider.enabled = true;
-		if ((hit.transform == null) || (hit.transform.tag == "Bullet"))
-		{
+		if ((hit.transform == null) || (hit.transform.tag == "Bullet")){
 			if (piege != null) {
 				piege.TriggerExit ();
 			}
@@ -60,8 +60,7 @@ public class Player : MovingObject
 		GameManager.instance.playerhpPoints = hp;
 	}*/
 
-	private bool CheckIfGameOver()
-	{
+	private bool CheckIfGameOver(){
 		if (hp <= 0)
 		{
 			if (piege != null) {
@@ -90,20 +89,17 @@ public class Player : MovingObject
 
 	protected override void testPiege(){
 		manager.getCurrentBoard ().testCasePiege (this);
-		if (!isTrap)
-		{
+		if (!isTrap){
 			manager.playersTurn = false;
 			setIsUnderTrapEffect(false);
 		}
-		else
-		{
+		else{
 			setIsUnderTrapEffect(true);
 			piege.declencherPiege();
 		}
 	}
 
-	protected override void OnCantMove(GameObject col)
-	{
+	protected override void OnCantMove(GameObject col){
 		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
 		if (col.gameObject.tag == "Wall") {
 			animator.SetTrigger ("Blase");
@@ -113,16 +109,21 @@ public class Player : MovingObject
 			manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
 			col.GetComponent<Enemy> ().Die ();
-			testPiege ();
+			if (piege != null) {
+				if (piege.gameObject.name != "BoutonOn-Off")
+					testPiege ();
+			}
 			return;
 		} else if (col.gameObject.tag == "Chest") {
+			col.GetComponent<Chest> ().setPlayer (this);
 			col.GetComponent<Chest> ().openChest ();
 			return;
+		} else if (col.gameObject.tag == "Item") {
+			col.GetComponent<Item> ().GainLoot (this);
 		}
 	}
 
-	public void loseHP()
-	{
+	public void loseHP(){
 		if (!takesDamageThisLevel) {
 			takesDamageThisLevel = true;
 			manager.destroyLifeChests ();
@@ -135,9 +136,38 @@ public class Player : MovingObject
 		//CheckIfGameOver ();
 	}
 
-	public int getHp()
-	{
+	public void gainHps(int hpToGain){
+		manager.playerhpPoints += hpToGain;
+		if (manager.playerhpPoints > 6) {
+			manager.playerhpPoints = 6;
+		}
+		hp = manager.playerhpPoints;
+		uiManager.updateLife ();
+	}
+
+	public bool loseGolds(int goldToLose){
+		if (manager.playerGolds - goldToLose < 0) {
+			return false;
+		} else {
+			manager.playerGolds -= goldToLose;
+			golds = manager.playerGolds;
+			uiManager.updateGolds ();
+			return true;
+		}
+	}
+
+	public void gainGolds(int goldsToGain){
+		manager.playerGolds+= goldsToGain;
+		golds= manager.playerGolds;
+		uiManager.updateGolds();
+	}
+
+	public int getHp(){
 		return hp;
+	}
+
+	public int getGolds(){
+		return golds;
 	}
 
 	void Update()
