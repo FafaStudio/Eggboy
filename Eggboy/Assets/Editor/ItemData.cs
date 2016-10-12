@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Item
 {
-    public enum TestEnum { Mobs, Traps, Mobiliers, Chests };
+    public enum TestEnum { Mobs, Traps, Mobiliers, Chests, Items };
     public string Name;
     public TestEnum CategorieName;
     public GameObject Prefab;

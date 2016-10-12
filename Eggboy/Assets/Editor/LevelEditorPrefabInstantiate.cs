@@ -180,12 +180,18 @@ public class LevelEditorPrefabInstantiate : Editor
             itemSelector = 0;
             LevelEditorToolsMenu.SelectedTool = 2;
         }
+        try
+        {
+            if (LevelEditorToolsMenu.SelectedTool == 2 && item.Blocks.FindIndex(a => a == itemsDisplayed[itemSelector]) == SelectedBlock)
+            {
+                isActive = true;
+            }
 
-        if (LevelEditorToolsMenu.SelectedTool == 2 && item.Blocks.FindIndex(a => a == itemsDisplayed[itemSelector]) == SelectedBlock)
+        }
+        catch (System.Exception)
         {
             isActive = true;
         }
-
         string[] categorieDisplay = new string[categorieItem.Blocks.Count];
         for (int i = 0; i < categorieItem.Blocks.Count; i++)
         {
