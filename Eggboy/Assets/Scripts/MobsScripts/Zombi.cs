@@ -5,8 +5,7 @@ public class Zombi : Enemy {
 
 	private Necromancer papa;
 
-	protected override void Start ()
-	{
+	protected override void Start (){
 		enemyName = "basic";
 		skipMove = true;
 		base.Start ();
@@ -60,5 +59,18 @@ public class Zombi : Enemy {
 			}
 		}
 		base.AttemptMove(xDir, yDir);
+	}
+
+	protected override void OnCantMove (GameObject col)
+	{
+		endTurnEnemy = true;
+		if (isTrap) {
+			isTrap = false;
+		}
+		if (col.gameObject.tag == "Wall") {
+			return;
+		} else if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<Player> ().loseHP ();
+		}
 	}
 }

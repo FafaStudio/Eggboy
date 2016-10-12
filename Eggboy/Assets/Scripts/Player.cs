@@ -30,6 +30,7 @@ public class Player : MovingObject
 		uiManager = GameObject.Find("PlayerPanel").GetComponent<UIPlayer>();
 		uiManager.updateLife();
 		uiManager.updateGolds ();
+		uiManager.updateLevel (manager.levelPassedCount());
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
@@ -300,12 +301,14 @@ public class Player : MovingObject
 			manager.playerGolds -= goldToLose;
 			golds = manager.playerGolds;
 			uiManager.updateGolds ();
+			StartCoroutine(uiManager.updateGoldsLaunch (goldToLose, 0, false));
 			return true;
 		}
 	}
 
 	public void gainGolds(int goldsToGain){
 		manager.playerGolds+= goldsToGain;
+		StartCoroutine(uiManager.updateGoldsLaunch (goldsToGain, combo, true));
 		golds= manager.playerGolds;
 		uiManager.updateGolds();
 	}

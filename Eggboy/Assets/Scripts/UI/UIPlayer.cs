@@ -5,21 +5,29 @@ using System.Collections.Generic;
 
 public class UIPlayer : MonoBehaviour {
 
-	public GameObject[] heartContainer;
 	private Player playerManager;
+	public GameObject[] heartContainer;
 	private List<GameObject> instantiateHeart;
+
 	private Text goldsContainer;
+
+	private Text curLevel;
+
+	private GameObject updateGoldPanel;
+	private Text comboText;
+	private Text updateGoldsText;
 
 	void Awake () {
 		playerManager = GameObject.Find ("Player").GetComponent<Player> ();
 		instantiateHeart = new List<GameObject> ();
 		goldsContainer = GameObject.Find ("Golds").GetComponent<Text> ();
+		curLevel = GameObject.Find ("LevelText").GetComponent<Text> ();
+		updateGoldPanel = GameObject.Find ("updateGolds").gameObject;
+		updateGoldsText = updateGoldPanel.GetComponentsInChildren<Text> () [0];
+		comboText = updateGoldPanel.GetComponentsInChildren<Text> () [1];
+		updateGoldPanel.SetActive (false);
 	}
-
-	void Update () {
-	
-	}
-
+		
 	public void updateLife(){
 		resetLifeContainers ();
 		switch(playerManager.getHp()){
@@ -71,5 +79,31 @@ public class UIPlayer : MonoBehaviour {
 			Destroy (instantiateHeart [i]);
 		}
 		instantiateHeart.Clear ();
+	}
+
+	public void updateLevel(int level){
+		curLevel.text = level.ToString ();
+	}
+
+	public IEnumerator updateGoldsLaunch(int golds, int combo, bool goldsAdd){
+		if (goldsAdd) {
+			if (combo < 2)
+				comboText.text = "";
+			else
+				comboText.text = "x" + combo.ToString ();
+			updateGoldsText.color = new Color (0,1,0,1);
+			updateGoldsText.text = "+" + golds.ToString ();
+			updateGoldPanel.SetActive (true);
+			yield return new WaitForSeconds (1f);
+			updateGoldPanel.SetActive (false);
+		} else {
+			comboText.text = "";
+			updateGoldsText.color = new Color (1,0,0,1);
+			updateGoldsText.text = "-" + golds.ToString ();
+			updateGoldPanel.SetActive (true);
+			yield return new WaitForSeconds (1f);
+			updateGoldPanel.SetActive (false);
+		}
+		
 	}
 }

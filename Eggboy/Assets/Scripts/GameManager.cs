@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 			levelPassed.Clear ();
 			if (testingLevel) {
 				testingLevel = false;
-				launchNextLevel (levelTest);
+				launchNextLevel (levelTest+1);
 			} else {
 				launchNextLevel (2);
 			}
@@ -283,6 +283,10 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < levelPassed.Count; i++) {
 			print (levelPassed [i].ToString ());
 		}
+	}
+
+	public int levelPassedCount(){
+		return levelPassed.Count;
 	}
 
 }

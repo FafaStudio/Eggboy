@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bomb : Trap {
 
-    private int turnCount = 1;
+    private int turnCount = 2;
 	private bool explosionIsLaunch;
 	public GameObject explosion;
 

@@ -13,8 +13,7 @@ public class Camuflaje : Trap {
         base.Start();
     }
 
-    public override void TriggerEnter(MovingObject col)
-    {
+    public override void TriggerEnter(MovingObject col){
         if ((col.gameObject.GetComponent<MovingObject>() != null) && (!isEnclenched)) // N'agit que si le joueur a finit son tour
         {
             isEnclenched = true;
@@ -26,32 +25,33 @@ public class Camuflaje : Trap {
 
     public override void declencherPiege(){
         GameObject toInstantiate = Instantiate(piegeCamoufle, new Vector3((int)this.transform.position.x, (int)this.transform.position.y, 0), Quaternion.identity) as GameObject;
-		if(toInstantiate.gameObject.name!="Arrow(Clone)")
-		//pour empêcher le joueur de pouvoir entrer un input quand il fait une série de flèche camouflé
-			TriggerExit();
-		if (toInstantiate.gameObject.name == "Arrow(Clone)") {
+		if (toInstantiate.gameObject.name != "Arrow(Clone)") {
+			//pour empêcher le joueur de pouvoir entrer un input quand il fait une série de flèche camouflé
+			TriggerExit ();
+			if (toInstantiate.gameObject.name == "Bombe(Clone)") {
+				if(character.gameObject.tag=="Player")
+					toInstantiate.GetComponent<Bomb> ().setCompteur (2);
+				else
+					toInstantiate.GetComponent<Bomb> ().setCompteur (1);
+			}
+		}else{
 			toInstantiate.GetComponent<Arrow> ().dir = (Arrow.Direction)directionArrowEventuelle;
-		} else if (toInstantiate.gameObject.name == "Bombe(Clone)") {
-			toInstantiate.GetComponent<Bomb> ().setCompteur (0);
-		}
+		} 
         toInstantiate.GetComponent<Trap>().TriggerEnter(character);
         toInstantiate.GetComponent<Trap>().declencherPiege();
         GameManager.instance.RemoveTrapToList(this);
         Destroy(this.gameObject);
-
-
     }
 
-    public override void doAction()
-    {
+    public override void doAction(){
         return;
     }
 
     public override void TriggerExit()
     {
         isEnclenched = false;
-        if (character != null)
-        {
+        if (character != null){
+			GameManager.instance.playersTurn = false;
             character.setIsTrap(false);
             character.setIsUnderTrapEffect(false);
             character.piege = null;
