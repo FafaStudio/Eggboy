@@ -58,6 +58,9 @@ public class Arrow : Trap {
 	}
 		
     public override void declencherPiege(){
+		if (character.gameObject.tag == "Player") {
+			GameManager.instance.playersTurn = true;
+		}
         switch (dir)
         {
             case Direction.Nord: 

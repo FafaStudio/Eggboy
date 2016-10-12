@@ -134,54 +134,6 @@ public class Player : MovingObject
 		}
 	}
 
-	public void loseHP(){
-		if (!takesDamageThisLevel) {
-			takesDamageThisLevel = true;
-			manager.destroyLifeChests ();
-		}
-		combo = 1;
-		camera.setShake(0.6f);
-		animator.SetTrigger("isDamaged");
-		manager.playerhpPoints -= 1;
-		hp = manager.playerhpPoints;
-		uiManager.updateLife();
-		//CheckIfGameOver ();
-	}
-
-	public void gainHps(int hpToGain){
-		manager.playerhpPoints += hpToGain;
-		if (manager.playerhpPoints > 6) {
-			manager.playerhpPoints = 6;
-		}
-		hp = manager.playerhpPoints;
-		uiManager.updateLife ();
-	}
-
-	public bool loseGolds(int goldToLose){
-		if (manager.playerGolds - goldToLose < 0) {
-			return false;
-		} else {
-			manager.playerGolds -= goldToLose;
-			golds = manager.playerGolds;
-			uiManager.updateGolds ();
-			return true;
-		}
-	}
-
-	public void gainGolds(int goldsToGain){
-		manager.playerGolds+= goldsToGain;
-		golds= manager.playerGolds;
-		uiManager.updateGolds();
-	}
-
-	public int getHp(){
-		return hp;
-	}
-
-	public int getGolds(){
-		return golds;
-	}
-
 	void Update()
 	{
 		if ((!manager.playersTurn)||(underTrapEffect))
@@ -314,5 +266,55 @@ public class Player : MovingObject
 
 	public void resetTakeDamageThisLevel(){
 		takesDamageThisLevel = false;
+	}
+
+//HP & GOLDS______________________________________________________________________________________________________________
+
+	public void loseHP(){
+		if (!takesDamageThisLevel) {
+			takesDamageThisLevel = true;
+			manager.destroyLifeChests ();
+		}
+		combo = 1;
+		camera.setShake(0.6f);
+		animator.SetTrigger("isDamaged");
+		manager.playerhpPoints -= 1;
+		hp = manager.playerhpPoints;
+		uiManager.updateLife();
+		//CheckIfGameOver ();
+	}
+
+	public void gainHps(int hpToGain){
+		manager.playerhpPoints += hpToGain;
+		if (manager.playerhpPoints > 6) {
+			manager.playerhpPoints = 6;
+		}
+		hp = manager.playerhpPoints;
+		uiManager.updateLife ();
+	}
+
+	public bool loseGolds(int goldToLose){
+		if (manager.playerGolds - goldToLose < 0) {
+			return false;
+		} else {
+			manager.playerGolds -= goldToLose;
+			golds = manager.playerGolds;
+			uiManager.updateGolds ();
+			return true;
+		}
+	}
+
+	public void gainGolds(int goldsToGain){
+		manager.playerGolds+= goldsToGain;
+		golds= manager.playerGolds;
+		uiManager.updateGolds();
+	}
+
+	public int getHp(){
+		return hp;
+	}
+
+	public int getGolds(){
+		return golds;
 	}
 }

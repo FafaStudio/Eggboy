@@ -64,6 +64,7 @@ public class Enemy : MovingObject {
 			launchMove (xDir, yDir, end);
 			return true;
 		} else if (hit.transform.tag == "Bullet") {
+			print ("ok");
 			launchMove (xDir, yDir, end);
 			return true;
 		}

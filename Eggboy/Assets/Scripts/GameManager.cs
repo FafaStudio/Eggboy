@@ -106,10 +106,12 @@ public class GameManager : MonoBehaviour
 			return 1;
 		}
 		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-2) {
+			//-2 pour begginingLevel et magasin, a incrémenter si on rajoute
 			totalTurns++;
 			return nextLevel;
 		}
-		while (levelPassed.Contains (nextLevel)) {
+		while (levelPassed.Contains (nextLevel-1)) {
+		//-1 car le level01 correspond a l'indice 2 dans les scenes du build
 			nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
             PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
         }

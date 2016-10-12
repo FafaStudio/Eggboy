@@ -1,12 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ChestsScripts/ChronoChest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MobsScripts/Zombi.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.cs" Line="128" Column="25" />
-      <File FileName="Assets/Scripts/Player.cs" Line="117" Column="19" />
-      <File FileName="Assets/Scripts/EnumLevel.cs" Line="6" Column="2" />
-      <File FileName="Assets/Scripts/ChestsScripts/ChronoChest.cs" Line="46" Column="11" />
-      <File FileName="Assets/Scripts/ChestsScripts/LifeChest.cs" Line="31" Column="23" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="143" Column="23" />
+      <File FileName="Assets/Scripts/MobsScripts/EnemyLaser.cs" Line="21" Column="6" />
+      <File FileName="Assets/Scripts/Player.cs" Line="160" Column="10" />
+      <File FileName="Assets/Scripts/TrapsScripts/Arrow.cs" Line="46" Column="20" />
+      <File FileName="Assets/Scripts/MobsScripts/Bullets/Laser.cs" Line="9" Column="4" />
+      <File FileName="Assets/Scripts/MobsScripts/Zombi.cs" Line="39" Column="46" />
+      <File FileName="Assets/Scripts/MobsScripts/Enemy.cs" Line="58" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
