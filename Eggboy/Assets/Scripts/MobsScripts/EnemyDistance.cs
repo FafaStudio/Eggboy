@@ -6,12 +6,11 @@ public abstract class EnemyDistance : Enemy{
 	public int maxTurnBetweenAttack = 3;
 	protected int cptTurnBetweenAttack;
 
-	protected int xDirAttack;
-	protected int yDirAttack;
+	public int xDirAttack;
+	public int yDirAttack;
 
-	public enum Direction {horizontal, vertical};
-	public Direction dir;
-
+	public enum Direction{haut, bas, gauche, droite};
+	public Direction direction;
 	public GameObject bullet;
 	protected int rotation = 0;
 
@@ -22,9 +21,10 @@ public abstract class EnemyDistance : Enemy{
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
 		animator = null;
-		xDirAttack = -1;
-		rotation = 90;
-		dir = Direction.horizontal;
+		//xDirAttack = -1;
+		if ((direction == Direction.droite)||(direction == Direction.gauche)) {
+			rotation = 90;
+		}
 	}
 
 	public override void MoveEnemy ()
@@ -55,24 +55,24 @@ public abstract class EnemyDistance : Enemy{
 		int diffY = (int)(target.GetComponent<MovingObject> ().caseExacte.position.y - this.transform.position.y);
 
 		if (diffX > 0) {
+			direction = Direction.droite;
 			xDirAttack = 1;
 			rotation = 90;
-			dir = Direction.horizontal;
 		} else if (diffX != 0) {
 			xDirAttack = -1;
+			direction = Direction.gauche;
 			rotation = 90;
-			dir = Direction.horizontal;
 		} else
 			xDirAttack = 0;
 
 		if (diffY > 0) {
 			yDirAttack = 1;
+			direction = Direction.haut;
 			rotation = 0;
-			dir = Direction.vertical;
 		} else if (diffY != 0) {
 			yDirAttack = -1;
+			direction = Direction.bas;
 			rotation = 0;
-			dir = Direction.vertical;
 		} else
 			yDirAttack = 0;
 	}
