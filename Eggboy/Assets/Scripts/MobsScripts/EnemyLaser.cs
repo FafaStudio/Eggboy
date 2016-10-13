@@ -25,30 +25,27 @@ public class EnemyLaser : EnemyDistance{
 	public override void launchTir ()
 	{
 		hasLaunchLaserLastTurn = true;
-		switch (dir)
+		switch (direction)
 		{
-
-		case Direction.horizontal:
-			if (xDirAttack == -1) {
-				for (int i = 1; i <= this.transform.position.x; i++) {
-					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x-i, this.transform.position.y, 1)));
-				}
-			}else{
-				for (int i = 1; i <= 14-this.transform.position.x; i++) {
-					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+i, this.transform.position.y, 1)));
-				}							
+		case Direction.gauche:
+			for (int i = 1; i <= this.transform.position.x; i++) {
+				StartCoroutine (instantiateBullet (new Vector3 (this.transform.position.x - i, this.transform.position.y, 1)));
 			}
 			break;
-		case Direction.vertical:
-			if (yDirAttack == -1) {
-				for (int i = 1; i <= this.transform.position.y; i++) {
-					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y-i, 1)));
-				}
-			}else{
-				for (int i = 1; i <= 7-this.transform.position.y; i++) {
-					StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+i, 1)));
-				}							
+		case Direction.droite:
+			for (int i = 1; i <= 14-this.transform.position.x; i++) {
+				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+i, this.transform.position.y, 1)));
 			}
+			break;
+		case Direction.bas:
+			for (int i = 1; i <= this.transform.position.y; i++) {
+				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y-i, 1)));
+			}
+			break;
+		case Direction.haut:
+			for (int i = 1; i <= 7-this.transform.position.y; i++) {
+				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+i, 1)));
+			}							
 			break;
 		
 		}

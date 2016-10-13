@@ -18,13 +18,19 @@ public class EnemyRocket : EnemyDistance {
 
 	public override void launchTir ()
 	{
-		switch (dir) {
-			case Direction.horizontal:
+		switch (direction) {
+		case Direction.gauche:
 				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+xDirAttack, this.transform.position.y, 1)));
 				break;
-			case Direction.vertical:
+		case Direction.bas:
 				StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+yDirAttack, 1)));
 				break;
+		case Direction.droite:
+			StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x+xDirAttack, this.transform.position.y, 1)));
+			break;
+		case Direction.haut:
+			StartCoroutine(instantiateBullet(new Vector3(this.transform.position.x, this.transform.position.y+yDirAttack, 1)));
+			break;
 		}
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 	}
