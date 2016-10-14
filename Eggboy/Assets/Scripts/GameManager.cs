@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 	//Test de levels Editor
 	public bool testingLevel;
 	public int levelTest;
+
+	private UIGameMenu uiGame;
 		
 	void Awake(){
 		if (instance == null)
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
 		//Permet de récupérer les niveaux déjà passé
 		levelPassed = new List<int> ();
 			
+		uiGame = GameObject.Find ("UI_Menus").GetComponent<UIGameMenu> ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 
         replay = gameObject.GetComponent<Replay>();
@@ -73,6 +76,14 @@ public class GameManager : MonoBehaviour
 		//print (SceneManager.GetSceneByName ("LevelMagasin").buildIndex.ToString());
 		level++;
 		InitGame();
+	}
+
+	public void restartGame(){
+		levelPassed.Clear ();
+		playerhpPoints = 6;
+		playerGolds = 0;
+		playersTurn = true;
+		SceneManager.LoadScene ("BeginingLevel");
 	}
 
 	public void checkIfWinLevel(){
@@ -132,6 +143,7 @@ public class GameManager : MonoBehaviour
 		traps.Clear ();
 		rockets.Clear ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+		uiGame = GameObject.Find ("UI_Menus").GetComponent<UIGameMenu> ();
 		boardScript.SetupScene(level);
 		playersTurn = true;
 	}
@@ -176,6 +188,7 @@ public class GameManager : MonoBehaviour
 	{
 		playersTurn = false;
 		levelPassed.Remove (Application.loadedLevel);
+		uiGame.launchGameOver ();
 		enabled = false;
 	}
 		

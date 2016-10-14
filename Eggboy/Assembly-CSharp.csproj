@@ -83,9 +83,9 @@
      <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
+     <Compile Include="Assets\Scripts\UI\UIGameMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
-     <None Include="Assets\DebugData\2016-10-14--12-00-45--1640589414.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.3.3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
