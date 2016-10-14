@@ -105,7 +105,7 @@ public abstract class EnemyDistance : Enemy{
 	void OnGUI(){
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 15, 20), (cptTurnBetweenAttack+1).ToString ());
+		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (cptTurnBetweenAttack+1).ToString ());
 	}
 
 }

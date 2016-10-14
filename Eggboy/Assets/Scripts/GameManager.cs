@@ -58,14 +58,14 @@ public class GameManager : MonoBehaviour
 
 		InitGame();
 
-		if (SceneManager.GetActiveScene ().buildIndex == 0) {
+		if (SceneManager.GetActiveScene ().buildIndex == 1) {
 			level--;
 			levelPassed.Clear ();
 			if (testingLevel) {
 				testingLevel = false;
-				launchNextLevel (levelTest+1);
+				launchNextLevel (levelTest+2);
 			} else {
-				launchNextLevel (2);
+				launchNextLevel (3);
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
 	public void addLevelToList(){
 		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
-			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 1);
+			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 2);
 		} else {
 			levelPassed.Add (0);
 		}
@@ -116,14 +116,14 @@ public class GameManager : MonoBehaviour
 			totalTurns++;
 			return 1;
 		}
-		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-2) {
-			//-2 pour begginingLevel et magasin, a incrémenter si on rajoute
+		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-3) {
+			//-3 pour begginingLevel, magasin et le mainMenu, a incrémenter si on rajoute
 			totalTurns++;
 			return nextLevel;
 		}
-		while (levelPassed.Contains (nextLevel-1)) {
-		//-1 car le level01 correspond a l'indice 2 dans les scenes du build
-			nextLevel = Random.Range (1, SceneManager.sceneCountInBuildSettings);
+		while (levelPassed.Contains (nextLevel-2)) {
+		//-2 car le level01 correspond a l'indice 3 dans les scenes du build
+			nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
             PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
         }
         totalTurns++;
