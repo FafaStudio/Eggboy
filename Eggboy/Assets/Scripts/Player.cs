@@ -283,7 +283,7 @@ public class Player : MovingObject
 		manager.playerhpPoints -= 1;
 		hp = manager.playerhpPoints;
 		uiManager.updateLife();
-		//CheckIfGameOver ();
+		CheckIfGameOver ();
 	}
 
 	public void gainHps(int hpToGain){
