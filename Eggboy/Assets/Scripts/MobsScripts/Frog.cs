@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Frog : Enemy {
 
@@ -8,7 +9,11 @@ public class Frog : Enemy {
 
 	protected bool isPreparingAttack = false;
 
+	public GameObject grenouilleLangue;
+	private List<GameObject> langues;
+
 	protected override void Start(){
+		langues = new List<GameObject> ();
 		enemyName = "frog";
 		base.Start ();
 		animator = null;
@@ -19,6 +24,7 @@ public class Frog : Enemy {
 			tryToAttack ();
 			return;
 		}
+		clearLangues ();
 		base.MoveEnemy ();
 	}
 
@@ -216,10 +222,12 @@ public class Frog : Enemy {
 		if (col != null) {
 			if (col.tag == "Player") {
 				//Anim d'attaque ici
+				instantiateLangue();
 				col.GetComponent<Player> ().loseHP ();
 			}
 		} else {
 			//Anim d'attaque ici
+			instantiateLangue();
 		}
 		isPreparingAttack = false;
 		endTurnEnemy = true;
@@ -231,6 +239,71 @@ public class Frog : Enemy {
 		if ((col.tag == "Enemy")) {
 			MoveEnemy ();
 		}
+	}
+
+	public void instantiateLangue(){
+		int posX = (int)caseExacte.position.x;
+		int posY = (int)caseExacte.position.y;
+		if (xDirAttack == 1) {
+			if (posX < 14) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x + xDirAttack), (caseExacte.position.y), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 90));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+			if (posX < 13) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x + xDirAttack + 1), (caseExacte.position.y), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 90));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+		} else if (xDirAttack == -1) {
+			if (posX != 0) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x + xDirAttack), (caseExacte.position.y), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 90));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+			if (posX > 1) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x + xDirAttack - 1), (caseExacte.position.y), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 90));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+		} else if (yDirAttack == 1) {
+			if (posY != 7) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x), (caseExacte.position.y+yDirAttack), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+			if (posY < 6) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x), (caseExacte.position.y+yDirAttack+1), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+		} else if (yDirAttack == -1) {
+			if (posY != 0) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x), (caseExacte.position.y+yDirAttack), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+			if (posY > 1) {
+				GameObject langue = Instantiate (grenouilleLangue, new Vector3 ((caseExacte.position.x), (caseExacte.position.y+yDirAttack-1), 1), Quaternion.identity) as GameObject;
+				langue.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+				langue.transform.SetParent (this.transform);
+				langues.Add (langue);
+			}
+		}
+	}
+
+	public void clearLangues(){
+		for (int i = 0; i < langues.Count; i++) {
+			Destroy (langues [i].gameObject);
+		}
+		langues.Clear ();
 	}
 
 	public Vector2 findPlayerRange(){
