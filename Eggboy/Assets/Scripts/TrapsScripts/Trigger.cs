@@ -10,6 +10,18 @@ public class Trigger : Trap {
 	
     public Trap[] cibles;
 
+	public Sprite[] colors;// 0:vert, 1:bleu, 2:rouge, 3:violet
+
+	public GameObject colorReceptacle;
+	public enum color{vert, bleu, rouge, violet};
+	public color chooseColor;
+
+	protected override void Start ()
+	{
+		base.Start ();
+		setTriggerColor ();
+	}
+
     public override void doAction()
     {
         return;
@@ -34,6 +46,44 @@ public class Trigger : Trap {
 		if (character != null) {
 			character.setIsTrap (false);
 			character.piege = null;
+		}
+	}
+
+	public void setTriggerColor(){
+		GameObject toInstantiate = new GameObject ();
+		switch (chooseColor) {
+		case color.vert:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [0];
+			toInstantiate.transform.SetParent (this.transform);
+			setTrapsColor(colors [0]);
+			break;
+		case color.bleu:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [1];
+			toInstantiate.transform.SetParent (this.transform);
+			setTrapsColor(colors [1]);
+			break;
+		case color.rouge:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [2];
+			toInstantiate.transform.SetParent (this.transform);
+			setTrapsColor(colors [2]);
+			break;
+		case color.violet:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [3];
+			toInstantiate.transform.SetParent (this.transform);
+			setTrapsColor(colors [3]);
+			break;
+		}
+	}
+
+	public void setTrapsColor(Sprite color){
+		for (int i = 0; i < cibles.Length; i++) {
+			GameObject toInstantiate = Instantiate (colorReceptacle, cibles[i].transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = color;
+			toInstantiate.transform.SetParent (this.transform);
 		}
 	}
 

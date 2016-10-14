@@ -22,6 +22,7 @@ public abstract class EnemyDistance : Enemy{
 		base.Start ();
 		animator = null;
 		//xDirAttack = -1;
+		initialiseShoot();
 		if ((direction == Direction.droite)||(direction == Direction.gauche)) {
 			rotation = 90;
 		}
@@ -75,6 +76,27 @@ public abstract class EnemyDistance : Enemy{
 			rotation = 0;
 		} else
 			yDirAttack = 0;
+	}
+
+	public void initialiseShoot(){
+		switch (direction) {
+		case Direction.gauche:
+			xDirAttack = -1;
+			yDirAttack = 0;
+			break;
+		case Direction.bas:
+			xDirAttack = 0;
+			yDirAttack = -1;
+			break;
+		case Direction.droite:
+			xDirAttack = 1;
+			yDirAttack = 0;
+			break;
+		case Direction.haut:
+			xDirAttack = 0;
+			yDirAttack = 1;
+			break;
+		}
 	}
 
 	public abstract void launchTir ();

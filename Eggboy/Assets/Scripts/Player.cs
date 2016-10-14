@@ -34,6 +34,7 @@ public class Player : MovingObject
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
+		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)caseExacte.position.x, (int)caseExacte.position.y, 1, this);
 		//GameManager.instance.levelPassedToString();
 
 		base.Start();

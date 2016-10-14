@@ -37,7 +37,7 @@ public class Necromancer : Enemy {
 		BoardManager.Node currentPos = new BoardManager.Node (1, new Vector2 (this.transform.position.x, this.transform.position.y));
 		currentPos.distanceVO = currentPos.volDoiseau (target.GetComponent<Player>().caseExacte.position);
 	
-		if (currentPos.distanceVO < 3) {
+		if (currentPos.distanceVO < 4) {
 			if (cantMove)
 				return;
 			if (Mathf.Abs (target.position.x - transform.position.x) < float.Epsilon)
