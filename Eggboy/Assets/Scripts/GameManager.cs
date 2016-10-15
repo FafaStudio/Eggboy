@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
 		playerhpPoints = 6;
 		playerGolds = 0;
 		playersTurn = true;
+		totalTurnCurLevel = 0;
+		totalTurns = 0;
 		SceneManager.LoadScene ("BeginingLevel");
 	}
 
@@ -111,10 +113,10 @@ public class GameManager : MonoBehaviour
 		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
-		if ((levelPassed.Count % 10 == 0)&&(levelPassed.Count!=0)){
+		if (((levelPassed.Count % 10) == 0)&&(levelPassed.Count!=0)){
 			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 			totalTurns++;
-			return 1;
+			return 2;
 		}
 		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-3) {
 			//-3 pour begginingLevel, magasin et le mainMenu, a incrémenter si on rajoute
