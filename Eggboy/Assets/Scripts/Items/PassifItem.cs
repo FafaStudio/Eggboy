@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PassifItem : Item {
 	public string itemName;
 	public string description;
 	public bool isHpUp;
+
+	public GameObject uiGainObject;
 
 	protected override void Start ()
 	{
@@ -25,9 +28,11 @@ public class PassifItem : Item {
 				this.transform.SetParent (GameManager.instance.gameObject.transform);
 				Destroy (this.GetComponent<BoxCollider2D> ());
 				Destroy (this.GetComponent<SpriteRenderer> ());
+				StartCoroutine(seeUI ());
 				isShopItem = false;
 			}
 		} else {
+			StartCoroutine(seeUI ());
 			board.setObjectOnGrid ((int)this.transform.position.x, (int)this.transform.position.y, 1, null);
 			GameManager.instance.AddPassifItem (this);
 			this.transform.SetParent (GameManager.instance.gameObject.transform);
@@ -47,5 +52,13 @@ public class PassifItem : Item {
 			GameManager.instance.maxPlayerHpPoints += 2;
 			player.getUIPlayer ().updateLife ();
 		}
+	}
+
+	public IEnumerator seeUI(){
+		GameObject toInstantiate = Instantiate (uiGainObject, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
+		toInstantiate.GetComponentInChildren<Image> ().GetComponentsInChildren<Text> () [0].text = itemName;
+		toInstantiate.GetComponentInChildren<Image> ().GetComponentsInChildren<Text> () [1].text = description;
+		yield return new WaitForSeconds (2f);
+		Destroy (toInstantiate);
 	}
 }

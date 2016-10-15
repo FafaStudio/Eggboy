@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour {
 		} else {
 			isItemShop = false;
 		}
+		//isItemShop = true;
 		initShop ();
 	}
 		

@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
 		if (((levelPassed.Count % 5) == 0)&&(levelPassed.Count!=0)){
-		//if (levelPassed.Count  <4){
+		//if(levelPassed.Count  <3){
 			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 			totalTurns++;
 			return 2;
