@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
 		}
 		for (int j = 0; j < trapToLaunch.Count; j++) {
 			trapToLaunch[j].doAction ();
-			yield return new WaitForSeconds(1/traps.Count);
+			yield return new WaitForSeconds(1/(trapToLaunch.Count+100));
 		}
 		trapActioning = false;
 	}
