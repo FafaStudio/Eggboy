@@ -7,6 +7,7 @@ public abstract class Item : MonoBehaviour {
 	public bool isShopItem;
 	public int price;
 	Vector2 screenPos;
+	protected BoardManager board;
 
 	protected virtual void Start () {
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);

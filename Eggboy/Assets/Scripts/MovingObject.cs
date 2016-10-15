@@ -40,7 +40,6 @@ public abstract class MovingObject : MonoBehaviour {
 
 	protected virtual void AttemptMove(int xDir, int yDir){
 	//literallement "tente de bouger", teste si il y a un truc qui gène le déplacement et l'identifie
-		RaycastHit2D hit;
 		bool canMove = Move(xDir, yDir);
 		if (blockingObject== null) {
 			return;

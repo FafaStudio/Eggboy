@@ -4,7 +4,6 @@ using System.Collections;
 public class HeartItem : Item {
 
 	public int heartGains;
-	private BoardManager board;
 
 	protected override void Start ()
 	{
@@ -17,7 +16,7 @@ public class HeartItem : Item {
 	{
 		if (isShopItem) {
 			if (player.getGolds () >= price) {
-				if (player.getHp () == 6)
+				if (player.getHp () == GameManager.instance.maxPlayerHpPoints)
 					return;
 				player.gainHps (heartGains);
 				player.loseGolds (this.price);

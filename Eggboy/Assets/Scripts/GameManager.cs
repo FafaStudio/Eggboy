@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
 {
 	public float levelStartDelay = 2f;                      
 	public float turnDelay = 0.5f;                          
-	public int playerhpPoints = 6; 
+	public int playerhpPoints; 
+	public int maxPlayerHpPoints = 6;
 	public int playerGolds = 0;
+	private List<PassifItem> passifItems;
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
 		
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
 		//Permet de ne pas détruire GameManager en changeant de level
 		DontDestroyOnLoad(gameObject);
 			
+		passifItems = new List<PassifItem> ();
 		enemies = new List<Enemy>();
 		traps = new List<Trap> ();
 		rockets = new List<Rocket> ();
@@ -79,8 +82,10 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void restartGame(){
+		maxPlayerHpPoints = 6;
 		levelPassed.Clear ();
-		playerhpPoints = 6;
+		resetPassifItems ();
+		playerhpPoints = maxPlayerHpPoints;
 		playerGolds = 0;
 		playersTurn = true;
 		totalTurnCurLevel = 0;
@@ -115,6 +120,7 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
 		if (((levelPassed.Count % 5) == 0)&&(levelPassed.Count!=0)){
+		//if (levelPassed.Count  <4){
 			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 			totalTurns++;
 			return 2;
@@ -303,6 +309,26 @@ public class GameManager : MonoBehaviour
 
 	public int levelPassedCount(){
 		return levelPassed.Count;
+	}
+
+	public void AddPassifItem(PassifItem item){
+		passifItems.Add (item);
+	}
+
+	public bool PlayerHasItem(string name){
+		for (int i = 0; i < passifItems.Count; i++) {
+			if (passifItems [i].name == "name") {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void resetPassifItems(){
+		foreach (Transform child in this.transform) {
+			GameObject.Destroy(child.gameObject);
+		}
+		passifItems.Clear ();
 	}
 
 }

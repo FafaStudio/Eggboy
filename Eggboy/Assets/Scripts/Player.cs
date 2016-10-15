@@ -112,12 +112,14 @@ public class Player : MovingObject
 			if (blockingObject.GetComponent<Zombi> () == null) {
 				gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo);
 			}
-			if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
-				combo += 1;
-				if (combo > 4)
-					combo = 4;
-			} else {
-				combo = 1;
+			if (GameObject.Find ("LevelDesignShop") == null) {
+				if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
+					combo += 1;
+					if (combo > 4)
+						combo = 4;
+				} else {
+					combo = 1;
+				}
 			}
 			blockingObject.GetComponent<Enemy> ().Die ();
 			if (piege != null) {
@@ -275,23 +277,27 @@ public class Player : MovingObject
 //HP & GOLDS______________________________________________________________________________________________________________
 
 	public void loseHP(){
-		if (!takesDamageThisLevel) {
+		if ((manager.PlayerHasItem ("MagicianTunic")) && (!takesDamageThisLevel)) {
 			takesDamageThisLevel = true;
-			manager.destroyLifeChests ();
+		} else {
+			if (!takesDamageThisLevel) {
+				takesDamageThisLevel = true;
+				manager.destroyLifeChests ();
+			}
+			combo = 1;
+			camera.setShake (0.6f);
+			animator.SetTrigger ("isDamaged");
+			manager.playerhpPoints -= 1;
+			hp = manager.playerhpPoints;
+			uiManager.updateLife ();
+			CheckIfGameOver ();
 		}
-		combo = 1;
-		camera.setShake(0.6f);
-		animator.SetTrigger("isDamaged");
-		manager.playerhpPoints -= 1;
-		hp = manager.playerhpPoints;
-		uiManager.updateLife();
-		CheckIfGameOver ();
 	}
 
 	public void gainHps(int hpToGain){
 		manager.playerhpPoints += hpToGain;
-		if (manager.playerhpPoints > 6) {
-			manager.playerhpPoints = 6;
+		if (manager.playerhpPoints > manager.maxPlayerHpPoints) {
+			manager.playerhpPoints = manager.maxPlayerHpPoints;
 		}
 		hp = manager.playerhpPoints;
 		uiManager.updateLife ();
@@ -323,4 +329,9 @@ public class Player : MovingObject
 	public int getGolds(){
 		return golds;
 	}
+
+	public UIPlayer getUIPlayer(){
+		return this.uiManager;
+	}
+
 }

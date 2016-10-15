@@ -7,7 +7,7 @@ public class UIPlayer : MonoBehaviour {
 
 	private Player playerManager;
 	public GameObject[] heartContainer;
-	private List<GameObject> instantiateHeart;
+	private List<GameObject> instantiateHeart;// 0 full, 1 demi, 2 vide
 
 	private Text goldsContainer;
 
@@ -35,33 +35,90 @@ public class UIPlayer : MonoBehaviour {
 			instantiateLifeContainers (heartContainer [1]);
 			instantiateLifeContainers (heartContainer [2]);
 			instantiateLifeContainers (heartContainer [2]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
 			break;
 		case 2:
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [2]);
 			instantiateLifeContainers (heartContainer [2]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
 			break;
 		case 3:
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [1]);
 			instantiateLifeContainers (heartContainer [2]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
 			break;
 		case 4:
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [2]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			}else if (GameManager.instance.maxPlayerHpPoints == 10) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
 			break;
 		case 5:
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [1]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			} else if (GameManager.instance.maxPlayerHpPoints == 10) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
 			break;
 		case 6:
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [0]);
 			instantiateLifeContainers (heartContainer [0]);
+			if (GameManager.instance.maxPlayerHpPoints == 8) {
+				instantiateLifeContainers (heartContainer [2]);
+			}else if (GameManager.instance.maxPlayerHpPoints == 10) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
+			break;
+		case 7:
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [1]);
+			if (GameManager.instance.maxPlayerHpPoints == 10) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
+			break;
+		case 8:
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			if (GameManager.instance.maxPlayerHpPoints == 10) {
+				instantiateLifeContainers (heartContainer [2]);
+			}
+			break;
+		case 9:
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [1]);
+			break;
+		case 10:
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
+			instantiateLifeContainers (heartContainer [0]);
 			break;
 		}
+
 	}
 
 	public void updateGolds(){

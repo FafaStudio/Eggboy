@@ -17,6 +17,8 @@ public class ChronoChest : Chest {
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		isEnclenched = true;
 		chestName = "Chrono";
+		if(GameManager.instance.PlayerHasItem("MagicianWatch"))
+			chrono =(int)(chrono*1.5);
 	}
 
 	public override void openChest (){

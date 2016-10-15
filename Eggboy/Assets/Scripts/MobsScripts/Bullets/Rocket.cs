@@ -15,6 +15,7 @@ public class Rocket : MovingObject {
 	private EnemyRocket enemyLauncher;
 
 	protected override void Start (){
+		manager = GameManager.instance;
 		skipMove = false;
 		animator = GetComponent<Animator> ();
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
@@ -59,8 +60,11 @@ public class Rocket : MovingObject {
 
 	protected override bool Move(int xDir, int yDir){
 		//simule/teste le mouvement du personnage
-		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
-		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		Vector2 end = new Vector2(transform.position.x, transform.position.y) + new Vector2 (xDir, yDir);
+		if(((this.transform.position.x + xDir)<0)||((this.transform.position.x + xDir)>14)||(this.transform.position.y + yDir<0)||(this.transform.position.y + yDir>7)){
+			Die ();
+		}
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(this.transform.position.x + xDir), (int)(this.transform.position.y + yDir)].nodeObject;
 		if(blockingObject==null){
 			StartCoroutine (SmoothMovement (end));
 			return true;

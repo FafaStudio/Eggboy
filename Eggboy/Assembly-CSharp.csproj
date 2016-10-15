@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Items\HeartItem.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\PassifItem.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Blob.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Bullets\Laser.cs" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Scripts\MovingObject.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Replay.cs" />
+     <Compile Include="Assets\Scripts\ShopManager.cs" />
      <Compile Include="Assets\Scripts\SingleTon.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Arrow.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Bomb.cs" />
