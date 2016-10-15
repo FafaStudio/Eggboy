@@ -73,14 +73,18 @@ public class Necromancer : Enemy {
 		hasSpawnedLastTurn = true;
 	}
 
-	protected override void OnCantMove (GameObject col)
-	{
-		if (col.gameObject.tag == "Wall") {
+	protected override void OnCantMove (){
+		if (blockingObject.tag == "Wall") {
 			endTurnEnemy = true;
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Player") {
+		} else if (blockingObject.tag == "Player") {
 			endTurnEnemy = true;
+			blockingObject = null;
 			return;
+		} else {
+			endTurnEnemy = true;
+			blockingObject = null;
 		}
 	}
 }

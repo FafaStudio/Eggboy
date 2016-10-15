@@ -22,7 +22,7 @@ public class Enemy : MovingObject {
 	    manager.AddEnemyToList (this);
 		animator = GetComponent<Animator> ();
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, -1, this);
+		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, -1, this.gameObject);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
 		base.Start ();
 	}
@@ -34,7 +34,7 @@ public class Enemy : MovingObject {
 		}
 		isDead = true;
 		enabled = false;
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1, null);
+		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1, null);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
 		GameManager.instance.RemoveEnemyToList (this);
 		Destroy (this.gameObject);
@@ -54,17 +54,10 @@ public class Enemy : MovingObject {
 		//skipMove = true;
 	}
 
-	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
-			launchMove (xDir, yDir, end);
-			return true;
-		} else if (hit.transform.tag == "Bullet") {
-			print ("ok");
+	protected override bool Move(int xDir, int yDir){
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(blockingObject==null){
 			launchMove (xDir, yDir, end);
 			return true;
 		}
@@ -76,8 +69,8 @@ public class Enemy : MovingObject {
 			piege.TriggerExit ();
 		}
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, -1, this);
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
+		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)end.x, (int)end.y, -1, this.gameObject);
+		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 		StartCoroutine(SmoothMovement(end));
 	}
 
@@ -141,17 +134,21 @@ public class Enemy : MovingObject {
 		AttemptMove (xDir, yDir);
 	}
 
-	protected override void OnCantMove (GameObject col)
+	protected override void OnCantMove ()
 	{
 		endTurnEnemy = true;
 		if (isTrap) {
 			isTrap = false;
 		}
-		if (col.gameObject.tag == "Wall") {
+		if (blockingObject.tag == "Wall") {
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Player") {
-			col.gameObject.GetComponent<Player> ().loseHP ();
+		} else if (blockingObject.tag == "Player") {
+			blockingObject.GetComponent<Player> ().loseHP ();
+			blockingObject = null;
 			animator.SetTrigger ("enemyAttack");
+		} else {
+			blockingObject = null;
 		}
 	}
 }

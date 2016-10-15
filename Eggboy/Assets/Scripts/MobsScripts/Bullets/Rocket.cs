@@ -21,12 +21,14 @@ public class Rocket : MovingObject {
 		base.Start ();
 	}
 
-	protected override void OnCantMove (GameObject col){
-		if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Bullet") {
+	protected override void OnCantMove (){
+		if (blockingObject.tag == "Wall" || blockingObject.tag == "Bullet") {
 			isDead = true;
+			blockingObject = null;
 			Die ();
-		} else if (col.gameObject.tag == "Player") {
-			col.gameObject.GetComponent<Player> ().loseHP ();
+		} else if (blockingObject.tag == "Player") {
+			blockingObject.GetComponent<Player> ().loseHP ();
+			blockingObject = null;
 			isDead = true;
 			Die ();
 		}
@@ -55,17 +57,11 @@ public class Rocket : MovingObject {
 		}
 	}
 
-	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+	protected override bool Move(int xDir, int yDir){
 		//simule/teste le mouvement du personnage
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
-			StartCoroutine (SmoothMovement (end));
-			return true;
-		} else if (hit.transform.gameObject.tag == "Enemy") {
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(blockingObject==null){
 			StartCoroutine (SmoothMovement (end));
 			return true;
 		}

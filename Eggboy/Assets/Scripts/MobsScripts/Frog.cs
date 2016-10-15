@@ -40,61 +40,58 @@ public class Frog : Enemy {
 			endTurnEnemy = true;
 			return;
 		}
-		RaycastHit2D hit;
-		bool canMove = Move(xDir, yDir, out hit);
+		bool canMove = Move(xDir, yDir);
 		if (!canMove) {
-			OnCantMove (hit.transform.gameObject);
+			OnCantMove ();
 		}
-		;
 	}
 
 	public override void doMove(int xDir, int yDir)
 	{
-		RaycastHit2D hit;
-		bool canMove = SimpleMove(xDir, yDir, out hit);
-		if (hit.transform == null) {
+		bool canMove = SimpleMove(xDir, yDir);
+		if (blockingObject == null) {
 			return;
 		} else if (!canMove) {
-			OnCantMove (hit.transform.gameObject);
+			OnCantMove ();
 		}
 	}
 
-	protected override void OnCantMove (GameObject col){
+	protected override void OnCantMove (){
 		endTurnEnemy = true;
-		if (col.gameObject.tag == "Wall") {
-			return;
-		} else if (col.gameObject.tag == "Player") {
-			isPreparingAttack = true;
+		if (blockingObject != null) {
+			if (blockingObject.tag == "Wall") {
+				blockingObject = null;
+				return;
+			} else if (blockingObject.tag == "Player") {
+				blockingObject = null;
+				isPreparingAttack = true;
+			} else {
+				blockingObject = null;
+			}
 		}
 	}
 
-	protected bool SimpleMove (int xDir, int yDir, out RaycastHit2D hit){
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
+	protected bool SimpleMove (int xDir, int yDir){
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(blockingObject==null){
 			if (piege != null) {
 				piege.TriggerExit ();
 			}
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, -1, this);
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
+			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)end.x, (int)end.y, -1, this.gameObject);
+			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 			StartCoroutine (SmoothMovement (end));
 			return true;
-			}
+		}
 		return false;
 	}
 
-	protected override bool Move (int xDir, int yDir, out RaycastHit2D hit){
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
-			if (PlayerIsInRange (end, xDir, yDir, out hit)) {
+	protected override bool Move (int xDir, int yDir){
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(blockingObject==null){
+			if (PlayerIsInRange (end, xDir, yDir)) {
 				xDirAttack =xDir;
 				yDirAttack = yDir;
 				return false;
@@ -103,25 +100,16 @@ public class Frog : Enemy {
 					piege.TriggerExit ();
 				}
 				caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
-				GameManager.instance.getCurrentBoard ().setCharacterOnGrid ((int)end.x, (int)end.y, -1, this);
-				GameManager.instance.getCurrentBoard ().setCharacterOnGrid ((int)transform.position.x, (int)transform.position.y, 1, null);
+				GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)end.x, (int)end.y, -1, this.gameObject);
+				GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 				StartCoroutine (SmoothMovement (end));
 				return true;
 			}
-		} else if (hit.transform.gameObject.tag == "Player") {
+		} else if (blockingObject.tag == "Player") {
 			xDirAttack = xDir;
 			yDirAttack = yDir;
 			return false;
-		} else if (hit.transform.gameObject.tag == "Bullet") {
-			if (piege != null) {
-				piege.TriggerExit ();
-			}
-			caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x + xDir, transform.position.y + yDir));
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid ((int)end.x, (int)end.y, -1, this);
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid ((int)transform.position.x, (int)transform.position.y, 1,null);
-			StartCoroutine (SmoothMovement (end));
-			return true;
-		}
+		} 
 		return false;
 	}
 
@@ -170,49 +158,50 @@ public class Frog : Enemy {
 
 	//ATTACK_______________________________________________________________________________________
 
-	protected bool Attack (int xDir, int yDir, out RaycastHit2D hit){
+	protected bool Attack (int xDir, int yDir){
 		// fonction similaire a Move() permettant de chercher le joueur sur les 2 cases devant 
 		// lance l'attaque si le joueur a été repéré ou si aucun autre ennemis ne s'interpose entre le joueur et la grenouille
 		endTurnEnemy = true;
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
-			if (PlayerIsInRange (end, xDir, yDir, out hit)) {
-				StartCoroutine (frogAttack (hit.transform.gameObject));
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		GameObject testObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(testObject==null){
+			testObject = PlayerIsInRange (end, xDir, yDir);
+			if (testObject!=null) {
+				StartCoroutine (frogAttack (testObject));
 				return true;
 			} else {
 				StartCoroutine (frogAttack (null));
 				return true;
 			}
-		} else if (hit.transform.gameObject.tag == "Player") {
-			StartCoroutine (frogAttack (hit.transform.gameObject));
+		} else if (testObject.tag=="Player") {
+			StartCoroutine (frogAttack (testObject));
 			return true;
 		}
+		blockingObject = testObject;
 		return false;
 	}
 
-	public bool PlayerIsInRange(Vector2 start, int xDir, int yDir, out RaycastHit2D testRange){
+	public GameObject PlayerIsInRange(Vector2 start, int xDir, int yDir){
 		// teste la case "longue distance" pour y chercher le joueur
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		testRange = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if ((testRange.transform != null) && (testRange.transform.gameObject.tag == "Player")) {
-			return true;
+		Vector2 end = start+new Vector2(xDir, yDir);
+		if ((end.x < 0)|| (end.x > 14 )|| (end.y < 0) || (end.y > 7))
+			return null;
+		GameObject testPlayer = manager.getCurrentBoard ().gridPositions [(int)(end.x), (int)(end.y)].nodeObject;
+		if(testPlayer!=null){
+			if (testPlayer.tag == "Player")
+				return testPlayer;
+			else
+				return null;
 		}else
-			return false;
+			return null;
 	}
 
 	public void tryToAttack(){
 		// lance l'attaque ou l'action de ne pas attaquer si une condtion d'attaque n'est pas respecté
-		RaycastHit2D hit;
 		endTurnEnemy = true;
-		bool canAttack = Attack (xDirAttack, yDirAttack, out hit);
+		bool canAttack = Attack (xDirAttack, yDirAttack);
 		if(!canAttack) {
-			cantAttack (hit.transform.gameObject);
+			cantAttack ();
 		}
 		xDirAttack = 0;
 		yDirAttack = 0;
@@ -234,10 +223,13 @@ public class Frog : Enemy {
 		yield return null;
 	}
 
-	public void cantAttack(GameObject col){
+	public void cantAttack(){
 		isPreparingAttack = false;
-		if ((col.tag == "Enemy")) {
+		if ((blockingObject.tag == "Enemy")) {
 			MoveEnemy ();
+			blockingObject = null;
+		} else {
+			blockingObject = null;
 		}
 	}
 
@@ -311,55 +303,55 @@ public class Frog : Enemy {
 		int posX = (int)caseExacte.position.x;
 		int posY = (int)caseExacte.position.y;
 		if (posX != 14) {
-			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 1, (int)posY].nodeCharacter != null) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 1, (int)posY].nodeCharacter.gameObject.tag == "Player")
+			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 1, (int)posY].nodeObject != null) {
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 1, (int)posY].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (1, 0);
 			}
 		}
 		if (posX < 13) {
-			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 2, (int)posY].nodeCharacter != null)
+			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 2, (int)posY].nodeObject != null)
 			    && (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 1, (int)posY].valeur != -1)) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 2, (int)posY].nodeCharacter.gameObject.tag == "Player")
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX + 2, (int)posY].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (1, 0);
 			}
 		}
 		if (posX != 0) {
-			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 1, (int)posY].nodeCharacter != null) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 1, (int)posY].nodeCharacter.gameObject.tag == "Player")
+			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 1, (int)posY].nodeObject != null) {
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 1, (int)posY].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (-1, 0);
 			}
 		}
 		if (posX > 1) {
-			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 2, (int)posY].nodeCharacter != null)
+			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 2, (int)posY].nodeObject != null)
 			   && (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 1, (int)posY].valeur != -1)) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 2, (int)posY].nodeCharacter.gameObject.tag == "Player")
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX - 2, (int)posY].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (-1, 0);
 			}
 		}
 	
 		if (posY != 7) {
-			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeCharacter != null) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeCharacter.gameObject.tag == "Player")
+			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeObject != null) {
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (0, 1);
 			}
 		}
 		if (posY < 6) {
-			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 2].nodeCharacter != null)
+			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 2].nodeObject != null)
 			  && (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].valeur != -1)) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 2].nodeCharacter.gameObject.tag == "Player")
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 2].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (0, 1);
 			}
 		}
 		if (posY != 0) {
-			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 1].nodeCharacter != null) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 1].nodeCharacter.gameObject.tag == "Player")
+			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 1].nodeObject != null) {
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 1].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (0, -1);
 			}
 		}
 		if (posY > 1) {
-			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 2].nodeCharacter != null)
+			if ((GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 2].nodeObject != null)
 			  && (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 1].valeur != -1)) {
-				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 2].nodeCharacter.gameObject.tag == "Player")
+				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY - 2].nodeObject.tag == "Player")
 					isPlayer = new Vector2 (0, -1);
 			}
 		}

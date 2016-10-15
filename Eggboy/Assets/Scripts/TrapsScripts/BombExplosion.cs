@@ -4,13 +4,13 @@ using System.Collections;
 public class BombExplosion : MonoBehaviour {
 
 	public void checkExplosion(){
-		MovingObject perso = GameManager.instance.getCurrentBoard ().testCaseCharacterPiege ((int)this.transform.position.x, (int)this.transform.position.y);
+		GameObject perso = GameManager.instance.getCurrentBoard ().testCaseCharacterPiege ((int)this.transform.position.x, (int)this.transform.position.y);
 		if (perso == null) {
 			return;
 		}
-		if (perso.gameObject.tag == "Enemy") {
+		if (perso.tag == "Enemy") {
 			perso.GetComponent<Enemy> ().Die ();
-		}else if(perso.gameObject.tag == "Player") {
+		}else if(perso.tag == "Player") {
 			perso.GetComponent<Player> ().loseHP ();
 		}
 	}

@@ -7,6 +7,7 @@ public abstract class MovingObject : MonoBehaviour {
 
 	public float moveTime = 0.1f;
 	public LayerMask blockingLayer;
+	protected GameObject blockingObject = null;
 
 	protected BoxCollider2D boxCollider;
 	protected Rigidbody2D rb2D;
@@ -27,14 +28,10 @@ public abstract class MovingObject : MonoBehaviour {
 		inverseMoveTime = 1f / moveTime;
 	}
 
-	protected virtual bool Move(int xDir, int yDir, out RaycastHit2D hit){
+	protected virtual bool Move(int xDir, int yDir){
 	//simule/teste le mouvement du personnage
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		if(manager.getCurrentBoard().gridPositions[(int)(caseExacte.position.x+xDir),(int)(caseExacte.position.y+yDir)].nodeObject!=null){
 			StartCoroutine(SmoothMovement(end));
 			return true;
 		}
@@ -44,11 +41,11 @@ public abstract class MovingObject : MonoBehaviour {
 	protected virtual void AttemptMove(int xDir, int yDir){
 	//literallement "tente de bouger", teste si il y a un truc qui gène le déplacement et l'identifie
 		RaycastHit2D hit;
-		bool canMove = Move(xDir, yDir, out hit);
-		if (hit.transform == null) {
+		bool canMove = Move(xDir, yDir);
+		if (blockingObject== null) {
 			return;
 		} else if (!canMove) {
-			OnCantMove (hit.transform.gameObject);
+			OnCantMove ();
 		}
 	}
 
@@ -68,7 +65,7 @@ public abstract class MovingObject : MonoBehaviour {
 		AttemptMove(xDir, yDir);
 	}
 
-	protected abstract void OnCantMove (GameObject col);
+	protected abstract void OnCantMove ();
 
 	protected abstract void testPiege ();
 

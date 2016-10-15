@@ -8,7 +8,7 @@ public abstract class Item : MonoBehaviour {
 	public int price;
 	Vector2 screenPos;
 
-	void Start () {
+	protected virtual void Start () {
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 	}
 

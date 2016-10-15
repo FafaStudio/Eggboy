@@ -34,26 +34,23 @@ public class Player : MovingObject
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
-		GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)caseExacte.position.x, (int)caseExacte.position.y, 1, this);
+		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)caseExacte.position.x, (int)caseExacte.position.y, 1, this.gameObject);
 		//GameManager.instance.levelPassedToString();
 
 		base.Start();
 	}
 
-	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2(xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast(start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if ((hit.transform == null) || (hit.transform.tag == "Bullet")){
+	protected override bool Move(int xDir, int yDir){
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if(blockingObject==null){
 			if (piege != null) {
 				piege.TriggerExit ();
 			}
 			animator.SetTrigger("isRunning");
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)end.x, (int)end.y, 1, this);
-			GameManager.instance.getCurrentBoard ().setCharacterOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
+			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)end.x, (int)end.y, 1, this.gameObject);
+			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
 			StartCoroutine(SmoothMovement(end));
 			return true;
 		}
@@ -102,17 +99,18 @@ public class Player : MovingObject
 		}
 	}
 
-	protected override void OnCantMove(GameObject col){
+	protected override void OnCantMove(){
 		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
-		if (col.gameObject.tag == "Wall") {
+		if (blockingObject.tag == "Wall") {
 			animator.SetTrigger ("Blase");
 			manager.playersTurn = true;
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Enemy") {
+		} else if (blockingObject.tag == "Enemy") {
 			manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
-			if (col.gameObject.GetComponent<Zombi> () == null) {
-				gainGolds (col.GetComponent<Enemy> ().goldsLoot * combo);
+			if (blockingObject.GetComponent<Zombi> () == null) {
+				gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo);
 			}
 			if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
 				combo += 1;
@@ -121,18 +119,22 @@ public class Player : MovingObject
 			} else {
 				combo = 1;
 			}
-			col.GetComponent<Enemy> ().Die ();
+			blockingObject.GetComponent<Enemy> ().Die ();
 			if (piege != null) {
 				if (piege.gameObject.name != "BoutonOn-Off")
 					testPiege ();
 			}
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Chest") {
-			col.GetComponent<Chest> ().setPlayer (this);
-			col.GetComponent<Chest> ().openChest ();
+		} else if (blockingObject.tag == "Chest") {
+			blockingObject.GetComponent<Chest> ().setPlayer (this);
+			blockingObject.GetComponent<Chest> ().openChest ();
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Item") {
-			col.GetComponent<Item> ().GainLoot (this);
+		} else if (blockingObject.tag == "Item") {
+			blockingObject.GetComponent<Item> ().GainLoot (this);
+			blockingObject = null;
+			return;
 		}
 	}
 

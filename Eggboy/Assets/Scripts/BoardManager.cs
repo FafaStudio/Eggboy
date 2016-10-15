@@ -21,7 +21,9 @@ public class BoardManager : MonoBehaviour {
 		public int distanceParcourue;
 		public int distanceVO;
 		public Trap casePiege = null;
-		public MovingObject nodeCharacter = null;
+		public GameObject nodeObject = null;
+		//joueur, ennemis, murs
+		// pas les lasers, roquettes, pièges
 
 		public Node(int x, Vector2 p){
 			this.valeur = x;
@@ -41,12 +43,12 @@ public class BoardManager : MonoBehaviour {
 			this.casePiege = value;
 		}
 
-		public void setCharacter(MovingObject setter){
-			nodeCharacter = setter;
+		public void setObject(GameObject setter){
+			nodeObject = setter;
 		}
 
 		public void resetCharacter(){
-			nodeCharacter = null;
+			nodeObject = null;
 		}
 
 		public String toString(){
@@ -118,18 +120,18 @@ public class BoardManager : MonoBehaviour {
 		return toString;
 	}
 
-	public String grilleToStringWithCharacters(){
+	public String grilleToStringWithObjects(){
 		String toString = " ";
 		for(int y = rows-1; y >= 0; y--){
 			for (int x =0; x < columns; x++) {
 				if (x == columns - 1) {
-					if(gridPositions [x, y].nodeCharacter!=null)
-						toString += gridPositions [x, y].nodeCharacter.gameObject.name.ToString () + " \n";
+					if(gridPositions [x, y].nodeObject!=null)
+						toString += gridPositions [x, y].nodeObject.gameObject.name.ToString () + " \n";
 					else
 						toString += "[null]" + " \n";
 				} else {
-					if(gridPositions [x, y].nodeCharacter!=null)
-						toString += gridPositions [x, y].nodeCharacter.gameObject.name.ToString ();
+					if(gridPositions [x, y].nodeObject!=null)
+						toString += gridPositions [x, y].nodeObject.gameObject.name.ToString ();
 					else
 						toString += "[null]";
 				}
@@ -147,16 +149,16 @@ public class BoardManager : MonoBehaviour {
 		gridPositions [x, y].setPiege (piege);
 	}
 
-	public void setCharacterOnGrid(int x, int y , int value, MovingObject nodeObject){
+	public void setObjectOnGrid(int x, int y , int value, GameObject nodeObject){
 	// setter de la grille lors d'un déplacement d'un personnage
 		gridPositions [x, y].setValeur(value);
-		gridPositions [x, y].setCharacter (nodeObject);
+		gridPositions [x, y].setObject (nodeObject);
 	}
 
-	public MovingObject testCaseCharacterPiege(int x, int y){
+	public GameObject testCaseCharacterPiege(int x, int y){
 	// detecte un personage sur une case sans autre info que la coordonnée
-		if (gridPositions [x, y].nodeCharacter != null) 
-			return gridPositions [x, y].nodeCharacter;
+		if (gridPositions [x, y].nodeObject != null) 
+			return gridPositions [x, y].nodeObject;
 		else
 			return null;
 	}

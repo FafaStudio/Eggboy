@@ -25,17 +25,11 @@ public class Zombi : Enemy {
 		testPiege ();
 	}
 
-	protected override bool Move(int xDir, int yDir, out RaycastHit2D hit){
+	protected override bool Move(int xDir, int yDir){
 		skipMove = true;
-		Vector2 start = transform.position;
-		Vector2 end = start + new Vector2 (xDir, yDir);
-		boxCollider.enabled = false;
-		hit = Physics2D.Linecast (start, end, blockingLayer);
-		boxCollider.enabled = true;
-		if (hit.transform == null) {
-			launchMove (xDir, yDir, end);
-			return true;
-		} else if (hit.transform.tag == "Bullet") {
+		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+		if (blockingObject == null) {
 			launchMove (xDir, yDir, end);
 			return true;
 		}
@@ -61,16 +55,21 @@ public class Zombi : Enemy {
 		base.AttemptMove(xDir, yDir);
 	}
 
-	protected override void OnCantMove (GameObject col)
+	protected override void OnCantMove ()
 	{
 		endTurnEnemy = true;
 		if (isTrap) {
 			isTrap = false;
 		}
-		if (col.gameObject.tag == "Wall") {
+		if (blockingObject.tag == "Wall") {
+			blockingObject = null;
 			return;
-		} else if (col.gameObject.tag == "Player") {
-			col.gameObject.GetComponent<Player> ().loseHP ();
+		} else if (blockingObject.tag == "Player") {
+			blockingObject.GetComponent<Player> ().loseHP ();
+			blockingObject = null;
+			return;
+		} else {
+			blockingObject = null;
 		}
 	}
 }
