@@ -85,7 +85,8 @@ public class GameManager : MonoBehaviour
 		playersTurn = true;
 		totalTurnCurLevel = 0;
 		totalTurns = 0;
-		SceneManager.LoadScene ("BeginingLevel");
+		enabled = true;
+		SceneManager.LoadScene ("Level01");
 	}
 
 	public void checkIfWinLevel(){
@@ -113,7 +114,7 @@ public class GameManager : MonoBehaviour
 		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
-		if (((levelPassed.Count % 10) == 0)&&(levelPassed.Count!=0)){
+		if (((levelPassed.Count % 5) == 0)&&(levelPassed.Count!=0)){
 			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 			totalTurns++;
 			return 2;
@@ -247,7 +248,7 @@ public class GameManager : MonoBehaviour
 		}
 		for (int j = 0; j < trapToLaunch.Count; j++) {
 			trapToLaunch[j].doAction ();
-			yield return new WaitForSeconds(1/traps.Count);
+			yield return new WaitForSeconds(1/(trapToLaunch.Count+100));
 		}
 		trapActioning = false;
 	}

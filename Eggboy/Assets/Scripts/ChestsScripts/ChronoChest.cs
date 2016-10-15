@@ -61,6 +61,6 @@ public class ChronoChest : Chest {
 	{
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x - 6, (Screen.height - screenPos.y) - 10, 15, 20), chrono.ToString ());
+		GUI.TextField (new Rect (screenPos.x - 6, (Screen.height - screenPos.y) - 10, 20, 20), chrono.ToString ());
 	}
 }
