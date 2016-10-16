@@ -326,6 +326,9 @@ public class Player : MovingObject
 	}
 
 	public void gainGolds(int goldsToGain, int specialCombo){
+		if (GameManager.instance.PlayerHasItem ("CreamerPants")) {
+			goldsToGain = (int)(goldsToGain*1.3);
+		}
 		manager.playerGolds+= goldsToGain;
 		if (specialCombo != 1) 
 			StartCoroutine (uiManager.updateGoldsLaunch (goldsToGain, combo, true));

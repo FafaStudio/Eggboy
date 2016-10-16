@@ -20,6 +20,11 @@ public class Necromancer : Enemy {
 		spawned = new List<GameObject> ();
 		animator = null;
 		base.Start ();
+		if (GameManager.instance.PlayerHasItem ("ScaryGlasses")) {
+			maxZombie--;
+			if (maxZombie > 1)
+				maxZombie--;
+		}
 	}
 
 	public override void MoveEnemy ()
