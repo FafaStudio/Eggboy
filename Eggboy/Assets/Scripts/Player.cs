@@ -112,9 +112,9 @@ public class Player : MovingObject
 			Scorer.instance.addScoreValue (7, 1);
 			if (blockingObject.GetComponent<Zombi> () == null) {
 				if (GameManager.instance.PlayerHasItem ("CapitalismSymbol")) {
-					gainGolds ((blockingObject.GetComponent<Enemy> ().goldsLoot+2) * combo);
+					gainGolds ((blockingObject.GetComponent<Enemy> ().goldsLoot+3) * combo,0);
 				} else {
-					gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo);
+					gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo,0);
 				}
 			}
 			if (GameObject.Find ("LevelDesignShop") == null) {
@@ -325,11 +325,13 @@ public class Player : MovingObject
 		}
 	}
 
-	public void gainGolds(int goldsToGain){
+	public void gainGolds(int goldsToGain, int specialCombo){
 		manager.playerGolds+= goldsToGain;
-		StartCoroutine(uiManager.updateGoldsLaunch (goldsToGain, combo, true));
+		if (specialCombo != 1) 
+			StartCoroutine (uiManager.updateGoldsLaunch (goldsToGain, combo, true));
+		else
+			StartCoroutine (uiManager.updateGoldsLaunch (goldsToGain, specialCombo, true));
 		golds= manager.playerGolds;
-		uiManager.updateGolds();
 	}
 
 	public int getHp(){

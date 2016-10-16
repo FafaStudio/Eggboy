@@ -13,7 +13,7 @@ public class LifeChest : Chest {
 
 	public override void openChest (){
 		Loot chestLoot = lootChest ();
-		player.gainGolds (chestLoot.getGolds ());
+		player.gainGolds (chestLoot.getGolds (),1);
 		destroyChest ();
 	}
 

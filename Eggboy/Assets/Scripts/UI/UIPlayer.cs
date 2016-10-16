@@ -152,6 +152,7 @@ public class UIPlayer : MonoBehaviour {
 			updateGoldsText.text = "+" + golds.ToString ();
 			updateGoldPanel.SetActive (true);
 			yield return new WaitForSeconds (1f);
+			updateGolds ();
 			updateGoldPanel.SetActive (false);
 		} else {
 			comboText.text = "";
@@ -159,6 +160,7 @@ public class UIPlayer : MonoBehaviour {
 			updateGoldsText.text = "-" + golds.ToString ();
 			updateGoldPanel.SetActive (true);
 			yield return new WaitForSeconds (1f);
+			updateGolds ();
 			updateGoldPanel.SetActive (false);
 		}
 		

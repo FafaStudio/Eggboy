@@ -14,4 +14,14 @@ public class BombExplosion : MonoBehaviour {
 			perso.GetComponent<Player> ().loseHP ();
 		}
 	}
+
+	void Update(){
+		GameObject perso = GameManager.instance.getCurrentBoard ().testCaseCharacterPiege ((int)this.transform.position.x, (int)this.transform.position.y);
+		if (perso == null) {
+			return;
+		}
+		if (perso.tag == "Enemy") {
+			perso.GetComponent<Enemy> ().Die ();
+		}
+	}
 }

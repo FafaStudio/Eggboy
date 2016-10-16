@@ -3,8 +3,10 @@ using System.Collections;
 
 public abstract class EnemyDistance : Enemy{
 
-	public int maxTurnBetweenAttack = 3;
+	public int maxTurnBetweenAttack;
 	protected int cptTurnBetweenAttack;
+
+	public bool isFiring = false;
 
 	public int xDirAttack;
 	public int yDirAttack;
@@ -30,12 +32,14 @@ public abstract class EnemyDistance : Enemy{
 
 	public override void MoveEnemy ()
 	{
+		isFiring = false;
 		if (LookForTarget ()) {
 			switchDirection ();
 		}
 		if (cptTurnBetweenAttack > 0) {
 			cptTurnBetweenAttack--;
 		} else {
+			isFiring = true;
 			launchTir ();
 		}
 	}
@@ -103,6 +107,8 @@ public abstract class EnemyDistance : Enemy{
 	public abstract IEnumerator instantiateBullet (Vector3 position);
 
 	void OnGUI(){
+		if (isFiring)
+			return;
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
 		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (cptTurnBetweenAttack+1).ToString ());
