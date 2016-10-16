@@ -20,6 +20,7 @@ public class HeartItem : Item {
 					return;
 				player.gainHps (heartGains);
 				player.loseGolds (this.price);
+				removeFromShop ();
 				Destroy (this.gameObject);
 			} else {
 				return;

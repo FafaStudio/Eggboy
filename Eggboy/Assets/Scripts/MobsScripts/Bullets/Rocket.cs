@@ -63,6 +63,7 @@ public class Rocket : MovingObject {
 		Vector2 end = new Vector2(transform.position.x, transform.position.y) + new Vector2 (xDir, yDir);
 		if(((this.transform.position.x + xDir)<0)||((this.transform.position.x + xDir)>14)||(this.transform.position.y + yDir<0)||(this.transform.position.y + yDir>7)){
 			Die ();
+			return false;
 		}
 		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(this.transform.position.x + xDir), (int)(this.transform.position.y + yDir)].nodeObject;
 		if(blockingObject==null){

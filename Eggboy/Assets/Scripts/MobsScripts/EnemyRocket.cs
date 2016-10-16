@@ -50,25 +50,29 @@ public class EnemyRocket : EnemyDistance {
 		if (xDirAttack == -1) {
 			if (caseExacte.position.x == 0) {
 				return false;
-			} else if (manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x - 1, (int)caseExacte.position.y].valeur == -1) {
+			} else if ((manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x - 1, (int)caseExacte.position.y].valeur == -1)
+				&&(manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x - 1, (int)caseExacte.position.y].nodeObject.tag!="Player")) {
 				return false;
 			}
 		} else if (xDirAttack == 1) {
 			if (caseExacte.position.x == 14) {
 				return false;
-			}else if (manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x + 1, (int)caseExacte.position.y].valeur == -1) {
+			}else if ((manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x + 1, (int)caseExacte.position.y].valeur == -1) 
+				&&(manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x + 1, (int)caseExacte.position.y].nodeObject.tag!="Player")) {
 				return false;
 			}
 		} else if (yDirAttack == -1) {
-			if (caseExacte.position.y == 7) {
+			if (caseExacte.position.y == 0) {
 				return false;
-			}else if (manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x , (int)caseExacte.position.y].valeur-1 == -1) {
+			}else if ((manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x , (int)caseExacte.position.y-1].valeur == -1) 
+				&&(manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x, (int)caseExacte.position.y-1].nodeObject.tag!="Player")) {
 				return false;
 			}
 		} else if (yDirAttack == 1) {
-			if (caseExacte.position.y == 0) {
+			if (caseExacte.position.y == 7) {
 				return false;
-			}else if (manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x , (int)caseExacte.position.y].valeur+1 == -1) {
+			}else if ((manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x , (int)caseExacte.position.y+1].valeur == -1) 
+				&&(manager.getCurrentBoard ().gridPositions [(int)caseExacte.position.x, (int)caseExacte.position.y+1].nodeObject.tag!="Player")) {
 				return false;
 			}
 		} 

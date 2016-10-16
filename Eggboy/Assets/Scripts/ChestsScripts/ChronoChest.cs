@@ -31,6 +31,8 @@ public class ChronoChest : Chest {
 	public override void declencherPiegeNewTurn (){}
 
 	public override void doAction (){
+		if(GameManager.instance.PlayerHasItem("MagicianWatch"))
+			chrono =(int)(chrono*1.5);
 		if (chrono > 1) {
 			chrono--;
 		} else {

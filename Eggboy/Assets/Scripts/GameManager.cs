@@ -119,11 +119,20 @@ public class GameManager : MonoBehaviour
 		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
 		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
 		//print(Random.seed);
-		if (((levelPassed.Count % 5) == 0)&&(levelPassed.Count!=0)){
-		//if(levelPassed.Count  <3){
-			PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-			totalTurns++;
-			return 2;
+		if (levelPassed.Count < 20) {
+			if (((levelPassed.Count % 5) == 0) && (levelPassed.Count != 0)) {
+				//if(levelPassed.Count  <3){
+				PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
+				totalTurns++;
+				return 2;
+			}
+		} else {
+			if (((levelPassed.Count % 10) == 0) && (levelPassed.Count != 0)) {
+				//if(levelPassed.Count  <3){
+				PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
+				totalTurns++;
+				return 2;
+			}
 		}
 		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-3) {
 			//-3 pour begginingLevel, magasin et le mainMenu, a incrémenter si on rajoute
@@ -317,7 +326,7 @@ public class GameManager : MonoBehaviour
 
 	public bool PlayerHasItem(string name){
 		for (int i = 0; i < passifItems.Count; i++) {
-			if (passifItems [i].name == "name") {
+			if (passifItems [i].itemName == name) {
 				return true;
 			}
 		}

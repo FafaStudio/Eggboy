@@ -28,10 +28,13 @@ public class PassifItem : Item {
 				this.transform.SetParent (GameManager.instance.gameObject.transform);
 				Destroy (this.GetComponent<BoxCollider2D> ());
 				Destroy (this.GetComponent<SpriteRenderer> ());
+				removeFromShop ();
 				StartCoroutine(seeUI ());
 				isShopItem = false;
 			}
 		} else {
+			if (isHpUp)
+				hpUp (player);
 			StartCoroutine(seeUI ());
 			board.setObjectOnGrid ((int)this.transform.position.x, (int)this.transform.position.y, 1, null);
 			GameManager.instance.AddPassifItem (this);

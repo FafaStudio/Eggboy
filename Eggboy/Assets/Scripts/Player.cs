@@ -5,6 +5,7 @@ public class Player : MovingObject
 {
 	public float restartLevelDelay = 1f;
 	private bool takesDamageThisLevel = false;
+	private bool takesDamageThisTurn = false;
 
 	private Animator animator;
 
@@ -110,7 +111,11 @@ public class Player : MovingObject
 			manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
 			if (blockingObject.GetComponent<Zombi> () == null) {
-				gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo);
+				if (GameManager.instance.PlayerHasItem ("CapitalismSymbol")) {
+					gainGolds ((blockingObject.GetComponent<Enemy> ().goldsLoot+2) * combo);
+				} else {
+					gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo);
+				}
 			}
 			if (GameObject.Find ("LevelDesignShop") == null) {
 				if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
@@ -238,6 +243,7 @@ public class Player : MovingObject
 			
 		if (actionDuTour != "nothing")
 		{
+			takesDamageThisTurn = false;
 			GameManager.instance.checkInstanceToDestroy ();
 			if (underTrapNewTurnEffect)
 			{
@@ -277,13 +283,17 @@ public class Player : MovingObject
 //HP & GOLDS______________________________________________________________________________________________________________
 
 	public void loseHP(){
+		if (takesDamageThisTurn)
+			return;
 		if ((manager.PlayerHasItem ("MagicianTunic")) && (!takesDamageThisLevel)) {
 			takesDamageThisLevel = true;
+			takesDamageThisTurn = true;
 		} else {
 			if (!takesDamageThisLevel) {
 				takesDamageThisLevel = true;
 				manager.destroyLifeChests ();
 			}
+			takesDamageThisTurn = true;
 			combo = 1;
 			camera.setShake (0.6f);
 			animator.SetTrigger ("isDamaged");
