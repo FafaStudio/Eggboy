@@ -1,12 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MobsScripts/Zombi.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ShopManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/MobsScripts/Frog.cs" Line="215" Column="55" />
-      <File FileName="Assets/Scripts/ShopManager.cs" Line="22" Column="11" />
-      <File FileName="Assets/Scripts/Player.cs" Line="286" Column="2" />
-      <File FileName="Assets/Scripts/MobsScripts/Enemy.cs" Line="151" Column="4" />
-      <File FileName="Assets/Scripts/MobsScripts/Zombi.cs" Line="62" Column="19" />
+      <File FileName="Assets/Scripts/MobsScripts/Frog.cs" Line="36" Column="2" />
+      <File FileName="Assets/Scripts/ShopManager.cs" Line="35" Column="11" />
+      <File FileName="Assets/Scripts/Items/HeartItem.cs" Line="24" Column="7" />
+      <File FileName="Assets/Scripts/Player.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

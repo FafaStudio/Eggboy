@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
 
 	public void checkIfWinLevel(){
 		if (enemies.Count <= 0) {
+			if((GameManager.instance.PlayerHasItem ("Bento"))&&(levelPassed.Count%2==1)){
+				GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().gainHps (1);
+			}
 			launchNextLevel (chooseNextLevel());
 		}
 	}

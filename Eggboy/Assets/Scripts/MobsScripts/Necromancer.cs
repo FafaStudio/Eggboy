@@ -22,8 +22,8 @@ public class Necromancer : Enemy {
 		base.Start ();
 		if (GameManager.instance.PlayerHasItem ("ScaryGlasses")) {
 			maxZombie--;
-			if (maxZombie > 1)
-				maxZombie--;
+			if (maxZombie <= 0)
+				maxZombie=1;
 		}
 	}
 

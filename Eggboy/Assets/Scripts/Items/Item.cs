@@ -9,7 +9,7 @@ public abstract class Item : MonoBehaviour {
 	Vector2 screenPos;
 	protected BoardManager board;
 
-	private ShopManager shop;
+	protected ShopManager shop;
 
 	protected virtual void Start () {
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
