@@ -1,16 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MobsScripts/Zombi.cs">
     <Files>
-      <File FileName="Assets/Scripts/MobsScripts/Frog.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Items/Item.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ShopManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player.cs" Line="326" Column="3" />
-      <File FileName="Assets/Scripts/UI/UIPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ChestsScripts/ChronoChest.cs" Line="20" Column="3" />
-      <File FileName="Assets/Scripts/ChestsScripts/LifeChest.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MobsScripts/Necromancer.cs" Line="23" Column="3" />
+      <File FileName="Assets/Scripts/MobsScripts/Frog.cs" Line="215" Column="55" />
+      <File FileName="Assets/Scripts/ShopManager.cs" Line="22" Column="11" />
+      <File FileName="Assets/Scripts/Player.cs" Line="286" Column="2" />
+      <File FileName="Assets/Scripts/MobsScripts/Enemy.cs" Line="151" Column="4" />
+      <File FileName="Assets/Scripts/MobsScripts/Zombi.cs" Line="62" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

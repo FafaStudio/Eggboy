@@ -12,6 +12,8 @@ public class Marecage : Trap {
 	public override void TriggerEnter(MovingObject col){
         if (!isEnclenched) // N'agit que si le joueur a finit son tour
 		{
+			if ((col.gameObject.tag == "Player") && (GameManager.instance.PlayerHasItem ("PlasticBoots")))
+				return;
 			isEnclenched = true;
 			character = col;
 			character.setIsTrap(true);

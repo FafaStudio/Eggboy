@@ -65,8 +65,10 @@ public class Zombi : Enemy {
 			blockingObject = null;
 			return;
 		} else if (blockingObject.tag == "Player") {
-			blockingObject.GetComponent<Player> ().loseHP ();
+			bool attackWin = blockingObject.GetComponent<Player> ().loseHP ();
 			blockingObject = null;
+			if ((attackWin) && (GameManager.instance.PlayerHasItem ("VFlu")))
+				Die ();
 			return;
 		} else {
 			blockingObject = null;

@@ -144,9 +144,12 @@ public class Enemy : MovingObject {
 			blockingObject = null;
 			return;
 		} else if (blockingObject.tag == "Player") {
-			blockingObject.GetComponent<Player> ().loseHP ();
+			
+			bool attackWin =blockingObject.GetComponent<Player> ().loseHP ();
 			blockingObject = null;
 			animator.SetTrigger ("enemyAttack");
+			if ((attackWin) && (GameManager.instance.PlayerHasItem ("VFlu")))
+				Die ();
 		} else {
 			blockingObject = null;
 		}

@@ -21,6 +21,8 @@ public class HeartItem : Item {
 				player.gainHps (heartGains);
 				player.loseGolds (this.price);
 				removeFromShop ();
+				if(GameManager.instance.PlayerHasItem ("GoldHeart"))
+					Instantiate(this.gameObject, this.transform.position, Quaternion.identity);
 				Destroy (this.gameObject);
 			} else {
 				return;

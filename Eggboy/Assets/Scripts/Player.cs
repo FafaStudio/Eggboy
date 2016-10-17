@@ -282,12 +282,14 @@ public class Player : MovingObject
 
 //HP & GOLDS______________________________________________________________________________________________________________
 
-	public void loseHP(){
+	public bool loseHP(){
+	// return false if the player don't lose hp
 		if (takesDamageThisTurn)
-			return;
+			return false;
 		if ((manager.PlayerHasItem ("MagicianTunic")) && (!takesDamageThisLevel)) {
 			takesDamageThisLevel = true;
 			takesDamageThisTurn = true;
+			return false;
 		} else {
 			if (!takesDamageThisLevel) {
 				takesDamageThisLevel = true;
@@ -300,6 +302,7 @@ public class Player : MovingObject
 			manager.playerhpPoints -= 1;
 			hp = manager.playerhpPoints;
 			uiManager.updateLife ();
+			return true;
 			CheckIfGameOver ();
 		}
 	}

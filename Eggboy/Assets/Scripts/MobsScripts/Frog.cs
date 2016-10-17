@@ -212,7 +212,9 @@ public class Frog : Enemy {
 			if (col.tag == "Player") {
 				//Anim d'attaque ici
 				instantiateLangue();
-				col.GetComponent<Player> ().loseHP ();
+				bool attackWin = col.GetComponent<Player> ().loseHP ();
+				if ((attackWin) && (GameManager.instance.PlayerHasItem ("VFlu")))
+					Die ();
 			}
 		} else {
 			//Anim d'attaque ici
