@@ -108,7 +108,8 @@ public class Player : MovingObject
 			blockingObject = null;
 			return;
 		} else if (blockingObject.tag == "Enemy") {
-			manager.playersTurn = false;
+			if (!GameManager.instance.PlayerHasItem ("Krav-MagaBook")) 
+				manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
 			if (blockingObject.GetComponent<Zombi> () == null) {
 				if (GameManager.instance.PlayerHasItem ("CapitalismSymbol")) {

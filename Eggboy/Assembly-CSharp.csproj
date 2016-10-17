@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\UI\UIMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <None Include="Assets\DebugData\2016-10-17--13-35-43--1190505536.txt" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.3.3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
