@@ -240,6 +240,23 @@
     <None Include="Assets\DebugData\2016-10-19--05-38-11--1430476178.txt" />
     <None Include="Assets\DebugData\2016-10-19--05-39-13--1878414195.txt" />
     <None Include="Assets\DebugData\2016-10-19--05-40-33--1220487364.txt" />
+    <None Include="Assets\DebugData\2016-10-19--19-57-19--2017881200.txt" />
+    <None Include="Assets\DebugData\2016-10-19--19-58-32--1162510299.txt" />
+    <None Include="Assets\DebugData\2016-10-21--18-56-43--1990717754.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-09-34--1938448306.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-10-39--1040463955.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-11-16--2060930985.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-15-44--1142940595.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-16-36--1621585914.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-19-43--1084501123.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-20-15--2003484170.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-20-40--1257202234.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-21-09--1997811894.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-21-50--2027759451.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-55-21--2127616932.txt" />
+    <None Include="Assets\DebugData\2016-10-21--19-56-00--2044614805.txt" />
+    <None Include="Assets\DebugData\2016-10-21--20-01-28--1091908014.txt" />
+    <None Include="Assets\DebugData\2016-10-21--20-08-40--1854212267.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
