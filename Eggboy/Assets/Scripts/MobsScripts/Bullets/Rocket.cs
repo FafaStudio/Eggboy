@@ -22,7 +22,7 @@ public class Rocket : MovingObject {
 		base.Start ();
 	}
 
-	protected override void OnCantMove (){
+	protected override IEnumerator OnCantMove (){
 		if (blockingObject.tag == "Wall" || blockingObject.tag == "Bullet") {
 			isDead = true;
 			blockingObject = null;
@@ -32,7 +32,12 @@ public class Rocket : MovingObject {
 			blockingObject = null;
 			isDead = true;
 			Die ();
+		} else if (blockingObject.tag == "Enemy") {
+			blockingObject = null;
+			isDead = true;
+			Die ();
 		}
+		yield return null;
 	}
 
 	public void MoveBullet (){

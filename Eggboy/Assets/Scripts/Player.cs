@@ -48,7 +48,7 @@ public class Player : MovingObject
 			if (piege != null) {
 				piege.TriggerExit ();
 			}
-			animator.SetTrigger("isRunning");
+			//animator.SetTrigger("isRunning");
 			caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x + xDir, transform.position.y + yDir));
 			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)end.x, (int)end.y, 1, this.gameObject);
 			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, 1,null);
@@ -62,13 +62,14 @@ public class Player : MovingObject
 		GameManager.instance.playerhpPoints = hp;
 	}*/
 
+
 	private bool CheckIfGameOver(){
 		if (hp <= 0)
 		{
 			if (piege != null) {
 				piege.TriggerExit ();
 			}
-			animator.SetTrigger("isDead");
+		//	animator.SetTrigger("isDead");
 			GameManager.instance.GameOver();
 			return true;
 		}
@@ -100,25 +101,23 @@ public class Player : MovingObject
 		}
 	}
 
-	protected override void OnCantMove(){
-		//caseExacte = new BoardManager.Node (1, new Vector2 (transform.position.x, transform.position.y ));
+	protected override IEnumerator OnCantMove(){
+		manager.playersTurn = true;
 		if (blockingObject.tag == "Wall") {
-			animator.SetTrigger ("Blase");
-			manager.playersTurn = true;
+			//animator.SetTrigger ("Blase");
 			blockingObject = null;
-			return;
+			yield return null;
 		} else if (blockingObject.tag == "Enemy") {
-			if (!GameManager.instance.PlayerHasItem ("Krav-MagaBook")) 
-				manager.playersTurn = false;
 			Scorer.instance.addScoreValue (7, 1);
 			if (blockingObject.GetComponent<Zombi> () == null) {
 				if (GameManager.instance.PlayerHasItem ("CapitalismSymbol")) {
-					gainGolds ((blockingObject.GetComponent<Enemy> ().goldsLoot+3) * combo,0);
+					gainGolds ((blockingObject.GetComponent<Enemy> ().goldsLoot+3),0);
 				} else {
-					gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot * combo,0);
+					gainGolds (blockingObject.GetComponent<Enemy> ().goldsLoot,0);
 				}
 			}
-			if (GameObject.Find ("LevelDesignShop") == null) {
+			/*SYSTEME DE COMBO ENLEVER POUR LE MOMENT, multiplier les goldsLoot par la variable combo dans les deux lignes au dessus pour le rajouter
+			 * if (GameObject.Find ("LevelDesignShop") == null) {
 				if (GameObject.Find ("LevelDesign").GetComponent<EnumLevel> ().nbTourOpti < manager.totalTurnCurLevel) {
 					combo += 1;
 					if (combo > 4)
@@ -126,23 +125,27 @@ public class Player : MovingObject
 				} else {
 					combo = 1;
 				}
-			}
-			blockingObject.GetComponent<Enemy> ().Die ();
-			if (piege != null) {
-				if (piege.gameObject.name != "BoutonOn-Off")
-					testPiege ();
-			}
+			}*/
+			animator.SetTrigger ("Attack");
+			animator.SetInteger ("positionAttack", 0);
+			manager.enabled = false;
+			new WaitForSeconds(0.05f);
+			manager.enabled = true;
+			blockingObject.GetComponent<Enemy>().Die ();
 			blockingObject = null;
-			return;
+			testPiege ();
+			if (!GameManager.instance.PlayerHasItem ("Krav-MagaBook")) 
+				manager.playersTurn = false;
+			yield return null;
 		} else if (blockingObject.tag == "Chest") {
 			blockingObject.GetComponent<Chest> ().setPlayer (this);
 			blockingObject.GetComponent<Chest> ().openChest ();
 			blockingObject = null;
-			return;
+			yield return null;
 		} else if (blockingObject.tag == "Item") {
 			blockingObject.GetComponent<Item> ().GainLoot (this);
 			blockingObject = null;
-			return;
+			yield return null;
 		}
 	}
 

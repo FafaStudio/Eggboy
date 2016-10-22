@@ -134,7 +134,7 @@ public class Enemy : MovingObject {
 		AttemptMove (xDir, yDir);
 	}
 
-	protected override void OnCantMove ()
+	protected override IEnumerator OnCantMove ()
 	{
 		endTurnEnemy = true;
 		if (isTrap) {
@@ -142,7 +142,7 @@ public class Enemy : MovingObject {
 		}
 		if (blockingObject.tag == "Wall") {
 			blockingObject = null;
-			return;
+			yield return null;
 		} else if (blockingObject.tag == "Player") {
 			
 			bool attackWin =blockingObject.GetComponent<Player> ().loseHP ();

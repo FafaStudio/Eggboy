@@ -6,6 +6,8 @@ public abstract class EnemyDistance : Enemy{
 	public int maxTurnBetweenAttack;
 	protected int cptTurnBetweenAttack;
 
+	public int offsetDepartLevel;
+
 	public bool isFiring = false;
 
 	public int xDirAttack;
@@ -17,6 +19,7 @@ public abstract class EnemyDistance : Enemy{
 	protected int rotation = 0;
 
 	protected Vector2 screenPos;
+
 
 	protected override void Start (){
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -36,6 +39,10 @@ public abstract class EnemyDistance : Enemy{
 		if (LookForTarget ()) {
 			switchDirection ();
 		}
+		if (offsetDepartLevel > 0) {
+			offsetDepartLevel--;
+			return;
+		}
 		if (cptTurnBetweenAttack > 0) {
 			cptTurnBetweenAttack--;
 		} else {
@@ -45,9 +52,9 @@ public abstract class EnemyDistance : Enemy{
 	}
 
 	protected bool LookForTarget(){
-
-		bool sameX = (target.GetComponent<Player> ().caseExacte.position.x == this.transform.position.x);
-		bool sameY = (target.GetComponent<Player> ().caseExacte.position.y == this.transform.position.y);
+		target = GameObject.FindGameObjectWithTag ("Player").transform;
+		bool sameX = (target.GetComponent<MovingObject> ().caseExacte.position.x == this.transform.position.x);
+		bool sameY = (target.GetComponent<MovingObject> ().caseExacte.position.y == this.transform.position.y);
 
 		if ((sameX)||(sameY))
 			return true;

@@ -78,15 +78,15 @@ public class Necromancer : Enemy {
 		hasSpawnedLastTurn = true;
 	}
 
-	protected override void OnCantMove (){
+	protected override IEnumerator OnCantMove (){
 		if (blockingObject.tag == "Wall") {
 			endTurnEnemy = true;
 			blockingObject = null;
-			return;
+			yield return null;
 		} else if (blockingObject.tag == "Player") {
 			endTurnEnemy = true;
 			blockingObject = null;
-			return;
+			yield return null;
 		} else {
 			endTurnEnemy = true;
 			blockingObject = null;

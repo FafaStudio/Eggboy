@@ -44,7 +44,7 @@ public abstract class MovingObject : MonoBehaviour {
 		if (blockingObject== null) {
 			return;
 		} else if (!canMove) {
-			OnCantMove ();
+			StartCoroutine (OnCantMove ());
 		}
 	}
 
@@ -64,7 +64,7 @@ public abstract class MovingObject : MonoBehaviour {
 		AttemptMove(xDir, yDir);
 	}
 
-	protected abstract void OnCantMove ();
+	protected abstract IEnumerator OnCantMove ();
 
 	protected abstract void testPiege ();
 

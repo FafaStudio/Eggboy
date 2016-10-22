@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(playersTurn || enemiesMoving || trapActioning || rocketsMoving)
 			return;
-		playersTurn = false;
+		//playersTurn = false;
 		StartCoroutine (LaunchTraps ());
 		StartCoroutine (Moverockets ());
 		StartCoroutine (MoveEnemies ());

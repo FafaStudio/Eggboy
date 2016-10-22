@@ -56,12 +56,12 @@ public class Frog : Enemy {
 		}
 	}
 
-	protected override void OnCantMove (){
+	protected override IEnumerator OnCantMove (){
 		endTurnEnemy = true;
 		if (blockingObject != null) {
 			if (blockingObject.tag == "Wall") {
 				blockingObject = null;
-				return;
+				yield return null;
 			} else if (blockingObject.tag == "Player") {
 				blockingObject = null;
 				isPreparingAttack = true;
