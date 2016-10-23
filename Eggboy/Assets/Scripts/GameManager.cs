@@ -277,12 +277,9 @@ public class GameManager : MonoBehaviour
 
 	public void checkInstanceToDestroy(){
 	//Lancer juste avant l'action du joueur
-		for (int i = 0; i < enemies.Count; i++) {
-			if (enemies [i].enemyName == "laser") {
-				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
-			}
-		}
+		clearLasers();
 		clearBombs ();
+		resetSpikes ();
 	}
 
 	public void clearBombs(){
@@ -296,6 +293,24 @@ public class GameManager : MonoBehaviour
 		}
 		for (int i = 0; i < bombesToDestroy.Count; i++) {
 			bombesToDestroy [i].GetComponent<Bomb> ().resetAfterExplosion ();
+		}
+	}
+
+	public void clearLasers(){
+		for (int i = 0; i < enemies.Count; i++) {
+			if (enemies [i].enemyName == "laser") {
+				enemies [i].GetComponent<EnemyLaser> ().clearTir ();
+			}
+		}
+	}
+
+	public void resetSpikes(){
+		for (int i = 0; i < traps.Count; i++) {
+			if ((traps [i].name == "Spike") || (traps [i].name == "Spike(Clone)")) {
+				if (traps [i].GetComponent<Spike> ().isActioning) {
+					traps [i].GetComponent<Spike> ().resetSpike ();
+				}
+			}
 		}
 	}
 

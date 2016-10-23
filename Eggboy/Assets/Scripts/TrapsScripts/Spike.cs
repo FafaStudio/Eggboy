@@ -9,48 +9,40 @@ public class Spike : Trap {
 
 	private int TurnCount = 2;
 
+	public int offsetDepart;
+
+	protected Vector2 screenPos;
+
 	protected override void Start () {
+		isEnclenched = true;
 		base.Start ();
-		//trigger = GetComponent<BoxCollider2D> ();
+		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		anim = GetComponent<Animator> ();
 	}
 
 	public override void doAction (){
-		if (boutonEnclenched)
+		if (offsetDepart > 0) {
+			offsetDepart--;
 			return;
-		if (isActioning) {
-			anim.SetBool ("isActioning", false);
-			isActioning = false;
-			if (isCharacter) {
-				isEnclenched = true;
-			}
-		}else 
-		if (TurnCount != 0) {
-			TurnCount--;
 		}
-		else if(isEnclenched){
+		if (TurnCount > 0) {
+			TurnCount--;
+		} else {
+			isActioning = true;
 			anim.SetBool ("isActioning", true);
 			isActioning = true;
-			isEnclenched = false;
-			if (isCharacter) {
-				if (character == null)
-					return;
-				if (character.gameObject.tag == "Player") {
-					character.GetComponent<Player> ().loseHP ();
-				} else if (character.gameObject.tag == "Enemy") {
-					character.GetComponent<Enemy> ().Die ();
-				}
-				TurnCount = 2;
-				isEnclenched = true;
-			}
+			declencherPiege ();
 		}
 	}
 
 	public override void TriggerEnter(MovingObject col){
+		isEnclenched = true;
 		isCharacter = true;
 		character = col;
 		character.piege = this;
 		character.setIsTrap (true);
+		if (character.gameObject.tag == "Player") 
+			GameManager.instance.playersTurn = false;
 	}
 
 	public override void TriggerExit(){
@@ -60,23 +52,21 @@ public class Spike : Trap {
 		character = null;
 	}
 
+	public void resetSpike(){
+		isActioning = false;
+		anim.SetBool ("isActioning", false);
+		TurnCount = 2;
+	}
+
     public override void declencherPiege(){
-		character.setIsUnderTrapEffect(false);
-		if (character.gameObject.tag == "Enemy") {
-			if (isActioning) {
-				character.GetComponent<Enemy> ().Die ();
-			} else if (!isEnclenched) {
-				TurnCount = 1;
-				isEnclenched = true;
-			} 
-		} else {
-			GameManager.instance.playersTurn = false;
-			if (boutonEnclenched) {
+		if (character == null)
+			return;
+		character.GetComponent<MovingObject> ().setIsUnderTrapEffect (false);
+		if (isActioning) {
+			if (character.gameObject.tag == "Player") {
 				character.GetComponent<Player> ().loseHP ();
-			}
-			else if (!isEnclenched) {
-				TurnCount = 2;
-				isEnclenched = true;
+			} else if (character.gameObject.tag == "Enemy") {
+				character.GetComponent<Enemy> ().Die ();
 			}
 		}
     }
@@ -90,7 +80,7 @@ public class Spike : Trap {
 			boutonEnclenched = true;
 			anim.SetBool ("isActioning", true);
 			isActioning = true;
-			isEnclenched = true;
+			isEnclenched = false;
 			if (isCharacter) {
 				if (character == null)
 					return;
@@ -105,11 +95,7 @@ public class Spike : Trap {
 			anim.SetBool ("isActioning", false);
 			isActioning = false;
 			TurnCount = 2;
-			if (isCharacter) {
-				isEnclenched = true;
-			} else {
-				isEnclenched = false;
-			}
+			isEnclenched = true;
 		}
 	}
 
@@ -120,4 +106,12 @@ public class Spike : Trap {
             Gizmos.DrawIcon(transform.position, "Numbers_"+(TurnCount+1)+".jpg", true);
         }
     }
+
+	/*void OnGUI(){
+		if (isActioning||boutonEnclenched||(TurnCount+1==3))
+			return;
+		var centeredStyle = GUI.skin.GetStyle("Label");
+		centeredStyle.alignment = TextAnchor.MiddleCenter;
+		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (TurnCount+1).ToString ());
+	}*/
 }

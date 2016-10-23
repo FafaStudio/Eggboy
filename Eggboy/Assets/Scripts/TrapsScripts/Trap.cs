@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Trap : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public abstract class Trap : MonoBehaviour {
 	public bool isActioning = false;
 	protected bool isCharacter = false;
 	protected float TurnDelay = 0.1f;
+
+	[HideInInspector]public List<GameObject> colorsBoutons;
 
 	protected virtual void Start () {
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1, this);
@@ -34,6 +37,14 @@ public abstract class Trap : MonoBehaviour {
     public abstract void declencherPiegeNewTurn();
 
 	public abstract void boutonDeclenchement ();
+
+	public int setColorsBoutons(GameObject butonColor){
+		colorsBoutons.Add (butonColor);
+		if (colorsBoutons.Count > 1) {
+			butonColor.GetComponent<SpriteRenderer> ().sortingOrder++;
+		}
+		return colorsBoutons.Count;
+	}
 
 
 }

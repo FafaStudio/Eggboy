@@ -42,12 +42,11 @@ public class Frog : Enemy {
 		}
 		bool canMove = Move(xDir, yDir);
 		if (!canMove) {
-			OnCantMove ();
+			StartCoroutine(OnCantMove ());
 		}
 	}
 
-	public override void doMove(int xDir, int yDir)
-	{
+	public override void doMove(int xDir, int yDir){
 		bool canMove = SimpleMove(xDir, yDir);
 		if (blockingObject == null) {
 			return;
@@ -94,6 +93,7 @@ public class Frog : Enemy {
 			if (PlayerIsInRange (end, xDir, yDir)) {
 				xDirAttack =xDir;
 				yDirAttack = yDir;
+				blockingObject = GameObject.FindGameObjectWithTag ("Player");
 				return false;
 			} else {
 				if (piege != null) {
@@ -330,7 +330,6 @@ public class Frog : Enemy {
 					isPlayer = new Vector2 (-1, 0);
 			}
 		}
-	
 		if (posY != 7) {
 			if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeObject != null) {
 				if (GameManager.instance.getCurrentBoard ().gridPositions [(int)posX, (int)posY + 1].nodeObject.tag == "Player")

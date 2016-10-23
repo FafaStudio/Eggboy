@@ -133,7 +133,10 @@ public class Player : MovingObject
 			manager.enabled = true;
 			blockingObject.GetComponent<Enemy>().Die ();
 			blockingObject = null;
-			testPiege ();
+			if (piege != null) {
+				if(piege.gameObject.name!="BoutonOn-Off")
+					testPiege ();
+			}
 			if (!GameManager.instance.PlayerHasItem ("Krav-MagaBook")) 
 				manager.playersTurn = false;
 			yield return null;

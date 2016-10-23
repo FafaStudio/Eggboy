@@ -11,6 +11,7 @@ public class Trigger : Trap {
     public Trap[] cibles;
 
 	public Sprite[] colors;// 0:vert, 1:bleu, 2:rouge, 3:violet
+	public Sprite[] halfColors;// 0:vert, 1:bleu, 2:rouge, 3:violet
 
 	public GameObject colorReceptacle;
 	public enum color{vert, bleu, rouge, violet};
@@ -22,8 +23,7 @@ public class Trigger : Trap {
 		setTriggerColor ();
 	}
 
-    public override void doAction()
-    {
+    public override void doAction(){
         return;
     }
 
@@ -84,14 +84,30 @@ public class Trigger : Trap {
 			GameObject toInstantiate = Instantiate (colorReceptacle, cibles[i].transform.position, Quaternion.identity) as GameObject;
 			toInstantiate.GetComponent<SpriteRenderer> ().sprite = color;
 			toInstantiate.transform.SetParent (this.transform);
+			if (cibles [i].setColorsBoutons (toInstantiate) > 1) {
+				switch (chooseColor) {
+				case Trigger.color.vert:
+					toInstantiate.GetComponent<SpriteRenderer> ().sprite = halfColors [0];
+					break;
+				case Trigger.color.bleu:
+					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [1];
+					break;
+				case Trigger.color.rouge:
+					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [2];
+					break;
+				case Trigger.color.violet:
+					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [3];
+					break;
+				}
+			}
 		}
 	}
 
     public override void declencherPiege(){
+		GetComponent<SpriteRenderer> ().sprite = On;
 		for (int i = 0; i < cibles.Length; i++) {
 			cibles [i].boutonDeclenchement ();
 		}
-		GetComponent<SpriteRenderer> ().sprite = On;
 		character.GetComponent<MovingObject> ().setIsUnderTrapEffect (false);
     }
 
