@@ -7,7 +7,7 @@ public class Spike : Trap {
 	private Animator anim;
 	private bool boutonEnclenched = false;
 
-	private int TurnCount = 2;
+	public int TurnCount = 2;
 
 	public int offsetDepart;
 
@@ -107,11 +107,11 @@ public class Spike : Trap {
         }
     }
 
-	/*void OnGUI(){
-		if (isActioning||boutonEnclenched||(TurnCount+1==3))
+	void OnGUI(){
+		if (isActioning||boutonEnclenched)
 			return;
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (TurnCount+1).ToString ());
-	}*/
+		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (TurnCount+1+offsetDepart).ToString ());
+	}
 }

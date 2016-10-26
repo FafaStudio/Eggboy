@@ -6,12 +6,14 @@ public abstract class Item : MonoBehaviour {
 
 	public bool isShopItem;
 	public int price;
+	private int constBasePrice;
 	Vector2 screenPos;
 	protected BoardManager board;
 
 	protected ShopManager shop;
 
 	protected virtual void Start () {
+		constBasePrice = price;
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 	}
 
@@ -37,5 +39,9 @@ public abstract class Item : MonoBehaviour {
 			GUI.color = Color.yellow;
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
 		GUI.TextField (new Rect (screenPos.x-15, (Screen.height - screenPos.y) +20, 40, 20), price.ToString ());
+	}
+
+	public int getBasePrice(){
+		return constBasePrice;
 	}
 }

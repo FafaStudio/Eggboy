@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
 			}
 		} else {
 			if (((levelPassed.Count % 10) == 0) && (levelPassed.Count != 0)) {
-				//if(levelPassed.Count  <3){
 				PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
 				totalTurns++;
 				return 2;
@@ -356,6 +355,10 @@ public class GameManager : MonoBehaviour
 			GameObject.Destroy(child.gameObject);
 		}
 		passifItems.Clear ();
+	}
+
+	public GameInformations getGameInformations(){
+		return this.GetComponent<GameInformations> ();
 	}
 
 }

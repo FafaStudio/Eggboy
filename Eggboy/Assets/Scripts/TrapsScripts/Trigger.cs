@@ -88,15 +88,19 @@ public class Trigger : Trap {
 				switch (chooseColor) {
 				case Trigger.color.vert:
 					toInstantiate.GetComponent<SpriteRenderer> ().sprite = halfColors [0];
+					toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
 					break;
 				case Trigger.color.bleu:
 					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [1];
+					toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
 					break;
 				case Trigger.color.rouge:
 					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [2];
+					toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
 					break;
 				case Trigger.color.violet:
 					toInstantiate.GetComponent<SpriteRenderer> ().sprite =halfColors [3];
+					toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
 					break;
 				}
 			}

@@ -31,6 +31,11 @@ public class PassifItem : Item {
 				removeFromShop ();
 				StartCoroutine(seeUI ());
 				isShopItem = false;
+				if (GameManager.instance.PlayerHasItem ("Supermarket")) {
+					GameObject itemToSpawn = GameManager.instance.getGameInformations ()
+						.choosePassifItem (GameManager.instance.getGameInformations ().passifItems[(int)Random.Range(0f, GameManager.instance.getGameInformations ().passifItems.Length)]);
+					GameObject.FindGameObjectWithTag ("Shop").GetComponent<ShopManager> ().spawnNewObject (itemToSpawn, this.transform.position);
+				}
 			}
 		} else {
 			if (isHpUp)

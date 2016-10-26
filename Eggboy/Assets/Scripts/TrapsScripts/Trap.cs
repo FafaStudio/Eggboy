@@ -39,11 +39,21 @@ public abstract class Trap : MonoBehaviour {
 	public abstract void boutonDeclenchement ();
 
 	public int setColorsBoutons(GameObject butonColor){
-		colorsBoutons.Add (butonColor);
-		if (colorsBoutons.Count > 1) {
-			butonColor.GetComponent<SpriteRenderer> ().sortingOrder++;
-		}
+		if(testColorBouton(butonColor))
+			colorsBoutons.Add (butonColor);
 		return colorsBoutons.Count;
+	}
+
+	public bool testColorBouton(GameObject butonColor){
+		for (int i = 0; i < colorsBoutons.Count; i++) {
+			if (colorsBoutons [i].GetComponent<SpriteRenderer> ().sprite == butonColor.GetComponent<SpriteRenderer> ().sprite)
+				return false;
+		}
+		return true;
+	}
+
+	public GameObject getColorsBoutons(int value){
+		return colorsBoutons [value];
 	}
 
 
