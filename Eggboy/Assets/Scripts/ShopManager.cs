@@ -37,7 +37,7 @@ public class ShopManager : MonoBehaviour {
 		} else {
 			isItemShop = false;
 		}
-		isItemShop = true;
+		//isItemShop = true;
 		//GameObject.Find ("Player").GetComponent<Player> ().gainGolds (3000);*/
 		initShop ();
 	}

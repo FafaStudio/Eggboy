@@ -3,14 +3,18 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 	
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour{
+//CONTIENT TOUT LESSENTIEL AU DEROULEMENT DUNE PARTIE
+
 	public float levelStartDelay = 2f;                      
 	public float turnDelay = 0.5f;                          
 	public int playerhpPoints; 
 	public int maxPlayerHpPoints = 6;
 	public int playerGolds = 0;
+
+	//les items du joueur pour la partie en cours
 	private List<PassifItem> passifItems;
+
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
 		
@@ -25,6 +29,10 @@ public class GameManager : MonoBehaviour
 	private List<int> levelPassed;
 	public int totalTurns = 0;
 	public int totalTurnCurLevel = 0;
+
+	//pour l'item qui fait que les 3 premiers tours, les ennemis font rien
+	private int initialDelay = 0;
+	public void setInitialDelay(int delay){initialDelay = delay;}
 
     public Replay replay;
 
@@ -172,7 +180,12 @@ public class GameManager : MonoBehaviour
 	{
 		if(playersTurn || enemiesMoving || trapActioning || rocketsMoving)
 			return;
-		//playersTurn = false;
+		//si le joueur a l'item magician oblivion
+		if (initialDelay > 0) {
+			initialDelay--;
+			playersTurn = true;
+			return;
+		}
 		StartCoroutine (LaunchTraps ());
 		StartCoroutine (Moverockets ());
 		StartCoroutine (MoveEnemies ());
@@ -215,7 +228,7 @@ public class GameManager : MonoBehaviour
 	IEnumerator MoveEnemies(){
 		enemiesMoving = true;
 		List<Enemy> enemyToLaunch = new List<Enemy>();
-		yield return new WaitForSeconds(turnDelay);
+		//yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < enemies.Count; i++){
 			enemyToLaunch.Add(enemies[i]);
 		}
@@ -257,7 +270,6 @@ public class GameManager : MonoBehaviour
 	IEnumerator LaunchTraps(){
 		trapActioning = true;
 		List<Trap> trapToLaunch = new List<Trap>();
-		yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < traps.Count; i++) {
 			if ((traps [i].isEnclenched) || traps [i].isActioning) {
 				trapToLaunch.Add (traps [i]);
@@ -265,8 +277,8 @@ public class GameManager : MonoBehaviour
 		}
 		for (int j = 0; j < trapToLaunch.Count; j++) {
 			trapToLaunch[j].doAction ();
-			yield return new WaitForSeconds(1/(trapToLaunch.Count+100));
 		}
+		yield return null;
 		trapActioning = false;
 	}
 

@@ -38,6 +38,10 @@ public class Player : MovingObject
 		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)caseExacte.position.x, (int)caseExacte.position.y, 1, this.gameObject);
 		//GameManager.instance.levelPassedToString();
 
+		if (GameManager.instance.PlayerHasItem ("MagicianOblivion")) {
+			GameManager.instance.setInitialDelay (2);
+		}
+
 		base.Start();
 	}
 
@@ -108,6 +112,11 @@ public class Player : MovingObject
 			blockingObject = null;
 			yield return null;
 		} else if (blockingObject.tag == "Enemy") {
+			animator.SetTrigger ("Attack");
+			animator.SetInteger ("positionAttack", 0);
+			manager.enabled = false;
+			new WaitForSeconds(0.05f);
+
 			Scorer.instance.addScoreValue (7, 1);
 			if (blockingObject.GetComponent<Zombi> () == null) {
 				if (GameManager.instance.PlayerHasItem ("CapitalismSymbol")) {
@@ -126,10 +135,11 @@ public class Player : MovingObject
 					combo = 1;
 				}
 			}*/
-			animator.SetTrigger ("Attack");
-			animator.SetInteger ("positionAttack", 0);
-			manager.enabled = false;
-			new WaitForSeconds(0.05f);
+			if (GameManager.instance.PlayerHasItem ("VampiricLink")) {
+				int luck = (int)Random.Range (0f, 19f);
+				if (luck == 19)
+					gainHps (1);
+			}
 			manager.enabled = true;
 			blockingObject.GetComponent<Enemy>().Die ();
 			blockingObject = null;
