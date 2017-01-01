@@ -47,6 +47,15 @@ public class Trigger : Trap {
 			character.setIsTrap (false);
 			character.piege = null;
 		}
+
+	}
+
+	public void resetActionningTrap(){
+		foreach (Trap trap in cibles) {
+			if (trap.GetComponent<Spike> () != null) {
+			//	trap.GetComponent<Spike> ().boutonDeclenchement=
+			}
+		}
 	}
 
 	public void setTriggerColor(){

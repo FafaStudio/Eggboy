@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour{
 	//Appeler a chaque changement de level
 	void OnLevelWasLoaded(int index)
 	{
-		//print (SceneManager.GetSceneByName ("LevelMagasin").buildIndex.ToString());
 		level++;
 		InitGame();
 	}
@@ -265,7 +264,6 @@ public class GameManager : MonoBehaviour{
 		}
 		rocketsMoving = false;
 	}
-
 
 	IEnumerator LaunchTraps(){
 		trapActioning = true;

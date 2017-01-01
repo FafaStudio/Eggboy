@@ -5,6 +5,7 @@ using System;
 public class Spike : Trap {
 
 	private Animator anim;
+	public bool isButton;
 	private bool boutonEnclenched = false;
 
 	public int TurnCount = 2;
@@ -21,6 +22,8 @@ public class Spike : Trap {
 	}
 
 	public override void doAction (){
+		if (isButton)
+			return;
 		if (offsetDepart > 0) {
 			offsetDepart--;
 			return;
@@ -53,6 +56,8 @@ public class Spike : Trap {
 	}
 
 	public void resetSpike(){
+		if (isButton)
+			return;
 		isActioning = false;
 		anim.SetBool ("isActioning", false);
 		TurnCount = 2;
@@ -108,7 +113,7 @@ public class Spike : Trap {
     }
 
 	void OnGUI(){
-		if (isActioning||boutonEnclenched)
+		if (isActioning||boutonEnclenched||isButton)
 			return;
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;

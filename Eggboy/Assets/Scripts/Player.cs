@@ -22,6 +22,9 @@ public class Player : MovingObject
 
 	private string actionDuTour = "nothing"; // move, wait, nothing
 
+	private int variationDirection = 1;
+
+
 	protected override void Start(){
 		animator = GetComponent<Animator>();
 		manager = GameManager.instance;
@@ -74,6 +77,7 @@ public class Player : MovingObject
 				piege.TriggerExit ();
 			}
 		//	animator.SetTrigger("isDead");
+			enabled = false;
 			GameManager.instance.GameOver();
 			return true;
 		}
@@ -176,11 +180,6 @@ public class Player : MovingObject
 			timeBetweenTurn -= Time.deltaTime;
 			return;
 		}
-		if (CheckIfGameOver())
-		{
-			this.enabled = false;
-			return;
-		}
 
 		int horizontal = 0;
 		int vertical = 0;
@@ -238,6 +237,11 @@ public class Player : MovingObject
                         break;
                 }
             }
+
+			vertical *= variationDirection;
+			horizontal *= variationDirection;
+
+
             if (horizontal != 0 || vertical != 0)
             {
                 if(vertical == -1)
@@ -293,6 +297,10 @@ public class Player : MovingObject
 		manager.playersTurn = false;
 	}
 
+	public void varyDirection(){
+		variationDirection *=-1;
+	}
+
 	public void resetTakeDamageThisLevel(){
 		takesDamageThisLevel = false;
 	}
@@ -307,21 +315,32 @@ public class Player : MovingObject
 			takesDamageThisLevel = true;
 			takesDamageThisTurn = true;
 			return false;
-		} else {
+		}else if(manager.PlayerHasItem ("MagicianTunic")){
+			//si le joueur a l'item mais qu'il a déjà perdu de la vie ce level
+			manager.destroyLifeChests ();
+			launchLoseHp ();
+			return true;
+		}
+		else {
+			//le cas classique ou le joueur n'a pas l'item magician tunic
 			if (!takesDamageThisLevel) {
 				takesDamageThisLevel = true;
 				manager.destroyLifeChests ();
 			}
-			takesDamageThisTurn = true;
-			combo = 1;
-			camera.setShake (0.6f);
-			animator.SetTrigger ("isDamaged");
-			manager.playerhpPoints -= 1;
-			hp = manager.playerhpPoints;
-			uiManager.updateLife ();
+			launchLoseHp ();
 			return true;
-			CheckIfGameOver ();
 		}
+	}
+
+	public void launchLoseHp(){
+		takesDamageThisTurn = true;
+		combo = 1;
+		camera.setShake (0.6f);
+		animator.SetTrigger ("isDamaged");
+		manager.playerhpPoints -= 1;
+		hp = manager.playerhpPoints;
+		uiManager.updateLife ();
+		CheckIfGameOver ();
 	}
 
 	public void gainHps(int hpToGain){

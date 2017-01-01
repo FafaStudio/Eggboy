@@ -16,7 +16,7 @@ public class Rocket : MovingObject {
 
 	protected override void Start (){
 		manager = GameManager.instance;
-		skipMove = false;
+		skipMove = true;
 		animator = GetComponent<Animator> ();
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
 		base.Start ();
