@@ -129,9 +129,10 @@ public abstract class EnemyDistance : Enemy{
 			compteur.disactiveUI ();
 			compteur.setInformation ("0");
 		}
-		else {
-			compteur.activeUI ();
-			compteur.setInformation(((cptTurnBetweenAttack+1).ToString ()));
+		else if(GameManager.instance.isInfoUI){ {
+				compteur.activeUI ();
+				compteur.setInformation (((cptTurnBetweenAttack + 1).ToString ()));
+			}
 		}
 	}
 

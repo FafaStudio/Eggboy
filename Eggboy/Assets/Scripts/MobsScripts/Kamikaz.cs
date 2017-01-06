@@ -25,6 +25,8 @@ public class Kamikaz : Enemy {
 			return;
 		}
 		base.MoveEnemy ();
+		if (isPlayerInRange ())
+			turnBeforeExplosion = 0;
 	}
 
 	public void launchExplosion(){
@@ -44,12 +46,17 @@ public class Kamikaz : Enemy {
 			blockingObject = null;
 			yield return null;
 		} else if (blockingObject.tag == "Player") {
-			if (turnBeforeExplosion > 0)
-				turnBeforeExplosion = 0;
 			yield return null;
 		} else {
 			blockingObject = null;
 		}
+	}
+
+	public bool isPlayerInRange(){
+		if (this.caseExacte.volDoiseau (target.position) == 1)
+			return true;
+		else
+			return false;
 	}
 
 	void Update(){

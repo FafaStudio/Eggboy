@@ -124,7 +124,7 @@ public class Spike : Trap {
 			compteur.disactiveUI ();
 			compteur.setInformation ("0");
 		}
-		else {
+		else if(GameManager.instance.isInfoUI){
 			compteur.activeUI ();
 			compteur.setInformation((TurnCount+1+offsetDepart).ToString ());
 		}
