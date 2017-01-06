@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour{
 	}
 
 	void Update(){
-		if (Input.GetKey ("i")) {
+		if (Input.GetButton ("UIInGame")) {
 			isInfoUI = true;
 		} else
 			isInfoUI = false;

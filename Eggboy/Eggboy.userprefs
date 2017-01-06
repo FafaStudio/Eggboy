@@ -1,29 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TrapsScripts\Arrow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets/Scripts/TrapsScripts/Spike.cs" Line="127" Column="8" />
-      <File FileName="Assets/Scripts/UI/UICompteur.cs" Line="15" Column="48" />
-      <File FileName="Assets/Scripts/TrapsScripts/Trap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/TrapsScripts/Teleporteur.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MobsScripts/EnemyDistance.cs" Line="131" Column="4" />
-      <File FileName="Assets/Scripts/TrapsScripts/Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MobsScripts/Kamikaz.cs" Line="60" Column="3" />
-      <File FileName="Assets/Scripts/MobsScripts/Enemy.cs" Line="12" Column="33" />
-      <File FileName="Assets/Scripts/BoardManager.cs" Line="22" Column="25" />
-=======
-      <File FileName="Assets\Scripts\TrapsScripts\Spike.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\UICompteur.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TrapsScripts\Trap.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TrapsScripts\Teleporteur.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MobsScripts\EnemyDistance.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TrapsScripts\Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MobsScripts\Kamikaz.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TrapsScripts\Arrow.cs" Line="12" Column="29" />
->>>>>>> 6530fadcd0833fc0c9f3857bbaee3064f3a40b62
+      <File FileName="Assets/Scripts/MobsScripts/Kamikaz.cs" Line="62" Column="2" />
+      <File FileName="Assets/Scripts/ChestsScripts/ChronoChest.cs" Line="15" Column="20" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="189" Column="23" />
+      <File FileName="Assets/Scripts/Player.cs" Line="307" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

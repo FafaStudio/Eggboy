@@ -10,11 +10,13 @@ public class ChronoChest : Chest {
 
 	public int chrono;
 
+	UICompteur compteur;
+
 	Vector2 screenPos;
 
 	protected override void Start (){
 		base.Start ();
-		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+		compteur = this.GetComponent<UICompteur> ();
 		isEnclenched = true;
 		chestName = "Chrono";
 		if(GameManager.instance.PlayerHasItem("MagicianWatch"))
@@ -59,10 +61,14 @@ public class ChronoChest : Chest {
 	public override void TriggerExit (){}
 	public override void boutonDeclenchement (){}
 
-	void OnGUI()
-	{
-		var centeredStyle = GUI.skin.GetStyle("Label");
-		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x - 6, (Screen.height - screenPos.y) - 10, 20, 20), chrono.ToString ());
+	void Update(){
+		if (!GameManager.instance.isInfoUI) {
+			compteur.disactiveUI ();
+			compteur.setInformation ("0");
+		}
+		else {
+			compteur.activeUI ();
+			compteur.setInformation((chrono.ToString ()));
+		}
 	}
 }

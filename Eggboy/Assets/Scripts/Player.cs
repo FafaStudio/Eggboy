@@ -254,7 +254,7 @@ public class Player : MovingObject
                 }
                 actionDuTour = "move";
             }
-            else if (Input.GetKeyDown(KeyCode.Space)){
+            else if (Input.GetButtonDown("Confirm")){
                 manager.replay.addAction(0);
                 actionDuTour = "wait";
             }
