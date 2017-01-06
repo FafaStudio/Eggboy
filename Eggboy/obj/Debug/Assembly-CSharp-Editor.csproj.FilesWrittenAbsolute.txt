@@ -26,3 +26,4 @@
 /Users/Bomb-X/Documents/Game_Project/Eggboy/Eggboy/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/Bomb-X/Documents/Game_Project/Eggboy/Eggboy/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/Bomb-X/Documents/Game_Project/Eggboy/Eggboy/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/Bomb-X/Documents/Game_Project/Eggboy/Eggboy/Temp/bin/Debug/UnityEditor.WebGL.Extensions.dll

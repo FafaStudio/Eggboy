@@ -5,22 +5,32 @@ using System;
 public class Spike : Trap {
 
 	private Animator anim;
+	public bool isButton;
 	private bool boutonEnclenched = false;
 
 	public int TurnCount = 2;
 
 	public int offsetDepart;
 
-	protected Vector2 screenPos;
+	//protected Vector2 screenPos;
+
+	UICompteur compteur;
 
 	protected override void Start () {
+		if (isButton) {
+			Destroy (this.GetComponent<UICompteur> ());
+		} 
+		compteur = this.GetComponent<UICompteur> ();
+
 		isEnclenched = true;
 		base.Start ();
-		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+		//screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		anim = GetComponent<Animator> ();
 	}
 
 	public override void doAction (){
+		if (isButton)
+			return;
 		if (offsetDepart > 0) {
 			offsetDepart--;
 			return;
@@ -53,6 +63,8 @@ public class Spike : Trap {
 	}
 
 	public void resetSpike(){
+		if (isButton)
+			return;
 		isActioning = false;
 		anim.SetBool ("isActioning", false);
 		TurnCount = 2;
@@ -107,11 +119,15 @@ public class Spike : Trap {
         }
     }
 
-	void OnGUI(){
-		if (isActioning||boutonEnclenched)
-			return;
-		var centeredStyle = GUI.skin.GetStyle("Label");
-		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (TurnCount+1+offsetDepart).ToString ());
+	void Update(){
+		if (isActioning || boutonEnclenched || isButton) {
+			compteur.disactiveUI ();
+			compteur.setInformation ("0");
+		}
+		else {
+			compteur.activeUI ();
+			compteur.setInformation((TurnCount+1+offsetDepart).ToString ());
+		}
 	}
+
 }

@@ -20,12 +20,15 @@ public abstract class EnemyDistance : Enemy{
 
 	protected Vector2 screenPos;
 
+	UICompteur compteur;
+
 
 	protected override void Start (){
 		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		cptTurnBetweenAttack = maxTurnBetweenAttack;
 		base.Start ();
 		animator = null;
+		compteur = this.GetComponent<UICompteur> ();
 		//xDirAttack = -1;
 		initialiseShoot();
 		if ((direction == Direction.droite)||(direction == Direction.gauche)) {
@@ -113,12 +116,23 @@ public abstract class EnemyDistance : Enemy{
 	public abstract void launchTir ();
 	public abstract IEnumerator instantiateBullet (Vector3 position);
 
-	void OnGUI(){
+	/*void OnGUI(){
 		if (isFiring)
 			return;
 		var centeredStyle = GUI.skin.GetStyle("Label");
 		centeredStyle.alignment = TextAnchor.MiddleCenter;
 		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (cptTurnBetweenAttack+1).ToString ());
+	}*/
+
+	void Update(){
+		if (isFiring) {
+			compteur.disactiveUI ();
+			compteur.setInformation ("0");
+		}
+		else {
+			compteur.activeUI ();
+			compteur.setInformation(((cptTurnBetweenAttack+1).ToString ()));
+		}
 	}
 
 }

@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour{
 	public static GameManager instance = null;              
 	[HideInInspector] public bool playersTurn = true;       
 		
-	private BoardManager boardScript;                       
+	private BoardManager boardScript;   
+	private GameObject levelDesign; 						// contient tous les mobs, les pieges du niveau courant
 	private int level = 1;                                
 	public List<Enemy> enemies;                         	//Liste de tous les ennemis
 	private List<Trap> traps;								//Liste de tous les pièges
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour{
 	public int levelTest;
 
 	private UIGameMenu uiGame;
+
+	public bool isInfoUI=true;
 		
 	void Awake(){
 		if (instance == null)
@@ -84,7 +87,6 @@ public class GameManager : MonoBehaviour{
 	//Appeler a chaque changement de level
 	void OnLevelWasLoaded(int index)
 	{
-		//print (SceneManager.GetSceneByName ("LevelMagasin").buildIndex.ToString());
 		level++;
 		InitGame();
 	}
@@ -171,6 +173,7 @@ public class GameManager : MonoBehaviour{
 		traps.Clear ();
 		rockets.Clear ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+		levelDesign = GameObject.Find ("LevelDesign");
 		uiGame = GameObject.Find ("UI_Menus").GetComponent<UIGameMenu> ();
 		boardScript.SetupScene(level);
 		playersTurn = true;
@@ -189,6 +192,13 @@ public class GameManager : MonoBehaviour{
 		StartCoroutine (LaunchTraps ());
 		StartCoroutine (Moverockets ());
 		StartCoroutine (MoveEnemies ());
+	}
+
+	void Update(){
+		if (Input.GetKey ("i")) {
+			isInfoUI = true;
+		} else
+			isInfoUI = false;
 	}
 		
 	public void AddEnemyToList(Enemy script)
@@ -265,7 +275,6 @@ public class GameManager : MonoBehaviour{
 		}
 		rocketsMoving = false;
 	}
-
 
 	IEnumerator LaunchTraps(){
 		trapActioning = true;
