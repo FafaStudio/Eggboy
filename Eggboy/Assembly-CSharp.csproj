@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\MobsScripts\EnemyLaser.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\EnemyRocket.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Frog.cs" />
+     <Compile Include="Assets\Scripts\MobsScripts\Kamikaz.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
      <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
      <Compile Include="Assets\Scripts\MovingObject.cs" />
@@ -84,9 +85,11 @@
      <Compile Include="Assets\Scripts\TrapsScripts\FlameThrower.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Marecage.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Spike.cs" />
+     <Compile Include="Assets\Scripts\TrapsScripts\Teleporteur.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Tourniquet.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Trap.cs" />
      <Compile Include="Assets\Scripts\TrapsScripts\Trigger.cs" />
+     <Compile Include="Assets\Scripts\UI\UICompteur.cs" />
      <Compile Include="Assets\Scripts\UI\UIGameMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />

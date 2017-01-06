@@ -12,12 +12,19 @@ public class Spike : Trap {
 
 	public int offsetDepart;
 
-	protected Vector2 screenPos;
+	//protected Vector2 screenPos;
+
+	UICompteur compteur;
 
 	protected override void Start () {
+		if (isButton) {
+			Destroy (this.GetComponent<UICompteur> ());
+		} 
+		compteur = this.GetComponent<UICompteur> ();
+
 		isEnclenched = true;
 		base.Start ();
-		screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+		//screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
 		anim = GetComponent<Animator> ();
 	}
 
@@ -112,11 +119,15 @@ public class Spike : Trap {
         }
     }
 
-	void OnGUI(){
-		if (isActioning||boutonEnclenched||isButton)
-			return;
-		var centeredStyle = GUI.skin.GetStyle("Label");
-		centeredStyle.alignment = TextAnchor.MiddleCenter;
-		GUI.TextField (new Rect (screenPos.x , (Screen.height - screenPos.y), 20, 20), (TurnCount+1+offsetDepart).ToString ());
+	void Update(){
+		if (isActioning || boutonEnclenched || isButton) {
+			compteur.disactiveUI ();
+			compteur.setInformation ("0");
+		}
+		else {
+			compteur.activeUI ();
+			compteur.setInformation((TurnCount+1+offsetDepart).ToString ());
+		}
 	}
+
 }
