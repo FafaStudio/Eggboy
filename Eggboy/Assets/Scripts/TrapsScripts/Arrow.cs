@@ -6,7 +6,7 @@ public class Arrow : Trap {
 
     private Animator anim;
 
-    public enum Direction {Nord, Est, Sud, Ouest};
+    public enum Direction {Haut, Droite, Bas, Gauche};
     public Direction dir;
 
     public Sprite[] sprites;
@@ -18,17 +18,17 @@ public class Arrow : Trap {
 
     public override void boutonDeclenchement(){
 		switch (dir){
-			case Direction.Nord: 
-				dir = Direction.Est;
+			case Direction.Haut: 
+				dir = Direction.Droite;
 				break;
-			case Direction.Est:
-				dir = Direction.Sud;
+			case Direction.Droite:
+				dir = Direction.Bas;
 				break;
-			case Direction.Sud:
-				dir = Direction.Ouest;
+			case Direction.Bas:
+				dir = Direction.Gauche;
 				break;
-			case Direction.Ouest:
-				dir = Direction.Nord;
+			case Direction.Gauche:
+				dir = Direction.Haut;
 				break;
 		}
 		setSprite ();
@@ -63,16 +63,16 @@ public class Arrow : Trap {
 		}
         switch (dir)
         {
-            case Direction.Nord: 
+            case Direction.Haut: 
 				character.GetComponent<MovingObject>().doMove(0, 1);
                 break;
-            case Direction.Est:
+            case Direction.Droite:
 				character.GetComponent<MovingObject>().doMove(1, 0);
                 break;
-            case Direction.Sud:
+            case Direction.Bas:
 				character.GetComponent<MovingObject>().doMove(0, -1);
                 break;
-            case Direction.Ouest:
+            case Direction.Gauche:
 				character.GetComponent<MovingObject>().doMove(-1, 0);
                 break;
         }
@@ -84,16 +84,16 @@ public class Arrow : Trap {
     {
         switch (dir)
         {
-            case Direction.Nord:
+            case Direction.Haut:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                 break;
-            case Direction.Est:
+            case Direction.Droite:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[1];
                 break;
-            case Direction.Sud:
+            case Direction.Bas:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
-            case Direction.Ouest:
+            case Direction.Gauche:
                 this.GetComponent<SpriteRenderer>().sprite = sprites[3];
                 break;
         }
@@ -107,22 +107,22 @@ public class Arrow : Trap {
         Gizmos.color = Color.white;
         switch (dir)
         {
-            case Direction.Nord:
+            case Direction.Haut:
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(1, 1, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(0.97f, 0.97f, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0), new Vector3(0.93f, 0.93f, 1));
                 break;
-            case Direction.Est:
+            case Direction.Droite:
                 Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(1, 1, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(0.97f, 0.97f, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(1, 0, 0), new Vector3(0.93f, 0.93f, 1));
                 break;
-            case Direction.Sud:
+            case Direction.Bas:
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(1, 1, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(0.97f, 0.97f, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), new Vector3(0.93f, 0.93f, 1));
                 break;
-            case Direction.Ouest:
+            case Direction.Gauche:
                 Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(1, 1, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(0.97f, 0.97f, 1));
                 Gizmos.DrawWireCube(transform.position + new Vector3(-1, 0, 0), new Vector3(0.93f, 0.93f, 1));

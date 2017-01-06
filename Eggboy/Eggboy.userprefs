@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MobsScripts/Kamikaz.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TrapsScripts\Arrow.cs">
     <Files>
-      <File FileName="Assets/Scripts/TrapsScripts/Spike.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/UI/UICompteur.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/TrapsScripts/Trap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/TrapsScripts/Teleporteur.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MobsScripts/EnemyDistance.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/TrapsScripts/Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MobsScripts/Kamikaz.cs" Line="24" Column="23" />
+      <File FileName="Assets\Scripts\TrapsScripts\Spike.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UI\UICompteur.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TrapsScripts\Trap.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TrapsScripts\Teleporteur.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MobsScripts\EnemyDistance.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TrapsScripts\Bomb.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MobsScripts\Kamikaz.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TrapsScripts\Arrow.cs" Line="12" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
