@@ -56,6 +56,9 @@ public class Enemy : MovingObject {
 
 	protected override bool Move(int xDir, int yDir){
 		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
+		print (this.gameObject.name);
+		print (caseExacte.position.x + xDir);
+		print (caseExacte.position.y + yDir);
 		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
 		if(blockingObject==null){
 			launchMove (xDir, yDir, end);

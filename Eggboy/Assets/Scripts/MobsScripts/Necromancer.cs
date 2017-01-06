@@ -50,24 +50,34 @@ public class Necromancer : Enemy {
 			else
 				xDir = target.position.x > transform.position.x ? -1 : 1;
 			hasSpawnedLastTurn = false;
-			AttemptMove (xDir, yDir);
-		} else if (!hasSpawnedLastTurn) {
-			if (spawned.Count < maxZombie) {
-				Vector2 spawnPosition = GameManager.instance.getCurrentBoard ().doPathfinding (target.GetComponent<Player> ().caseExacte, currentPos);
-				if ((spawnPosition.x == -1f) && (spawnPosition.y == -1f)) {
-					List<BoardManager.Node> voisins = GameManager.instance.getCurrentBoard ().Voisins (new BoardManager.Node (1, new Vector2 ((int)this.transform.position.x, (int)this.transform.position.y)));
-					for (int i = 0; i < voisins.Count; i++) {
-						if (voisins [i].valeur == 1) {
-							spawnZombie ((int)voisins [i].position.x, (int)voisins [i].position.y);
-							return;
-						}
-					}
-				} else
-					spawnZombie ((int)spawnPosition.x, (int)spawnPosition.y);
+			Vector2 testPosition = new Vector2 (caseExacte.position.x + xDir, caseExacte.position.y + yDir);
+			if (testPosition.x > 14 || testPosition.x < 0 || testPosition.y > 7 || testPosition.y < 0) {
+					endTurnEnemy = true;
+					hasSpawnedLastTurn = false;
 			}
+			else
+				AttemptMove (xDir, yDir);
+		} else if (!hasSpawnedLastTurn) {
+			prepareToSpawn (currentPos);
 		} else
 			endTurnEnemy = true;
 			hasSpawnedLastTurn = false;
+	}
+
+	public void prepareToSpawn(BoardManager.Node currentPos){
+		if (spawned.Count < maxZombie) {
+			Vector2 spawnPosition = GameManager.instance.getCurrentBoard ().doPathfinding (target.GetComponent<Player> ().caseExacte, currentPos);
+			if ((spawnPosition.x == -1f) && (spawnPosition.y == -1f)) {
+				List<BoardManager.Node> voisins = GameManager.instance.getCurrentBoard ().Voisins (new BoardManager.Node (1, new Vector2 ((int)this.transform.position.x, (int)this.transform.position.y)));
+				for (int i = 0; i < voisins.Count; i++) {
+					if (voisins [i].valeur == 1) {
+						spawnZombie ((int)voisins [i].position.x, (int)voisins [i].position.y);
+						return;
+					}
+				}
+			} else
+				spawnZombie ((int)spawnPosition.x, (int)spawnPosition.y);
+		}
 	}
 
 	public void spawnZombie(int xDir, int yDir){
