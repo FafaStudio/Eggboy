@@ -42,6 +42,7 @@ public class Marecage : Trap {
 		if (character.gameObject.tag == "Player") {
 			character.GetComponent<Player> ().passTurn ();
 		} else {
+			character.GetComponent<Enemy> ().endTurnEnemy = true;
 			character.GetComponent<Enemy> ().skipMove = true;
 		}
         character.setIsUnderTrapNewTurnEffect(false);

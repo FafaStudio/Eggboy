@@ -29,12 +29,18 @@ public class Camuflaje : Trap {
 			//pour empêcher le joueur de pouvoir entrer un input quand il fait une série de flèche camouflé
 			TriggerExit ();
 			if (toInstantiate.gameObject.name == "Bombe(Clone)") {
-				if(character.gameObject.tag=="Player")
+				if (character.gameObject.tag == "Player") {
+					GameManager.instance.playersTurn = false;
 					toInstantiate.GetComponent<Bomb> ().setCompteur (2);
+				}
 				else
 					toInstantiate.GetComponent<Bomb> ().setCompteur (1);
 			}
 		}else{
+			/*if (character.gameObject.tag == "Enemy") {
+				GameManager.instance.playersTurn = false;
+				//character.GetComponent<Enemy> ().endTurnEnemy = false;
+			}*/
 			toInstantiate.GetComponent<Arrow> ().dir = (Arrow.Direction)directionArrowEventuelle;
 		} 
         toInstantiate.GetComponent<Trap>().TriggerEnter(character);
@@ -51,7 +57,6 @@ public class Camuflaje : Trap {
     {
         isEnclenched = false;
         if (character != null){
-			GameManager.instance.playersTurn = false;
             character.setIsTrap(false);
             character.setIsUnderTrapEffect(false);
             character.piege = null;

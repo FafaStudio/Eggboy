@@ -14,13 +14,13 @@ public class Bomb : Trap {
 
     public override void doAction()
     {
+		print (turnCount.ToString ());
 		if (turnCount > 0) {
 			turnCount--;
 		} else {
 			launchExplosion ();
 		}
     }
-		
 
     public override void TriggerEnter(MovingObject col){
     }

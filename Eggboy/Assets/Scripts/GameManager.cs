@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour{
 		
 	void FixedUpdate()
 	{
-		if(playersTurn || enemiesMoving || trapActioning || rocketsMoving)
+		if(playersTurn || enemiesMoving || trapActioning || rocketsMoving )
 			return;
 		//si le joueur a l'item magician oblivion
 		if (initialDelay > 0) {
@@ -201,8 +201,7 @@ public class GameManager : MonoBehaviour{
 			isInfoUI = false;
 	}
 		
-	public void AddEnemyToList(Enemy script)
-	{
+	public void AddEnemyToList(Enemy script){
 		enemies.Add(script);
 	}
 
@@ -244,18 +243,23 @@ public class GameManager : MonoBehaviour{
 		}
 		for (int j = 0; j < enemyToLaunch.Count; j++){
 			enemyToLaunch[j].MoveEnemy ();
+			/*while (enemyToLaunch [j].endTurnEnemy != true) {
+				enemiesLongMovement = true;
+				yield return new WaitForSeconds(0.001f);
+			}*/
+		/*	print (j.ToString());
+			print (enemyToLaunch [j].gameObject.ToString ());
+			print("___");*/
 			yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
 		}
 
 		for (int j = 0; j < enemyToLaunch.Count; j++){
 			while (enemyToLaunch [j].endTurnEnemy != true) {
-				if (enemyToLaunch [j].piege != null) {
-					if ((enemyToLaunch [j].piege.gameObject.name != "Arrow") && (enemyToLaunch [j].piege.gameObject.name != "Arrow(Clone)"))
-						break;
-				}
+				
 				yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
 			}
 		}
+	//	print ("cest finis");
 		playersTurn = true;
 		totalTurns += 1;
 		totalTurnCurLevel += 1;

@@ -8,8 +8,7 @@ public class Kamikaz : Enemy {
 
 	UICompteur compteur;
 
-	protected override void Start ()
-	{
+	protected override void Start (){
 		compteur = this.GetComponent<UICompteur> ();
 		base.Start ();
 	}
@@ -36,8 +35,7 @@ public class Kamikaz : Enemy {
 		bombExplosion.GetComponent<Bomb> ().launchExplosion ();
 	}
 
-	protected override IEnumerator OnCantMove ()
-	{
+	protected override IEnumerator OnCantMove (){
 		endTurnEnemy = true;
 		if (isTrap) {
 			isTrap = false;
