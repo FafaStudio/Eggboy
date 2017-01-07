@@ -75,7 +75,13 @@ public class GameManager : MonoBehaviour{
 		if (SceneManager.GetActiveScene ().buildIndex == 1) {
 			level--;
 			levelPassed.Clear ();
-			if (testingLevel) {
+            if (Application.isEditor && PlayerPrefs.GetInt("level", -1) != -1)
+            {
+                launchNextLevel(PlayerPrefs.GetInt("level") + 2);
+                return;
+            }
+
+            if (testingLevel) {
 				testingLevel = false;
 				launchNextLevel (levelTest+2);
 			} else {

@@ -50,7 +50,14 @@ public class Player : MovingObject
 
 	protected override bool Move(int xDir, int yDir){
 		Vector2 end = caseExacte.position + new Vector2 (xDir, yDir);
-		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+        try
+        {
+            blockingObject = manager.getCurrentBoard().gridPositions[(int)(caseExacte.position.x + xDir), (int)(caseExacte.position.y + yDir)].nodeObject;
+        }
+        catch (System.Exception)
+        {
+            return false;
+        }
 		if(blockingObject==null){
 			if (piege != null) {
 				piege.TriggerExit ();
