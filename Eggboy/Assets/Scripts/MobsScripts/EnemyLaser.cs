@@ -68,5 +68,12 @@ public class EnemyLaser : EnemyDistance{
 		lasers.Clear ();
 		hasLaunchLaserLastTurn = false;
 	}
-		
+
+    public override void Die()
+    {
+        clearTir();
+        base.Die();
+    }
+
+
 }

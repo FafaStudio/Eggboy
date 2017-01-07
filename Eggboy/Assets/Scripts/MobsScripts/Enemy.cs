@@ -28,7 +28,7 @@ public class Enemy : MovingObject {
 	}
 
 	public virtual void Die(){
-		endTurnEnemy = true;
+        endTurnEnemy = true;
 		if (piege != null) {
 			piege.TriggerExit ();
 		}
@@ -45,7 +45,8 @@ public class Enemy : MovingObject {
 		if(skipMove)
 		{
 			skipMove = false;
-			endTurnEnemy = true;
+
+            endTurnEnemy = true;
 			return;
 		}
 		
@@ -89,11 +90,12 @@ public class Enemy : MovingObject {
 
 	protected override void testPiege(){
 		manager.getCurrentBoard ().testCasePiege (this);
+
 		if (isTrap) {
-			if ((piege.gameObject.name != "Arrow") && (piege.gameObject.name != "Arrow(Clone")) {
+            if ((piege.gameObject.name != "Arrow") && (piege.gameObject.name != "Arrow(Clone") && (piege.gameObject.name != "Camuflaje" || (piege as Camuflaje).piegeCamoufle.name != "Arrow")) {
 				setIsUnderTrapEffect (true);
 				piege.declencherPiege ();
-				endTurnEnemy = true;
+                endTurnEnemy = true;
 			} else {
 				setIsUnderTrapEffect (true);
 				piege.declencherPiege ();
