@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour{
 	public List<Enemy> enemies;                         	//Liste de tous les ennemis
 	private List<Trap> traps;								//Liste de tous les pièges
 	private List<Rocket> rockets;
-	private bool enemiesMoving;                             //Boolean to check if enemies are moving.
-	private bool trapActioning;
-	private bool rocketsMoving;
+	public bool enemiesMoving;                             //Boolean to check if enemies are moving.
+	public bool trapActioning;
+	public bool rocketsMoving;
 	private List<int> levelPassed;
 	public int totalTurns = 0;
 	public int totalTurnCurLevel = 0;
