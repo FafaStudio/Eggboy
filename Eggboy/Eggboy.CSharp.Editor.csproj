@@ -101,6 +101,7 @@
     <Compile Include="Assets\Editor\LevelEditorCaseHandle.cs" />
     <Compile Include="Assets\Editor\LevelEditorPrefabInstantiate.cs" />
     <Compile Include="Assets\Editor\LevelEditorToolsMenu.cs" />
+    <Compile Include="Assets\FafasInputManager\Editor\FIMWindow.cs" />
     <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
     <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
     <Compile Include="Assets\Scripts\Editor\GameManagerWindow.cs" />
@@ -267,6 +268,11 @@
     <None Include="Assets\DebugData\2017-01-07--21-26-10--1236354820.txt" />
     <None Include="Assets\DebugData\2017-01-07--21-26-32--1591757715.txt" />
     <None Include="Assets\DebugData\2017-01-07--21-37-14--1916304928.txt" />
+    <None Include="Assets\DebugData\2017-01-07--23-14-34--1801455563.txt" />
+    <None Include="Assets\DebugData\2017-01-07--23-16-11--1298327428.txt" />
+    <None Include="Assets\DebugData\2017-01-08--11-36-17--2112778301.txt" />
+    <None Include="Assets\DebugData\2017-01-08--12-12-44--1191370467.txt" />
+    <None Include="Assets\DebugData\2017-01-08--12-13-26--2068180511.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

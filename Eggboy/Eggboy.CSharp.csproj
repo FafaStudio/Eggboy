@@ -63,6 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FafasInputManager\FIM.cs" />
+    <Compile Include="Assets\FafasInputManager\FIMData.cs" />
+    <Compile Include="Assets\FafasInputManager\FIMScriptableObject.cs" />
+    <Compile Include="Assets\FafasInputManager\TestScript.cs" />
     <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
     <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />
     <Compile Include="Assets\ScoreLib\Achiever.cs" />
@@ -273,6 +277,11 @@
     <None Include="Assets\DebugData\2017-01-07--21-26-10--1236354820.txt" />
     <None Include="Assets\DebugData\2017-01-07--21-26-32--1591757715.txt" />
     <None Include="Assets\DebugData\2017-01-07--21-37-14--1916304928.txt" />
+    <None Include="Assets\DebugData\2017-01-07--23-14-34--1801455563.txt" />
+    <None Include="Assets\DebugData\2017-01-07--23-16-11--1298327428.txt" />
+    <None Include="Assets\DebugData\2017-01-08--11-36-17--2112778301.txt" />
+    <None Include="Assets\DebugData\2017-01-08--12-12-44--1191370467.txt" />
+    <None Include="Assets\DebugData\2017-01-08--12-13-26--2068180511.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
