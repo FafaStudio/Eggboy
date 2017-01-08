@@ -81,6 +81,7 @@ public class Achiever : MonoBehaviour{
 
     void Awake()
     {
+        print(achievementsScriptableObject.achievements);
         achievements = achievementsScriptableObject.achievements;
         if (existBool("Achievement_id_0"))//First start of the game
         {
