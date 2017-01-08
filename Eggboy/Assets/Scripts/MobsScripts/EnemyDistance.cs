@@ -38,6 +38,8 @@ public abstract class EnemyDistance : Enemy{
 
 	public override void MoveEnemy ()
 	{
+		if (isDead)
+			return;
 		isFiring = false;
 		if (LookForTarget ()) {
 			switchDirection ();

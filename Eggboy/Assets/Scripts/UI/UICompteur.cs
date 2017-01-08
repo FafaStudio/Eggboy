@@ -10,14 +10,13 @@ public class UICompteur : MonoBehaviour {
 	private Text uiText;
 
 	void Start(){
-		uiContainer = Instantiate(Resources.Load ("UICompteur"),this.transform,true) as GameObject;
-		textContainer = uiContainer.GetComponentInChildren<Image> ().GetComponentInChildren<Image> ().GetComponentInChildren<Text> ().gameObject;
+		uiContainer = Instantiate(Resources.Load ("Canvas"),this.transform,true) as GameObject;
+		textContainer = uiContainer.GetComponentInChildren<Image> ().GetComponentInChildren<Text> ().gameObject;
 		uiText = textContainer.GetComponent<Text> ();
-		textContainer = textContainer.GetComponentInParent<Image> ().GetComponent<RectTransform> ().gameObject;
+		uiContainer.GetComponent<RectTransform> ().position = this.transform.position;
 	}
 
 	void Update () {
-		textContainer.GetComponent<RectTransform> ().position = new Vector2 ((this.transform.position.x+1)*87.5f, (this.transform.position.y+1)*85);
 		if (GameManager.instance.isInfoUI) {
 			activeUI ();
 		} else {
@@ -26,6 +25,10 @@ public class UICompteur : MonoBehaviour {
 	}
 
 	public void setInformation(string info){
+		if (int.Parse (info) > 9)
+			uiText.GetComponent<RectTransform> ().position = new Vector3 (transform.position.x+0.3f, transform.position.y, 0);
+		else
+			uiText.GetComponent<RectTransform> ().position = new Vector3 (transform.position.x, transform.position.y, 0);
 		uiText.text = info;
 	}
 
