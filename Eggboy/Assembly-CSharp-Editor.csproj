@@ -50,14 +50,13 @@
      <Compile Include="Assets\Editor\LevelEditorCaseHandle.cs" />
      <Compile Include="Assets\Editor\LevelEditorPrefabInstantiate.cs" />
      <Compile Include="Assets\Editor\LevelEditorToolsMenu.cs" />
+     <Compile Include="Assets\FafasInputManager\Editor\FIMWindow.cs" />
      <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
      <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
      <Compile Include="Assets\Scripts\Editor\GameManagerWindow.cs" />
      <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
      <Compile Include="Assets\Scripts\Editor\TestLevel.cs" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-     <None Include="Assets\DebugData\2017-01-08--12-25-46--1009949923.txt" />
-     <None Include="Assets\DebugData\2017-01-08--12-26-08--1549159949.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

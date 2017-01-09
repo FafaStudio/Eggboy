@@ -45,6 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FafasInputManager\FIM.cs" />
+     <Compile Include="Assets\FafasInputManager\FIMData.cs" />
+     <Compile Include="Assets\FafasInputManager\FIMScriptableObject.cs" />
+     <Compile Include="Assets\FafasInputManager\TestScript.cs" />
      <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
      <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />
      <Compile Include="Assets\ScoreLib\Achiever.cs" />
@@ -95,8 +99,6 @@
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-     <None Include="Assets\DebugData\2017-01-08--12-25-46--1009949923.txt" />
-     <None Include="Assets\DebugData\2017-01-08--12-26-08--1549159949.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
