@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour{
 
 	private UIGameMenu uiGame;
 
+	public bool enleverClassementEnnemis;
+
 	public bool isInfoUI=true;
 		
 	void Awake(){
@@ -242,20 +244,21 @@ public class GameManager : MonoBehaviour{
 		
 	IEnumerator MoveEnemies(){
 		enemiesMoving = true;
+		if(!enleverClassementEnnemis)
+			boardScript.launchQuickSort ();
 		List<Enemy> enemyToLaunch = new List<Enemy>();
 		//yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < enemies.Count; i++){
 			enemyToLaunch.Add(enemies[i]);
+		/*	print ("___");
+			print(enemyToLaunch [i].gameObject.name.ToString ());
+			print (enemyToLaunch [i].caseExacte.distanceVO);*/
 		}
 		for (int j = 0; j < enemyToLaunch.Count; j++){
 			enemyToLaunch[j].MoveEnemy ();
-			/*while (enemyToLaunch [j].endTurnEnemy != true) {
-				enemiesLongMovement = true;
-				yield return new WaitForSeconds(0.001f);
+		/*	while (enemyToLaunch [j].endTurnEnemy != true) {
+				yield return new WaitForSeconds(0.1f);
 			}*/
-		/*	print (j.ToString());
-			print (enemyToLaunch [j].gameObject.ToString ());
-			print("___");*/
 			yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
 		}
 

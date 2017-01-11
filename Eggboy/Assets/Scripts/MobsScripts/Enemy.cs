@@ -24,6 +24,7 @@ public class Enemy : MovingObject {
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
 		GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)transform.position.x, (int)transform.position.y, -1, this.gameObject);
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
+		caseExacte.nodeObject = this.gameObject;
 		base.Start ();
 	}
 
@@ -119,9 +120,9 @@ public class Enemy : MovingObject {
 		int xDir = 0;
 		int yDir = 0;
 
-		BoardManager.Node currentPos = new BoardManager.Node(1, new Vector2(this.transform.position.x,this.transform.position.y));
+		//BoardManager.Node currentPos = new BoardManager.Node(1, new Vector2(this.transform.position.x,this.transform.position.y));
 
-		Vector2 nextPosition = GameManager.instance.getCurrentBoard().doPathfinding(target.GetComponent<Player>().caseExacte, currentPos);
+		Vector2 nextPosition = GameManager.instance.getCurrentBoard().doPathfinding(target.GetComponent<Player>().caseExacte, this.caseExacte);
 
 		if ((nextPosition.x == -1f) && (nextPosition.y == -1f)) {
 			if (Mathf.Abs (target.position.x - transform.position.x) < float.Epsilon)
@@ -155,5 +156,9 @@ public class Enemy : MovingObject {
 		} else {
 			blockingObject = null;
 		}
+	}
+
+	public BoardManager.Node getTarget(){
+		return target.GetComponent<Player> ().caseExacte;
 	}
 }
