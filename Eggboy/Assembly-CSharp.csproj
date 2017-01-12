@@ -59,9 +59,9 @@
      <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\ChronoChest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
-     <Compile Include="Assets\Scripts\EnumLevel.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\InfosLevels.cs" />
      <Compile Include="Assets\Scripts\Items\HeartItem.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
      <Compile Include="Assets\Scripts\Items\PassifItem.cs" />

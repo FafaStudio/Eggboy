@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour{
 //CONTIENT TOUT LESSENTIEL AU DEROULEMENT DUNE PARTIE
 
 	public float levelStartDelay = 2f;                      
-	public float turnDelay = 0.5f;                          
+	private float turnDelay = 0.005f;                          
 	public int playerhpPoints; 
 	public int maxPlayerHpPoints = 6;
 	public int playerGolds = 0;
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour{
 		
 	private BoardManager boardScript;   
 	private GameObject levelDesign; 						// contient tous les mobs, les pieges du niveau courant
+	private InfosLevels infosLevels;
 	private int level = 1;                                
 	public List<Enemy> enemies;                         	//Liste de tous les ennemis
 	private List<Trap> traps;								//Liste de tous les pièges
@@ -27,7 +28,6 @@ public class GameManager : MonoBehaviour{
 	public bool enemiesMoving;                             //Boolean to check if enemies are moving.
 	public bool trapActioning;
 	public bool rocketsMoving;
-	private List<int> levelPassed;
 	public int totalTurns = 0;
 	public int totalTurnCurLevel = 0;
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour{
 
 	public bool enleverClassementEnnemis;
 
-	public bool isInfoUI=true;
+	[HideInInspector]public bool isInfoUI=true;
 		
 	void Awake(){
 		if (instance == null)
@@ -60,15 +60,16 @@ public class GameManager : MonoBehaviour{
 		enemies = new List<Enemy>();
 		traps = new List<Trap> ();
 		rockets = new List<Rocket> ();
-
-		//Permet de récupérer les niveaux déjà passé
-		levelPassed = new List<int> ();
 			
 		uiGame = GameObject.Find ("UI_Menus").GetComponent<UIGameMenu> ();
 		boardScript = GameObject.Find("BoardManager").GetComponent<BoardManager>();
 
+		infosLevels = GetComponent<InfosLevels> ();
+		infosLevels.initInfosLevels ();
         replay = gameObject.GetComponent<Replay>();
 		playersTurn = true;
+
+
 
 		//Initialisation du premier level
 
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour{
 
 		if (SceneManager.GetActiveScene ().buildIndex == 1) {
 			level--;
-			levelPassed.Clear ();
+			infosLevels.clearLevels ();
             if (Application.isEditor && PlayerPrefs.GetInt("level", -1) != -1)
             {
                 launchNextLevel(PlayerPrefs.GetInt("level") + 2);
@@ -101,7 +102,7 @@ public class GameManager : MonoBehaviour{
 
 	public void restartGame(){
 		maxPlayerHpPoints = 6;
-		levelPassed.Clear ();
+		infosLevels.clearLevels();
 		resetPassifItems ();
 		playerhpPoints = maxPlayerHpPoints;
 		playerGolds = 0;
@@ -114,58 +115,12 @@ public class GameManager : MonoBehaviour{
 
 	public void checkIfWinLevel(){
 		if (enemies.Count <= 0) {
-			if((GameManager.instance.PlayerHasItem ("Bento"))&&(levelPassed.Count%2==1)){
+			if((GameManager.instance.PlayerHasItem ("Bento"))&&(infosLevels.getLevelsCount()%2==1)){
 				GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().gainHps (1);
 			}
-			launchNextLevel (chooseNextLevel());
+			infosLevels.addLevel (Application.loadedLevel-infosLevels.offsetLevel);
+			launchNextLevel (infosLevels.chooseNextLevel());
 		}
-	}
-
-	public void addLevelToList(){
-		if (!(SceneManager.GetActiveScene ().buildIndex == SceneManager.GetSceneByName ("LevelMagasin").buildIndex)) {
-			levelPassed.Add (SceneManager.GetActiveScene ().buildIndex - 2);
-		} else {
-			levelPassed.Add (0);
-		}
-		
-	}
-
-	private int chooseNextLevel(){
-		if (PlayerPrefs.HasKey("LevelGameSeed")){
-			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
-		}
-
-		addLevelToList ();
-		
-		int nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
-		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-		//print(Random.seed);
-		if (levelPassed.Count < 20) {
-			if (((levelPassed.Count % 5) == 0) && (levelPassed.Count != 0)) {
-				//if(levelPassed.Count  <3){
-				PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
-				totalTurns++;
-				return 2;
-			}
-		} else {
-			if (((levelPassed.Count % 10) == 0) && (levelPassed.Count != 0)) {
-				PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
-				totalTurns++;
-				return 2;
-			}
-		}
-		if (levelPassed.Count >= SceneManager.sceneCountInBuildSettings-3) {
-			//-3 pour begginingLevel, magasin et le mainMenu, a incrémenter si on rajoute
-			totalTurns++;
-			return nextLevel;
-		}
-		while (levelPassed.Contains (nextLevel-2)) {
-		//-2 car le level01 correspond a l'indice 3 dans les scenes du build
-			nextLevel = Random.Range (3, SceneManager.sceneCountInBuildSettings);
-            PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-        }
-        totalTurns++;
-        return nextLevel;
 	}
 
 	void launchNextLevel(int levelIndex){
@@ -237,7 +192,7 @@ public class GameManager : MonoBehaviour{
 	public void GameOver()
 	{
 		playersTurn = false;
-		levelPassed.Remove (Application.loadedLevel);
+		infosLevels.RemoveLevel (Application.loadedLevel);
 		uiGame.launchGameOver ();
 		enabled = false;
 	}
@@ -278,7 +233,6 @@ public class GameManager : MonoBehaviour{
 	IEnumerator Moverockets(){
 		rocketsMoving = true;
 		List<Rocket> temporaire = new List<Rocket> ();
-		yield return new WaitForSeconds(turnDelay);
 		for (int i = 0; i < rockets.Count; i++) {
 			temporaire.Add(rockets[i]);
 		}
@@ -361,16 +315,6 @@ public class GameManager : MonoBehaviour{
 		return traps;
 	}
 
-	public void levelPassedToString(){
-		for (int i = 0; i < levelPassed.Count; i++) {
-			print (levelPassed [i].ToString ());
-		}
-	}
-
-	public int levelPassedCount(){
-		return levelPassed.Count;
-	}
-
 	public void AddPassifItem(PassifItem item){
 		passifItems.Add (item);
 	}
@@ -393,6 +337,10 @@ public class GameManager : MonoBehaviour{
 
 	public GameInformations getGameInformations(){
 		return this.GetComponent<GameInformations> ();
+	}
+
+	public InfosLevels getInfosLevels(){
+		return infosLevels;
 	}
 
 }
