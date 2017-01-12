@@ -16,7 +16,7 @@ public class Rocket : MovingObject {
 
 	protected override void Start (){
 		manager = GameManager.instance;
-		skipMove = true;
+		skipMove = false;
 		animator = GetComponent<Animator> ();
 		GameManager.instance.getCurrentBoard ().setNodeOnGrid ((int)transform.position.x, (int)transform.position.y, 1);
 		base.Start ();
@@ -71,6 +71,7 @@ public class Rocket : MovingObject {
 			return false;
 		}
 		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(this.transform.position.x + xDir), (int)(this.transform.position.y + yDir)].nodeObject;
+		print (blockingObject);
 		if(blockingObject==null){
 			StartCoroutine (SmoothMovement (end));
 			return true;
@@ -84,7 +85,7 @@ public class Rocket : MovingObject {
 	public virtual void Die(){
 		isDead = true;
 		enabled = false;
-		manager.RemoveRocketToList (this);
+		GameManager.instance.RemoveRocketToList (this);
 		Destroy (this.gameObject);
 	}
 

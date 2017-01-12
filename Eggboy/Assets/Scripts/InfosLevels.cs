@@ -7,6 +7,8 @@ public class InfosLevels : MonoBehaviour {
 
 	public int offsetLevel = 2;
 	//permet de recalibrer les levels dans le build avec les indices de level -> level01:passe en indice 1 avec l'offset au lieu de l'indice 3
+	// -offset pour passer de la scene du build aux indices de tableaux 
+	// +offset pour passer des tableaux aux scenes dans le build
 
 	public int gameSection = 1;
 	// 1 : facile et moyen, 2:moyen et difficille, 3:difficille et infame, 4:infame, 5 : win game
@@ -20,6 +22,8 @@ public class InfosLevels : MonoBehaviour {
 
 	private List<int> levelPassed;
 	public int nbOfLevels=0;
+
+	int levelCourant = 0;
 
 	private List<int> levelsFacile;
 	private List<int> levelsMoyen;
@@ -59,14 +63,13 @@ public class InfosLevels : MonoBehaviour {
 	}
 
 	public int chooseNextLevel(){
+		addLevel (Application.loadedLevel-offsetLevel);
 		if (PlayerPrefs.HasKey("LevelGameSeed")){
 			Random.seed = PlayerPrefs.GetInt("LevelGameSeed");
 		}
 
 		updateGameSection ();
 
-		PlayerPrefs.SetInt("LevelGameSeed", Random.seed);
-		//print(Random.seed);
 		if ((getLevelsCount()== 5)||(getLevelsCount()== 17)){
 		//infirmerie
 			PlayerPrefs.SetInt ("LevelGameSeed", Random.seed);
@@ -80,7 +83,8 @@ public class InfosLevels : MonoBehaviour {
 			return 2;
 		}
 		GameManager.instance.totalTurns++;
-		return chooseLevelByDifficulty ();
+		levelCourant=chooseLevelByDifficulty();
+		return levelCourant+offsetLevel;
 	}
 
 	public int chooseLevelByDifficulty(){
@@ -109,7 +113,7 @@ public class InfosLevels : MonoBehaviour {
 				nextLevel = chooseNewLevelOnly (nextLevel, levelsInfame);
 				break;
 		}
-		return nextLevel+offsetLevel;
+		return nextLevel;
 	}
 
 	public int chooseNewLevelOnly(int nextLevel, List<int> listeConcerne){
@@ -125,16 +129,14 @@ public class InfosLevels : MonoBehaviour {
 	}
 
 	public void updateGameSection(){
-		if (levelPassed.Count > 46)
+		if (levelPassed.Count == 46)
 			gameSection	= 5;
-		else if (levelPassed.Count > 36)
+		else if (levelPassed.Count == 36)
 			gameSection = 4;
-		else if (levelPassed.Count > 24)
+		else if (levelPassed.Count == 24)
 			gameSection = 3;
-		else if (levelPassed.Count > 12)
+		else if (levelPassed.Count == 12)
 			gameSection = 2;
-		else
-			gameSection = 1;
 	}
 
 	public void levelPassedToString(){

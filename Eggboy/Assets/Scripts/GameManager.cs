@@ -118,7 +118,6 @@ public class GameManager : MonoBehaviour{
 			if((GameManager.instance.PlayerHasItem ("Bento"))&&(infosLevels.getLevelsCount()%2==1)){
 				GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().gainHps (1);
 			}
-			infosLevels.addLevel (Application.loadedLevel-infosLevels.offsetLevel);
 			launchNextLevel (infosLevels.chooseNextLevel());
 		}
 	}
@@ -223,7 +222,6 @@ public class GameManager : MonoBehaviour{
 				yield return new WaitForSeconds (turnDelay / (enemyToLaunch.Count+100));
 			}
 		}
-	//	print ("cest finis");
 		playersTurn = true;
 		totalTurns += 1;
 		totalTurnCurLevel += 1;
@@ -233,9 +231,11 @@ public class GameManager : MonoBehaviour{
 	IEnumerator Moverockets(){
 		rocketsMoving = true;
 		List<Rocket> temporaire = new List<Rocket> ();
+
 		for (int i = 0; i < rockets.Count; i++) {
 			temporaire.Add(rockets[i]);
 		}
+		yield return new WaitForSeconds(turnDelay/(rockets.Count+1));
 		for (int j = 0; j < temporaire.Count; j++) {
 			temporaire [j].MoveBullet ();
 			yield return new WaitForSeconds(turnDelay/(rockets.Count+1));
@@ -341,6 +341,12 @@ public class GameManager : MonoBehaviour{
 
 	public InfosLevels getInfosLevels(){
 		return infosLevels;
+	}
+
+	public void killAllsEnemies(){
+		for (int i = 0; i < enemies.Count; i++) {
+			enemies [i].Die ();
+		}
 	}
 
 }

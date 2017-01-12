@@ -192,6 +192,14 @@ public class Player : MovingObject
 			return;
 		}
 
+		if (Input.GetKeyDown (KeyCode.L)) {
+			GameManager.instance.killAllsEnemies ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.G)) {
+			gainGolds(300,0);
+		}
+
 		int horizontal = 0;
 		int vertical = 0;
         if (manager.replay.debugMod)

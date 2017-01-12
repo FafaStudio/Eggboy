@@ -330,11 +330,11 @@ public class BoardManager : MonoBehaviour {
 		}
 		quicksort (enemiesList,0, enemiesList.Count-1);
 		foreach (Enemy enemy in enemiesList) {
-			print ("________________");
+			/*print ("________________");
 			print (enemy.name);
 			print (enemy.caseExacte.position);
 			print (enemy.caseExacte.distanceVO);
-			print ("________________");
+			print ("________________");*/
 		}
 		resetDistanceGrille ();
 	}
