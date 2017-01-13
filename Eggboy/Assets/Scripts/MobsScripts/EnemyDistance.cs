@@ -133,7 +133,7 @@ public abstract class EnemyDistance : Enemy{
 		}
 		else if(GameManager.instance.isInfoUI){ {
 				compteur.activeUI ();
-				compteur.setInformation (((cptTurnBetweenAttack + 1).ToString ()));
+				compteur.setInformation (((cptTurnBetweenAttack + 1 + offsetDepartLevel).ToString ()));
 			}
 		}
 	}

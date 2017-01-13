@@ -45,6 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FafasInputManager\FIM.cs" />
+     <Compile Include="Assets\FafasInputManager\FIMData.cs" />
+     <Compile Include="Assets\FafasInputManager\FIMScriptableObject.cs" />
+     <Compile Include="Assets\FafasInputManager\TestScript.cs" />
      <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
      <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />
      <Compile Include="Assets\ScoreLib\Achiever.cs" />
@@ -55,9 +59,9 @@
      <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\ChronoChest.cs" />
      <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
-     <Compile Include="Assets\Scripts\EnumLevel.cs" />
      <Compile Include="Assets\Scripts\GameInformations.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\InfosLevels.cs" />
      <Compile Include="Assets\Scripts\Items\HeartItem.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
      <Compile Include="Assets\Scripts\Items\PassifItem.cs" />

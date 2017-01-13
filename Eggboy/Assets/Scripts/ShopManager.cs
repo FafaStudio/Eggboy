@@ -32,7 +32,9 @@ public class ShopManager : MonoBehaviour {
 
 		itemsOfShop = new List<GameObject> ();
 
-		if (GameManager.instance.levelPassedCount () % 10 == 0) {
+		if ((GameManager.instance.getInfosLevels().getLevelsCount()== 11)||
+			(GameManager.instance.getInfosLevels().getLevelsCount()== 24)||
+			(GameManager.instance.getInfosLevels().getLevelsCount()== 35)){
 			isItemShop = true;
 		} else {
 			isItemShop = false;

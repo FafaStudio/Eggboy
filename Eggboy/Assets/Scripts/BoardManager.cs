@@ -209,10 +209,10 @@ public class BoardManager : MonoBehaviour {
 		InitialiseGrille ();
 		//InitialiseLevelDesign ();
 	}
+//PATHFINDING A*_____________________________________________________________________________________________________
 
 	public Vector2 doPathfinding (Node destination, Node depart){
 		Node path = findPath (destination, depart, new List<Node>(), new List<Node>());
-
 		if (path.parent != null) {
 			while (path.parent.parent != null) {
 				path = path.parent;
@@ -311,6 +311,138 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+//TRI RAPIDE POUR LA LISTE DES ENNEMIS__________________________________________________________________________
+//pour que les ennemis joue dans l'ordre croissante de leur distance au joueur
+	List<Enemy> enemiesList;
+
+	void Start(){
+		enemiesList = GameManager.instance.enemies;
+	}
+
+	public void launchQuickSort(){
+		BoardManager.Node target = enemiesList [0].getTarget ();
+		//print (enemiesList [0].getTarget ().position);
+		foreach (Enemy enemy in enemiesList) {
+			enemy.caseExacte.distanceVO = totalDistanceWithPathfinding (target, enemy.caseExacte);
+			if (enemy.caseExacte.distanceVO == 0)
+				//si jamais le joueur est innaccessible
+				enemy.caseExacte.distanceVO = enemy.caseExacte.volDoiseau (target.position);
+		}
+		quicksort (enemiesList,0, enemiesList.Count-1);
+		foreach (Enemy enemy in enemiesList) {
+			/*print ("________________");
+			print (enemy.name);
+			print (enemy.caseExacte.position);
+			print (enemy.caseExacte.distanceVO);
+			print ("________________");*/
+		}
+		resetDistanceGrille ();
+	}
+		
+	public int pivot(int left, int right){
+		int pivot =enemiesList[left].caseExacte.distanceVO;
+		while (left<enemiesList.Count)
+		{
+			while (enemiesList[left].caseExacte.distanceVO < pivot)
+				left++;
+			while (enemiesList[right].caseExacte.distanceVO > pivot)
+				right--;
+			if (enemiesList[left].caseExacte.distanceVO == pivot && enemiesList[right].caseExacte.distanceVO == pivot)
+				left++;
+
+			if (left < right)
+			{
+				Enemy temp = enemiesList[right];
+				enemiesList[right] = enemiesList[left];
+				enemiesList[left] = temp;
+			}
+			else
+			{
+				return right;
+			}
+		}
+		return right;
+	}
+
+	public void quicksort(List<Enemy> enemies, int i, int j){
+	//i et j permettent de sauvegarder les indices lors de la recursivite
+		if (j - i > 0){
+			int piv = pivot (i,j);
+			quicksort (enemies, i, piv - 1);
+			quicksort (enemies, piv + 1, j);
+		}
+	}
+
+	public int totalDistanceWithPathfinding(Node destination, Node depart){
+		int result = 0;
+		Node path = findPathWithEnemies (destination, depart, new List<Node>(), new List<Node>());
+
+		if (path.parent != null) {
+			result++;
+			/*while (path.parent != null) {
+				result++;
+				path = path.parent;
+				print (path.position);
+			}	*/
+			while (path.position != depart.position) {
+				result++;
+				path = path.parent;
+			}
+		}
+		return result;
+	}
+
+	public Node findPathWithEnemies(Node destination, Node depart, List<Node> openList, List<Node> closedList){
+	//pour prendre en compte la case des enemies lors de lexecution du quicksort au debut du tour 
+		closedList.Add (depart);
+
+		if ((depart.position.x == destination.position.x) && (depart.position.y == destination.position.y)) {
+			return depart;
+		}
+		List<Node> voisins = Voisins (depart);
+		for (int j = 0; j < voisins.Count; j++) {
+			if (((voisins [j].valeur != -1)) 
+				&& (!gridIsIn(closedList, voisins[j]))){
+				if((!gridIsIn(openList, voisins[j]))){
+					voisins [j].parent = depart;
+					voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+					voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+					openList.Add (voisins [j]);
+
+					if ((voisins[j].position.x == destination.position.x) && (voisins[j].position.y == destination.position.y)) {
+						return voisins[j];
+					}
+				} else {
+					int newG = voisins [j].calculDepartCourant ();
+					if ((voisins [j].distanceParcourue) > newG) {
+						voisins [j].parent = depart;
+						voisins[j].distanceParcourue = voisins [j].calculDepartCourant ();
+						voisins[j].distanceVO = voisins [j].volDoiseau (destination.position);
+					}
+				}
+			}
+		}
+		Node nextNode = depart;
+		if (openList.Count > 0) {
+			nextNode = openList [0];
+			for (int n = 1; n < openList.Count; n++) {
+				if ((nextNode.distanceParcourue + nextNode.distanceVO >= openList [n].distanceParcourue + openList [n].distanceVO)) {
+					nextNode = openList [n];
+				}
+			}
+		}
+		if (openList.Count == 1) {
+			openList.Remove (nextNode);
+			return findPath (destination, nextNode, openList, closedList);
+		}
+		openList.Remove (nextNode);
+		if (openList.Count > 0) {
+			return findPath (destination, nextNode, openList, closedList);
+		}
+		else {
+			return new Node (1, new Vector2 (-1f, -1f));
+		}
+	}
 }
 
 

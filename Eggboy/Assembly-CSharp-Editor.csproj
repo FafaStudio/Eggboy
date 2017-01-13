@@ -50,6 +50,7 @@
      <Compile Include="Assets\Editor\LevelEditorCaseHandle.cs" />
      <Compile Include="Assets\Editor\LevelEditorPrefabInstantiate.cs" />
      <Compile Include="Assets\Editor\LevelEditorToolsMenu.cs" />
+     <Compile Include="Assets\FafasInputManager\Editor\FIMWindow.cs" />
      <Compile Include="Assets\ScoreLib\Editor\AchieverWindow.cs" />
      <Compile Include="Assets\ScoreLib\Editor\ScorerWindow.cs" />
      <Compile Include="Assets\Scripts\Editor\GameManagerWindow.cs" />

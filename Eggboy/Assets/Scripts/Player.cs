@@ -34,7 +34,7 @@ public class Player : MovingObject
 		uiManager = GameObject.Find("PlayerPanel").GetComponent<UIPlayer>();
 		uiManager.updateLife();
 		uiManager.updateGolds ();
-		uiManager.updateLevel (manager.levelPassedCount());
+		uiManager.updateLevel (manager.getInfosLevels().getLevelsCount());
 
 		camera = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 		caseExacte = new BoardManager.Node(1, new Vector2(transform.position.x, transform.position.y));
@@ -154,12 +154,16 @@ public class Player : MovingObject
 			manager.enabled = true;
 			blockingObject.GetComponent<Enemy>().Die ();
 			blockingObject = null;
-			if (piege != null) {
-				if(piege.gameObject.name!="BoutonOn-Off")
-					testPiege ();
-			}
+
 			if (!GameManager.instance.PlayerHasItem ("Krav-MagaBook")) 
 				manager.playersTurn = false;
+			if (piege != null) {
+				if (piege.gameObject.name != "BoutonOn-Off") {
+					if(piege.gameObject.name=="Arrow"||piege.gameObject.name=="Arrow(Clone)")
+						manager.playersTurn = true;
+					testPiege ();
+				}
+			}
 			yield return null;
 		} else if (blockingObject.tag == "Chest") {
 			blockingObject.GetComponent<Chest> ().setPlayer (this);
@@ -186,6 +190,14 @@ public class Player : MovingObject
 		{
 			timeBetweenTurn -= Time.deltaTime;
 			return;
+		}
+
+		if (Input.GetKeyDown (KeyCode.L)) {
+			GameManager.instance.killAllsEnemies ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.G)) {
+			gainGolds(300,0);
 		}
 
 		int horizontal = 0;
