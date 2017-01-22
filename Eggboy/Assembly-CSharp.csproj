@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_1;UNITY_5_4;UNITY_5;UNITY_64;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_1;UNITY_5_4;UNITY_5;UNITY_64;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -98,82 +98,14 @@
      <Compile Include="Assets\Scripts\UI\UIMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
-     <None Include="Assets\DebugData\2017-01-15--14-13-14--1253059412.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-06-59--1920815998.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-15-54--1699446015.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-02-41--1982056612.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-01-06--1142947487.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-41-29--1860671981.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-38-06--1303380163.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-39-33--1908923987.txt" />
-     <None Include="Assets\DebugData\2017-01-08--16-45-47--1021590432.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-41-08--1960371638.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-36-56--1970635351.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-16-11--1600649790.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-38-12--1540711512.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-37-35--1954290839.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-03-06--1093056118.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-13-27--1835822010.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-05-43--1268382760.txt" />
-     <None Include="Assets\DebugData\2017-01-08--16-45-05--2096163844.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-37-02--1803788616.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-07-35--2071318221.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-04-50--1857352232.txt" />
-     <None Include="Assets\DebugData\2017-01-08--16-45-44--1516178229.txt" />
-     <None Include="Assets\DebugData\2017-01-15--00-39-13--1301241543.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-06-17--1952369198.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-41-17--1717918427.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-04-29--1173806241.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-42-07--1538493228.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-02-07--1886393285.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-40-58--1711513637.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-35-27--1982568730.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-03-34--1866449473.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-06-44--1494025057.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-07-20--1976387408.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-37-52--1511557420.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-37-46--1030918444.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-33-46--1439760851.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-40-14--2076013773.txt" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-35-56--2129942748.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-38-43--1820166848.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-38-38--1098418540.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-00-59--1515196292.txt" />
-     <None Include="Assets\DebugData\2017-01-15--00-54-36--1634906681.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-35-16--2001198966.txt" />
-     <None Include="Assets\DebugData\2017-01-08--14-50-07--2011588518.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-06-30--1550207832.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-37-07--2110112320.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-00-12--1300762625.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-34-13--1844291953.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-40-30--1985114597.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-33-50--2032556046.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-05-56--2058622025.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-37-37--1212276349.txt" />
-     <None Include="Assets\DebugData\2017-01-15--00-59-57--2147184665.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-03-22--1041934254.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-03-43--1492856789.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-36-32--2089907089.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-05-06--2072374726.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-07-52--1741242419.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-07-10--1968049912.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-35-33--1983070128.txt" />
-     <None Include="Assets\DebugData\2017-01-15--00-55-44--1772450944.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-33-54--1518544548.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-36-43--1274571847.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-05-36--1857644299.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-34-43--1459525635.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-05-34--1484457066.txt" />
-     <None Include="Assets\DebugData\2017-01-08--16-45-05--1914513872.txt" />
-     <None Include="Assets\DebugData\2017-01-15--13-37-22--1087602617.txt" />
-     <None Include="Assets\DebugData\2017-01-15--01-02-13--1675231510.txt" />
-     <None Include="Assets\DebugData\2017-01-15--14-36-20--1870203180.txt" />
+     <None Include="Assets\DebugData\2017-01-22--14-30-16--1783057388.txt" />
+     <None Include="Assets\DebugData\2017-01-22--14-30-13--2025528444.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
