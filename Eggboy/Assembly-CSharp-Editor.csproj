@@ -57,8 +57,6 @@
      <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
      <Compile Include="Assets\Scripts\Editor\TestLevel.cs" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-     <None Include="Assets\DebugData\2017-01-22--14-30-16--1783057388.txt" />
-     <None Include="Assets\DebugData\2017-01-22--14-30-13--2025528444.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

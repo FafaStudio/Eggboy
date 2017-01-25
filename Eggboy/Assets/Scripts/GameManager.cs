@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour{
 	public int totalTurns = 0;
 	public int totalTurnCurLevel = 0;
 
+	private bool accessSecretRoom = false;
+	private int cptLifeChestCurrent = 0;
+
 	//pour l'item qui fait que les 3 premiers tours, les ennemis font rien
 	private int initialDelay = 0;
 	public void setInitialDelay(int delay){initialDelay = delay;}
@@ -131,6 +134,7 @@ public class GameManager : MonoBehaviour{
 	void InitGame()
 	{
 		totalTurnCurLevel = 0;
+		cptLifeChestCurrent = 0;
 		enemies.Clear();
 		traps.Clear ();
 		rockets.Clear ();
@@ -333,6 +337,25 @@ public class GameManager : MonoBehaviour{
 			GameObject.Destroy(child.gameObject);
 		}
 		passifItems.Clear ();
+	}
+
+	public bool hasAccessSecretRoom(){
+		return accessSecretRoom;
+	}
+
+	public void setSecretRoomAccess(bool val){
+		accessSecretRoom = val;
+	}
+
+	public void modifyCptLifeChest(bool isIncrement){
+		if (isIncrement)
+			cptLifeChestCurrent++;
+		else
+			cptLifeChestCurrent--;
+	}
+
+	public int getCptLifeChestCurrent(){
+		return cptLifeChestCurrent;
 	}
 
 	public GameInformations getGameInformations(){

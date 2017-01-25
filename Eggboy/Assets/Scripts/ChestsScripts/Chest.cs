@@ -31,7 +31,7 @@ public abstract class Chest : Trap {
 		GameManager.instance.AddTrapToList (this);
     }
 
-	public void destroyChest(){
+	public virtual void destroyChest(){
 		GameManager.instance.RemoveTrapToList (this);
 		Destroy (this.gameObject);
 	}

@@ -65,6 +65,8 @@ public class Rocket : MovingObject {
 
 	protected override bool Move(int xDir, int yDir){
 		//simule/teste le mouvement du personnage
+		if (isDead)
+			return false;
 		Vector2 end = new Vector2(transform.position.x, transform.position.y) + new Vector2 (xDir, yDir);
 		if(((this.transform.position.x + xDir)<0)||((this.transform.position.x + xDir)>14)||(this.transform.position.y + yDir<0)||(this.transform.position.y + yDir>7)){
 			Die ();

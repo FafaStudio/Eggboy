@@ -114,6 +114,7 @@ public class ShopManager : MonoBehaviour {
 	}
 
 	public IEnumerator waitForPlayerGoldCard(){
+	//on attend que le joueur achète la carte gold pour diviser le prix des objets du shop courant par 2
 		isGoldCard = false;
 		while (testGoldCardItem ()) {
 			yield return new WaitForSeconds (0.25f);
