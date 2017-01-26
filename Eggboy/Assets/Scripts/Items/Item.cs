@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public abstract class Item : MonoBehaviour {
 
 	public bool isShopItem;
+	protected bool isSecretItem = false;
 	public int price;
 	private int constBasePrice;
 	Vector2 screenPos;
 	protected BoardManager board;
 
 	protected ShopManager shop;
+
 
 	protected virtual void Start () {
 		constBasePrice = price;
@@ -43,5 +45,9 @@ public abstract class Item : MonoBehaviour {
 
 	public int getBasePrice(){
 		return constBasePrice;
+	}
+
+	public void setIsSecretItem(bool value){
+		isSecretItem = value;
 	}
 }

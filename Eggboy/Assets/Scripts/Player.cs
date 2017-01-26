@@ -21,6 +21,7 @@ public class Player : MovingObject
 	private CameraManager camera;
 
 	private string actionDuTour = "nothing"; // move, wait, nothing
+	private Vector2 movementDirection;
 
 	private int variationDirection = 1;
 
@@ -30,6 +31,8 @@ public class Player : MovingObject
 		manager = GameManager.instance;
 		hp = manager.playerhpPoints;
 		golds = manager.playerGolds;
+
+		movementDirection = new Vector2 (0f, 0f);
 
 		uiManager = GameObject.Find("PlayerPanel").GetComponent<UIPlayer>();
 		uiManager.updateLife();
@@ -126,6 +129,7 @@ public class Player : MovingObject
 			animator.SetTrigger ("Attack");
 			animator.SetInteger ("positionAttack", 0);
 			manager.enabled = false;
+			actionDuTour = "attack";
 			new WaitForSeconds(0.05f);
 
 			Scorer.instance.addScoreValue (7, 1);
@@ -272,6 +276,7 @@ public class Player : MovingObject
                     manager.replay.addAction(4);
                 }
                 actionDuTour = "move";
+				movementDirection = new Vector2 (horizontal, vertical);
             }
             else if (Input.GetButtonDown("Confirm")){
                 manager.replay.addAction(0);
@@ -308,6 +313,14 @@ public class Player : MovingObject
 				manager.playersTurn = false;
 			}
 		}
+	}
+
+	public string getPlayerTurnAction(){
+		return actionDuTour;
+	}
+
+	public Vector2 getPlayerDirection(){
+		return movementDirection;
 	}
 
 	public void passTurn()

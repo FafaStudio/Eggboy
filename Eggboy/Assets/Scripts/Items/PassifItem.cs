@@ -44,6 +44,17 @@ public class PassifItem : Item {
 			board.setObjectOnGrid ((int)this.transform.position.x, (int)this.transform.position.y, 1, null);
 			GameManager.instance.AddPassifItem (this);
 			this.transform.SetParent (GameManager.instance.gameObject.transform);
+			if (isSecretItem) {
+				if (GameManager.instance.enemies.Count == 1) {
+					//si il n'y a plus d'ennemis
+					// il est laissé a 1 par le secretChest afin de temporiser l'accès au niveau suivant
+					//je passe au niveau suivant que si j'ai tué tous les ennemis et que j'ai pris l'item
+				//	GameManager.instance.enemies.Clear ();
+					if (GameManager.instance.enemies [0] == null)
+						GameManager.instance.enemies.Clear ();
+				}
+				GameManager.instance.checkIfWinLevel ();
+			}
 			Destroy (this.GetComponent<BoxCollider2D> ());
 			Destroy (this.GetComponent<SpriteRenderer> ());
 		}

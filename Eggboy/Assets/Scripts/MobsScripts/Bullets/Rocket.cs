@@ -73,7 +73,6 @@ public class Rocket : MovingObject {
 			return false;
 		}
 		blockingObject = manager.getCurrentBoard ().gridPositions [(int)(this.transform.position.x + xDir), (int)(this.transform.position.y + yDir)].nodeObject;
-		print (blockingObject);
 		if(blockingObject==null){
 			StartCoroutine (SmoothMovement (end));
 			return true;

@@ -3,11 +3,15 @@ using System.Collections;
 
 public class symetricMob : Enemy {
 
+	public int symetrieType; // 0: horizontal, 1:vertical, 2:total, 3:null
+
+	public GameObject secretChest;
+
 	protected override void Start (){
 		enemyName = "symetric";
 		//skipMove = true;
 		base.Start ();
-		print(target.GetComponent<Player>());
+		secretChest.SetActive (false);
 		//testPiege ();
 	}
 
@@ -26,7 +30,21 @@ public class symetricMob : Enemy {
 
 	public override void MoveEnemy ()
 	{
-		base.MoveEnemy ();
+		string playerAction = target.GetComponent<Player>().getPlayerTurnAction();
+		switch (playerAction) {
+		case "move":
+			endTurnEnemy = false;
+			Vector2 direction = target.GetComponent<Player> ().getPlayerDirection ();
+			if (symetrieType==1)
+				AttemptMove ((int)direction.x, (int)-direction.y);
+			else if (symetrieType==0)
+				AttemptMove ((int)-direction.x, (int)direction.y);
+			else if (symetrieType==2)
+				AttemptMove ((int)-direction.x, (int)-direction.y);
+			else if (symetrieType==3)
+				AttemptMove ((int)direction.x, (int)direction.y);
+			break;
+		}
 	}
 
 	protected override bool Move(int xDir, int yDir){
@@ -41,6 +59,7 @@ public class symetricMob : Enemy {
 	}
 
 	public override void Die(){
+		secretChest.SetActive (true);
 		base.Die ();
 	}
 
