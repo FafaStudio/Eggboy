@@ -97,6 +97,7 @@ public class Player : MovingObject
 
 	protected override IEnumerator SmoothMovement(Vector3 end){
 		float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+		animator.SetTrigger ("Jump");
 		while (sqrRemainingDistance > float.Epsilon)
 		{
 			Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
