@@ -17,7 +17,7 @@ public class InfosLevels : MonoBehaviour {
 	private int statutActualLevel=0;
 	//1:niveau normal, 2:magasin, 3:boss
     
-    public enum Difficulte {tuto, facile, moyen, difficile, infame, boss};
+    public enum Difficulte {tuto, facile, moyen, difficile, infame, boss, secretroom};
     public Difficulte[] levelsDifficulty;
 
 	private List<int> levelPassed;
@@ -25,13 +25,27 @@ public class InfosLevels : MonoBehaviour {
 
 	int levelCourant = 0;
 
+	public bool testSecret;
+
 	private List<int> levelsFacile;
 	private List<int> levelsMoyen;
 	private List<int> levelsDifficile;
 	private List<int> levelsInfame;
+	private List<int> secretRooms;
 
 	public Difficulte getLevelDifficulty(int level){
 		return levelsDifficulty [level];
+	}
+
+	void Start(){
+		if (testSecret)
+			testSecretRoom ();
+		
+	}
+	public void testSecretRoom(){
+		for (int i = 0; i < 39; i++) {
+			levelPassed.Add (i+3);
+		}
 	}
 
 	public void initInfosLevels(){
@@ -40,11 +54,12 @@ public class InfosLevels : MonoBehaviour {
 		levelsMoyen = new List<int> ();
 		levelsDifficile= new List<int> ();
 		levelsInfame= new List<int> ();
+		secretRooms = new List<int> ();
 		initLevelsDifficulty ();
 	}
 
 	public void initLevelsDifficulty(){
-		for (int i = 3; i < levelsDifficulty.Length; i++) {
+		for (int i = 3; i < levelsDifficulty.Length+offsetLevel; i++) {
 			switch(levelsDifficulty[i-offsetLevel]){
 				case Difficulte.facile:
 					levelsFacile.Add (i - offsetLevel);
@@ -58,6 +73,9 @@ public class InfosLevels : MonoBehaviour {
 				case Difficulte.infame:
 					levelsInfame.Add (i - offsetLevel);
 					break;
+			case Difficulte.secretroom:
+					secretRooms.Add (i - offsetLevel);
+					break;
 			}
 		}
 	}
@@ -69,6 +87,11 @@ public class InfosLevels : MonoBehaviour {
 		}
 
 		updateGameSection ();
+
+		if (((getLevelsCount () == 16) || (getLevelsCount () == 29) || (getLevelsCount () == 40)) && (GameManager.instance.hasAccessSecretRoom ())) {
+			//SECRET ROOM
+			return chooseSecretRoom()+offsetLevel;
+		}
 
 		if ((getLevelsCount()== 5)||(getLevelsCount()== 17)){
 		//infirmerie
@@ -114,6 +137,10 @@ public class InfosLevels : MonoBehaviour {
 				break;
 		}
 		return nextLevel;
+	}
+
+	public int chooseSecretRoom(){
+		return chooseNewLevelOnly (0, secretRooms);
 	}
 
 	public int chooseNewLevelOnly(int nextLevel, List<int> listeConcerne){

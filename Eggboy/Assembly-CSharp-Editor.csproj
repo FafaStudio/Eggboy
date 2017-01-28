@@ -56,7 +56,13 @@
      <Compile Include="Assets\Scripts\Editor\GameManagerWindow.cs" />
      <Compile Include="Assets\Scripts\Editor\ReplayInspector.cs" />
      <Compile Include="Assets\Scripts\Editor\TestLevel.cs" />
+     <None Include="Assets\DebugData\2017-01-28--19-11-30--2026479543.txt" />
+     <None Include="Assets\DebugData\2017-01-28--19-14-03--1507095252.txt" />
+     <None Include="Assets\DebugData\2017-01-28--19-11-57--1202701531.txt" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
+     <None Include="Assets\DebugData\2017-01-28--19-12-39--1201317269.txt" />
+     <None Include="Assets\DebugData\2017-01-28--19-15-08--1451191392.txt" />
+     <None Include="Assets\DebugData\2017-01-28--19-10-06--1737228172.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

@@ -139,7 +139,8 @@ public class UIPlayer : MonoBehaviour {
 	}
 
 	public void updateLevel(int level){
-		curLevel.text = (47-level).ToString ();
+		//curLevel.text = (47-level).ToString ();
+		curLevel.text = level.ToString();
 	}
 
 	public IEnumerator updateGoldsLaunch(int golds, int combo, bool goldsAdd){

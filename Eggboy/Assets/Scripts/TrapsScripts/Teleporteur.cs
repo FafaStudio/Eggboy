@@ -7,10 +7,17 @@ public class Teleporteur : Trap {
 
 	public GameObject coTeleporteur;
 
+	public GameObject colorReceptacle;
+	public Trigger.color chooseColor;
+
+	public Sprite[] colors;// 0:vert, 1:bleu, 2:rouge, 3:violet
+
 	protected override void Start ()
 	{
-		if (coTeleporteur != null)
+		if (coTeleporteur != null) {
 			coTeleporteur.GetComponent<Teleporteur> ().coTeleporteur = this.gameObject;
+			setColor ();
+		}
 		base.Start ();
 	}
 
@@ -47,8 +54,8 @@ public class Teleporteur : Trap {
 			character.transform.position = coTeleporteur.transform.position;
 			GameManager.instance.getCurrentBoard ().setObjectOnGrid((int)coTeleporteur.transform.position.x, (int)coTeleporteur.transform.position.y, 1, character.gameObject);
 			character.caseExacte.position = coTeleporteur.transform.position;
+			TriggerExit ();
 		}
-		TriggerExit ();
     }
 
 	public override void boutonDeclenchement (){}
@@ -56,9 +63,48 @@ public class Teleporteur : Trap {
     public override void declencherPiegeNewTurn(){
     }
 
-	void Update(){
-		this.GetComponent<SpriteRenderer> ().color = new Vector4 (UnityEngine.Random.Range(0,1),UnityEngine.Random.Range(0,1),UnityEngine.Random.Range(0,1),1);
+	public void setColor(){
+		GameObject toInstantiate = new GameObject ();
+		switch (chooseColor) {
+		case Trigger.color.vert:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [0];
+			toInstantiate.transform.SetParent (this.transform);
+			setTeleporteurColor(colors [0]);
+			break;
+		case Trigger.color.bleu:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [1];
+			toInstantiate.transform.SetParent (this.transform);
+			setTeleporteurColor(colors [1]);
+			break;
+		case Trigger.color.rouge:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [2];
+			toInstantiate.transform.SetParent (this.transform);
+			setTeleporteurColor(colors [2]);
+			break;
+		case Trigger.color.violet:
+			toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+			toInstantiate.GetComponent<SpriteRenderer> ().sprite = colors [3];
+			toInstantiate.transform.SetParent (this.transform);
+			setTeleporteurColor(colors [3]);
+			break;
+		}
 	}
+
+	public void setTeleporteurColor(Sprite color){
+		GameObject toInstantiate = Instantiate (colorReceptacle, coTeleporteur.transform.position, Quaternion.identity) as GameObject;
+		toInstantiate.GetComponent<SpriteRenderer> ().sprite = color;
+		toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
+		toInstantiate.transform.SetParent (coTeleporteur.transform);
+
+		toInstantiate = Instantiate (colorReceptacle, this.transform.position, Quaternion.identity) as GameObject;
+		toInstantiate.GetComponent<SpriteRenderer> ().sprite = color;
+		toInstantiate.GetComponent<SpriteRenderer> ().sortingOrder++;
+		toInstantiate.transform.SetParent (this.transform);
+	}
+
     void OnDrawGizmos()
     {
 

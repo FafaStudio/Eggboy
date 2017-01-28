@@ -9,12 +9,22 @@ public class LifeChest : Chest {
 	{
 		base.Start ();
 		chestName = "Life";
+		GameManager.instance.setSecretRoomAccess (true);
+		GameManager.instance.modifyCptLifeChest (true);
 	}
 
 	public override void openChest (){
 		Loot chestLoot = lootChest ();
 		player.gainGolds (chestLoot.getGolds (),1);
 		destroyChest ();
+	}
+
+	public override void destroyChest ()
+	{
+		GameManager.instance.modifyCptLifeChest (false);
+		if(GameManager.instance.getCptLifeChestCurrent()==0)
+			GameManager.instance.setSecretRoomAccess (false);
+		base.destroyChest ();
 	}
 
 	public override Loot lootChest(){

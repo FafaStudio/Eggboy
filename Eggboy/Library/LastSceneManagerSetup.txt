@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/FafasInputManager/Test.unity
+=======
+- path: Assets/Scenes/BeginingLevel.unity
+>>>>>>> 3f357808ed33f38de24f51cf4c690faf6a23af38
   isLoaded: 1
   isActive: 1
