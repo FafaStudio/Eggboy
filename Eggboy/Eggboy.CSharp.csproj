@@ -66,6 +66,11 @@
     <Compile Include="Assets\FafasInputManager\FIM.cs" />
     <Compile Include="Assets\FafasInputManager\FIMData.cs" />
     <Compile Include="Assets\FafasInputManager\FIMScriptableObject.cs" />
+    <Compile Include="Assets\FafasInputManager\InputInputs.cs" />
+    <Compile Include="Assets\FafasInputManager\InputNames.cs" />
+    <Compile Include="Assets\FafasInputManager\InputOs.cs" />
+    <Compile Include="Assets\FafasInputManager\InputParameters.cs" />
+    <Compile Include="Assets\FafasInputManager\InputTypes.cs" />
     <Compile Include="Assets\FafasInputManager\TestScript.cs" />
     <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
     <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />
@@ -77,9 +82,9 @@
     <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
     <Compile Include="Assets\Scripts\ChestsScripts\ChronoChest.cs" />
     <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
-    <Compile Include="Assets\Scripts\EnumLevel.cs" />
     <Compile Include="Assets\Scripts\GameInformations.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\InfosLevels.cs" />
     <Compile Include="Assets\Scripts\Items\HeartItem.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\PassifItem.cs" />
@@ -119,22 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-    <None Include="Assets\DebugData\2017-01-07--23-14-34--1801455563.txt" />
-    <None Include="Assets\DebugData\2017-01-07--23-16-11--1298327428.txt" />
-    <None Include="Assets\DebugData\2017-01-08--11-36-17--2112778301.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-12-44--1191370467.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-13-26--2068180511.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-20-35--1626583436.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-23-02--1066104258.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-23-40--1335228441.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-25-39--1809693743.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-25-46--1940073471.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-27-58--1878362107.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-28-09--1988183586.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-28-21--1498216253.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-30-19--2113650783.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-30-42--1979670479.txt" />
-    <None Include="Assets\DebugData\2017-01-08--12-30-50--1677906288.txt" />
     <None Include="Assets\DebugData\2017-01-08--14-50-07--2011588518.txt" />
     <None Include="Assets\DebugData\2017-01-08--16-45-05--1914513872.txt" />
     <None Include="Assets\DebugData\2017-01-08--16-45-05--2096163844.txt" />
