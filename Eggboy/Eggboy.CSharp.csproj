@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\ChestsScripts\Chest.cs" />
     <Compile Include="Assets\Scripts\ChestsScripts\ChronoChest.cs" />
     <Compile Include="Assets\Scripts\ChestsScripts\LifeChest.cs" />
+    <Compile Include="Assets\Scripts\ChestsScripts\SecretChest.cs" />
     <Compile Include="Assets\Scripts\GameInformations.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\InfosLevels.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\Scripts\MobsScripts\Kamikaz.cs" />
     <Compile Include="Assets\Scripts\MobsScripts\Necromancer.cs" />
     <Compile Include="Assets\Scripts\MobsScripts\Zombi.cs" />
+    <Compile Include="Assets\Scripts\MobsScripts\symetricMob.cs" />
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Replay.cs" />
@@ -124,11 +126,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
-    <None Include="Assets\DebugData\2017-01-08--14-50-07--2011588518.txt" />
-    <None Include="Assets\DebugData\2017-01-08--16-45-05--1914513872.txt" />
-    <None Include="Assets\DebugData\2017-01-08--16-45-05--2096163844.txt" />
-    <None Include="Assets\DebugData\2017-01-08--16-45-44--1516178229.txt" />
-    <None Include="Assets\DebugData\2017-01-08--16-45-47--1021590432.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-10-06--1737228172.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-11-30--2026479543.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-11-57--1202701531.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-12-39--1201317269.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-14-03--1507095252.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-15-08--1451191392.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-23-30--1363715899.txt" />
+    <None Include="Assets\DebugData\2017-01-28--19-24-12--1063736034.txt" />
+    <None Include="Assets\DebugData\2017-01-28--20-22-14--1477072310.txt" />
+    <None Include="Assets\DebugData\2017-01-28--20-22-21--2132895517.txt" />
+    <None Include="Assets\DebugData\2017-01-28--20-23-30--1174107927.txt" />
+    <None Include="Assets\DebugData\2017-01-28--20-23-47--1268135308.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
