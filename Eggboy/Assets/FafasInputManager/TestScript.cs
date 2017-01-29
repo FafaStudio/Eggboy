@@ -11,7 +11,7 @@ public class TestScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        print(Input.GetJoystickNames()[0]);
+        //print(Input.GetJoystickNames()[0]);
         if (FIM.check("Jump"))
         {
             print("Jump");
@@ -20,6 +20,7 @@ public class TestScript : MonoBehaviour {
         {
             print("Run");
         }
+        Input.GetAxis("x axis");
         detectPressedKeyOrButton();
     }
     public void detectPressedKeyOrButton()

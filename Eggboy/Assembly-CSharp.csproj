@@ -48,6 +48,11 @@
      <Compile Include="Assets\FafasInputManager\FIM.cs" />
      <Compile Include="Assets\FafasInputManager\FIMData.cs" />
      <Compile Include="Assets\FafasInputManager\FIMScriptableObject.cs" />
+     <Compile Include="Assets\FafasInputManager\InputInputs.cs" />
+     <Compile Include="Assets\FafasInputManager\InputNames.cs" />
+     <Compile Include="Assets\FafasInputManager\InputOs.cs" />
+     <Compile Include="Assets\FafasInputManager\InputParameters.cs" />
+     <Compile Include="Assets\FafasInputManager\InputTypes.cs" />
      <Compile Include="Assets\FafasInputManager\TestScript.cs" />
      <Compile Include="Assets\ScoreLib\AchievementPanel.cs" />
      <Compile Include="Assets\ScoreLib\AchievementsScriptableObject.cs" />

@@ -48,7 +48,12 @@ public class FIMWindow : EditorWindow {
         FIMScriptableObject fimScriptableObject = AssetDatabase.LoadAssetAtPath<FIMScriptableObject>("Assets/FafasInputManager/FIMScriptableObject.asset");
         EditorGUILayout.BeginVertical();
 
-        EditorGUILayout.LabelField("Connected Joysticks :" + Input.GetJoystickNames()[0]);
+        string[] listInput = Input.GetJoystickNames();
+
+        for (int i = 0; i < listInput.Length; i++)
+        {
+            EditorGUILayout.LabelField("Connected Joysticks :" + listInput[i]);
+        }
 
 
         EditorGUI.BeginChangeCheck();
