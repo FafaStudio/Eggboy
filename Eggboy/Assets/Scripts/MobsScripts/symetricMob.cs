@@ -36,15 +36,34 @@ public class symetricMob : Enemy {
 			endTurnEnemy = false;
 			Vector2 direction = target.GetComponent<Player> ().getPlayerDirection ();
 			if (symetrieType==1)
-				AttemptMove ((int)direction.x, (int)-direction.y);
+				testLimiteCase((int)direction.x, (int)-direction.y);
 			else if (symetrieType==0)
-				AttemptMove ((int)-direction.x, (int)direction.y);
+				testLimiteCase((int)-direction.x, (int)direction.y);
 			else if (symetrieType==2)
-				AttemptMove ((int)-direction.x, (int)-direction.y);
+				testLimiteCase ((int)-direction.x, (int)-direction.y);
 			else if (symetrieType==3)
-				AttemptMove ((int)direction.x, (int)direction.y);
+				testLimiteCase ((int)direction.x, (int)direction.y);
 			break;
 		}
+	}
+
+	public bool testLimiteCase(int x, int y){
+		if (caseExacte.position.x + x > 14) {
+			endTurnEnemy = true;
+			return false;
+		} else if (caseExacte.position.x + x < 0) {
+			endTurnEnemy = true;
+			return false;
+		}
+		if (caseExacte.position.y + y > 7) {
+			endTurnEnemy = true;
+			return false;
+		} else if (caseExacte.position.y + y < 0) {
+			endTurnEnemy = true;
+			return false;
+		}
+		AttemptMove (x, y);
+		return true;
 	}
 
 	protected override bool Move(int xDir, int yDir){

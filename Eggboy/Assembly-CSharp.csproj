@@ -105,7 +105,10 @@
      <Compile Include="Assets\Scripts\UI\UIMainMenu.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayer.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <None Include="Assets\DebugData\2017-01-29--16-26-03--1868334850.txt" />
      <None Include="Assets\DebugData\2016-10-15--13-34-15--2088995978.txt" />
+     <None Include="Assets\DebugData\2017-01-29--16-26-14--1210327253.txt" />
+     <None Include="Assets\DebugData\2017-01-29--16-26-57--1304503014.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.4.1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
