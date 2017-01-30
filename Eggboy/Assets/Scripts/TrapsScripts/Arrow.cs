@@ -59,6 +59,7 @@ public class Arrow : Trap {
 		
     public override void declencherPiege(){
 		if (character.gameObject.tag == "Player") {
+			character.GetComponent<Player> ().getAnimator ().SetTrigger ("Damaged");
 			GameManager.instance.playersTurn = true;
 		} 
         switch (dir)

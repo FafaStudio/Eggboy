@@ -128,7 +128,6 @@ public class Player : MovingObject
 			yield return null;
 		} else if (blockingObject.tag == "Enemy") {
 			animator.SetTrigger ("Attack");
-			animator.SetInteger ("positionAttack", 0);
 			manager.enabled = false;
 			actionDuTour = "attack";
 			new WaitForSeconds(0.05f);
@@ -164,8 +163,10 @@ public class Player : MovingObject
 				manager.playersTurn = false;
 			if (piege != null) {
 				if (piege.gameObject.name != "BoutonOn-Off") {
-					if(piege.gameObject.name=="Arrow"||piege.gameObject.name=="Arrow(Clone)")
+					if (piege.gameObject.name == "Arrow" || piege.gameObject.name == "Arrow(Clone)") {
+						animator.SetTrigger ("Damaged");
 						manager.playersTurn = true;
+					}
 					testPiege ();
 				}
 			}
@@ -245,25 +246,26 @@ public class Player : MovingObject
             horizontal = (int)Input.GetAxisRaw("Horizontal");
             vertical = (int)Input.GetAxisRaw("Vertical");
 
-            if (horizontal != 0)
-            {
-                // pour empecher le mouvement en diagonale
-                vertical = 0;
-                switch (horizontal)
-                {
-                    case -1:
-                        this.transform.localScale = new Vector2(-1f, 1f);
-                        manager.replay.addAction(1);
-                        break;
-                    case 1:
-                        this.transform.localScale = new Vector2(1f, 1f);
-                        manager.replay.addAction(2);
-                        break;
-                }
-            }
-
 			vertical *= variationDirection;
 			horizontal *= variationDirection;
+
+			if (horizontal != 0)
+			{
+				// pour empecher le mouvement en diagonale
+				vertical = 0;
+				switch (horizontal)
+				{
+				case -1:
+					animator.SetBool ("Left", true);
+					manager.replay.addAction(1);
+					break;
+				case 1:
+					animator.SetBool ("Left", false);
+					this.transform.localScale = new Vector2(1f, 1f);
+					manager.replay.addAction(2);
+					break;
+				}
+			}
 
 
             if (horizontal != 0 || vertical != 0)
@@ -314,6 +316,10 @@ public class Player : MovingObject
 				manager.playersTurn = false;
 			}
 		}
+	}
+
+	public Animator getAnimator(){
+		return animator;
 	}
 
 	public string getPlayerTurnAction(){
@@ -369,7 +375,7 @@ public class Player : MovingObject
 		takesDamageThisTurn = true;
 		combo = 1;
 		camera.setShake (0.6f);
-		animator.SetTrigger ("isDamaged");
+		animator.SetTrigger ("Damaged");
 		manager.playerhpPoints -= 1;
 		hp = manager.playerhpPoints;
 		uiManager.updateLife ();
