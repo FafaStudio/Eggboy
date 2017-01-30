@@ -14,12 +14,12 @@ public class CameraManager : MonoBehaviour {
 
 	void Update() {
 		if (shake > 0) {
-			camera.transform.position = Random.insideUnitSphere * shakeAmount + new Vector3 (7f, 3.5f, -10f);
+			camera.transform.position = Random.insideUnitSphere * shakeAmount + new Vector3 (7f, 3.75f, -10f);
 			shake -= Time.deltaTime * decreaseFactor;
 
 		} else {
 			shake = 0.0f;
-			camera.gameObject.transform.position = new Vector3 (7f, 3.5f, -10f);
+			camera.gameObject.transform.position = new Vector3 (7f, 3.75f, -10f);
 		}
 	}
 
